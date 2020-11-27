@@ -5,22 +5,23 @@ import java.sql.*;
 public interface CandidateDAO {
     
     /* Clement's connexion variables */
-    static final String DB_URL_CLEMENT = "";
-    static final String DB_USER_CLEMENT = "Clement";
-    static final String DB_PASSWORD_CLEMENT = "";
+    static final String URL_CLEMENT = "";
+    static final String USER_CLEMENT = "Clement";
+    static final String PASSWORD_CLEMENT = "";
+    static final String DATABASE_CLEMENT= "";
     
     /* Charles' connexion variables */
-    static final String DB_URL_CHARLES = "";
-    static final String DB_USER_CHARLES = "Charles";
-    static final String DB_PASSWORD_CHARLES = "";
+    static final String URL_CHARLES = "jdbc:mysql://localhost/projets5";
+    static final String USER_CHARLES = "root";
+    static final String PASSWORD_CHARLES = "";
+    static final String DATABASE_CHARLES = "projets5";
     
     /* Quentin's connexion variables */
-    static final String DB_URL_QUENTIN = "";
-    static final String DB_USER_QUENTIN = "Quentin";
-    static final String DB_PASSWORD_QUENTIN = "";
+    static final String URL_QUENTIN = "";
+    static final String USER_QUENTIN = "Quentin";
+    static final String PASSWORD_QUENTIN = "";
+    static final String DATABASE_QUENTIN = "";
     
-    
-    public void createConnectionDataBase(String name_user);
-    
-    public void initDataBase();
+    /*MAGNIFIQUE MON CLEMENT <3*/
+   
 }

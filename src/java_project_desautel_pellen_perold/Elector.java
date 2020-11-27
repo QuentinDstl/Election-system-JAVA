@@ -16,17 +16,20 @@ public class Elector extends Personne {
         return m_state;
     }
     
+    /*
     public String getNameState() {
         return m_state.getName;
     }
+    */
     
     public Candidate getCandidate() {
         return m_candidate;
     }
-    
+    /*
     public String getNameCandidate() {
         return m_candidate.getName();
     }
+    */
     
     public boolean has_already_voted() {
         return m_vote_done;
