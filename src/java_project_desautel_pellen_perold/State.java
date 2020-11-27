@@ -11,11 +11,11 @@ public class State {
         m_pause = pause;
         m_allWin = allWin;
         if(nameState.equals(""))
-            throw new IllegalArgumentException("Constructeur State dans la class State : nameState est vide");
+            throw new IllegalArgumentException("State constructor in the class State : nameState value is empty");
         else
             m_name = nameState;
         if(nbrElector <= 0)
-            throw new IllegalArgumentException("Constructeur State dans la class State : nbrElector est inferieur ou egal a zero");
+            throw new IllegalArgumentException("State constructor in the class State : nbrElector value <= 0");
         else
             m_nbrElector = nbrElector;
     }
@@ -42,7 +42,7 @@ public class State {
         m_pause = pause;
     }
 
-    public void setM_allWin(boolean allWin) {
+    public void setAllWin(boolean allWin) {
         m_allWin = allWin;
     }
 
