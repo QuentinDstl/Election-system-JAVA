@@ -4,32 +4,75 @@ import java.sql.*;
 
 public class CandidateDAOImpl implements CandidateDAO
 {
-    private static final String CREATION_TABLE_CANDIDATE = "CREATE table candidate (lastname varchar(20),firstname varchar(20), nameState varchar(20), party varchar(20), nbrVoteTotal int);";
-    
-    private PreparedStatement creationTable;
-    
+    /* Variables */
     private Connection Connection;
-    private String nameUser;
+    private Statement statement;
     
-    public CandidateDAOImpl(String nameUserEnter) throws SQLException
-    {   
-        nameUser = nameUserEnter;
+    private String m_nameUser;
+    
+    
+    /* Constants */
+    private static final String CREATION_TABLE_CANDIDATE = "CREATE TABLE IF NOT EXISTS `candidate`"
+                                                        + "("
+                                                        + " `lastname` VARCHAR(20) NOT NULL, "
+                                                        + " `firstname` VARCHAR(20) NOT NULL, "
+                                                        + " `party` VARCHAR(20) NOT NULL, "
+                                                        + " `nbrVoteTotal` INT DEFAULT 0, "
+                                                        + " `id` INT(6) NOT NULL AUTO_INCREMENT, "
+                                                        + " PRIMARY KEY(`id`), "
+                                                        + " UNIQUE(`party`) "
+                                                        + ") "
+                                                        + "ENGINE = InnoDB " 
+                                                        + "CHARACTER SET utf8mb4 " 
+                                                        + "COLLATE utf8mb4_unicode_ci;";
+    
+    private static final String DROP_TABLE_CANDIDATE = "DROP TABLE IF EXISTS `candidate`;";
+    
+    private static final String ADD_CANDIDATE = "INSERT INTO `candidate`";
+    
+    private static final String DELETE_CANDIDATE = "DELETE FROM `candidate`";
+    
+    
+    /* Constructor */
+    public CandidateDAOImpl(String nameUser) throws SQLException {   
+        m_nameUser = nameUser;
         
-        if ((nameUser.equals("quentin")) || (nameUser.equals("Quentin")))
+        if ((m_nameUser.equals("quentin")) || (m_nameUser.equals("Quentin")))
             Connection = DriverManager.getConnection(URL_QUENTIN,USER_QUENTIN,PASSWORD_QUENTIN);
         
-        else if ((nameUser.equals("charles")) || (nameUser.equals("Charles")))
+        else if ((m_nameUser.equals("charles")) || (m_nameUser.equals("Charles")))
             Connection = DriverManager.getConnection(URL_CHARLES,USER_CHARLES,PASSWORD_CHARLES);
         
-        else if ((nameUser.equals("clement")) || (nameUser.equals("Clement")))
+        else if ((m_nameUser.equals("clement")) || (m_nameUser.equals("Clement")))
             Connection = DriverManager.getConnection(URL_CLEMENT,USER_CLEMENT,PASSWORD_CLEMENT);
         
-        creationTable = Connection.prepareStatement(CREATION_TABLE_CANDIDATE);
+        statement = Connection.createStatement();
     }
     
-    public void createTableCandidate() throws SQLException
-    {   
-        System.out.println(creationTable);
-        creationTable.executeUpdate();
+    public void createTableCandidate() throws SQLException {   
+        statement.executeUpdate(CREATION_TABLE_CANDIDATE);
+        System.out.println(CREATION_TABLE_CANDIDATE);
+    }
+    
+    public void dropTableCandidate() throws SQLException {
+        statement.executeUpdate(DROP_TABLE_CANDIDATE);
+        System.out.println(DROP_TABLE_CANDIDATE);
+    }
+    
+    public void addCandidate(String last_name, String first_name, String party) throws SQLException {
+        statement.executeUpdate(ADD_CANDIDATE 
+                                + "(`lastname`, `firstname`, `party`)"
+                                + "Values (" 
+                                + "'" +last_name + "', "
+                                + "'" +first_name  + "', "
+                                + "'" +party + "'"
+                                + ");");
+        System.out.println(ADD_CANDIDATE);
+    }
+    
+    public void deleteCandidate(int id) throws SQLException {
+        statement.executeUpdate(DELETE_CANDIDATE 
+                                + "WHERE `id` = " +id + ";");
+        System.out.println(DELETE_CANDIDATE);
     }
 }

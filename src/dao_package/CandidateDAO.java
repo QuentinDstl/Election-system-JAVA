@@ -1,14 +1,11 @@
 package dao_package;
 
-import java.sql.*;
-
 public interface CandidateDAO {
     
     /* Clement's connexion variables */
-    static final String URL_CLEMENT = "";
-    static final String USER_CLEMENT = "Clement";
+    static final String URL_CLEMENT = "jdbc:mysql://localhost:3306/election_database";
+    static final String USER_CLEMENT = "root";
     static final String PASSWORD_CLEMENT = "";
-    static final String DATABASE_CLEMENT= "";
     
     /* Charles' connexion variables */
     static final String URL_CHARLES = "jdbc:mysql://localhost/projets5";
@@ -22,6 +19,6 @@ public interface CandidateDAO {
     static final String PASSWORD_QUENTIN = "";
     static final String DATABASE_QUENTIN = "";
     
-    /*MAGNIFIQUE MON CLEMENT <3*/
+    static final int FIRST_ID_CANDIDATE = 0;
    
 }

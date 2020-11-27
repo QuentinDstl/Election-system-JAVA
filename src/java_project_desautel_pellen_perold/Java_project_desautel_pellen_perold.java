@@ -7,16 +7,18 @@ import java.util.Scanner;
 
 public class Java_project_desautel_pellen_perold {
     
-    private static final Scanner KEYBOARD = new Scanner(System.in);
-    
     public static void main(String[] args) throws SQLException
     {
-        System.out.print("Coucou toi, entre ton joli prénom : ");
-        String nameUserEnter = KEYBOARD.nextLine();
         
-        CandidateDAOImpl hey = new CandidateDAOImpl(nameUserEnter);
+        ElectorDAOImpl yo = new ElectorDAOImpl("Clement");
         
+        CandidateDAOImpl hey = new CandidateDAOImpl("Clement");
+        
+        hey.dropTableCandidate();
         hey.createTableCandidate();
-        
+        hey.addCandidate("Trump", "Donald", "Democrate");
+      
+        yo.createTableElector();
+        yo.addCandidate("Dého", "qd", "puceauLand");
     }
 }
