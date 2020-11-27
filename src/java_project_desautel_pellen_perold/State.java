@@ -6,6 +6,7 @@ public class State {
     private String m_name;
     private int m_nbrElector;
     
+    /* Constructor */
     public State(boolean pause, boolean allWin, String nameState, int nbrElector) throws IllegalArgumentException {
         m_pause = pause;
         m_allWin = allWin;
@@ -19,37 +20,41 @@ public class State {
             m_nbrElector = nbrElector;
     }
 
+    /* Getters */
     public boolean isPause() {
         return m_pause;
     }
-
+    
+    public boolean isAllWin() {
+        return m_allWin;
+    }
+    
+    public String getName() {
+        return m_name;
+    }
+    
+    public int getNbrElector() {
+        return m_nbrElector;
+    }
+    
+    /* Setters */
     public void setPause(boolean pause) {
         m_pause = pause;
     }
 
-    public boolean isAllWin() {
-        return m_allWin;
-    } 
-
     public void setM_allWin(boolean allWin) {
         m_allWin = allWin;
-    }
-
-    public String getName() {
-        return m_name;
     }
 
     public void setName(String name) {
         m_name = name;
     }
 
-    public int getNbrElector() {
-        return m_nbrElector;
-    }
-
     public void setNbrElector(int nbrElector) {
         m_nbrElector = nbrElector;
     }
     
-    
+    public void showVote() {
+        // faire avec vue
+    }
 }

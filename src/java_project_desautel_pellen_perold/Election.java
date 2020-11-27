@@ -6,15 +6,17 @@ public class Election {
     private boolean m_openVote;
     private ArrayList<State> m_states;
 
+    /* Constructor */
     public Election(boolean openVote) {
         m_openVote = openVote;
         m_states = new ArrayList<>();
     }
 
+    /* Getters */
     public boolean getOpenVote() {
         return m_openVote;
     }
-
+    /* Setters */
     public void setOpenVote(boolean openVote) {
         m_openVote = openVote;
     }
