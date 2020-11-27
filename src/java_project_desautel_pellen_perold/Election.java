@@ -23,7 +23,7 @@ public class Election {
     
     public void addState(State state) throws NullPointerException {
         if(state == null) {
-            throw new NullPointerException("dans addState de la class Election : le state est null");
+            throw new NullPointerException("addState in the class Election : the state value given to the method is null");
         }  
         else
             m_states.add(state);
