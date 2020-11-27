@@ -1,6 +1,6 @@
 package java_project_desautel_pellen_perold;
 
-public class Personne {
+public abstract class Personne {
     
     /* Variables */
     private String m_first_name;
