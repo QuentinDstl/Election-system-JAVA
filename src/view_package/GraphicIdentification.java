@@ -13,8 +13,8 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class GraphicIdentification extends JFrame
 {
-    private final int WINDOW_WIDTH = 1900;   // Window width
-    private final int WINDOW_HEIGHT = 1200;  // Window height
+    private final int WINDOW_WIDTH = 1400;   // Window width
+    private final int WINDOW_HEIGHT = 800;  // Window height
     private final String file_name = "pictures\\" + "\\intro2.jpg";
     private final JLabel photoIntroduction;
     private final JLabel messageIntroduction;
