@@ -8,8 +8,6 @@ public interface ElectorDAO {
     static final String PASSWORD = "";
     static final String CONNECTION_NAME= "Clement";
     
-    
-    
     /* Clement's connexion variables */
     static final String URL_CLEMENT = "jdbc:mysql://localhost:3306/election_database";
     static final String USER_CLEMENT = "root";
