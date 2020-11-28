@@ -13,8 +13,9 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class GraphicIdentification extends JFrame
 {
-    private final int WINDOW_WIDTH = 1500;   // Window wlastNameth
-    private final int WINDOW_HEIGHT = 900;  // Window height
+    private boolean check;
+    private final int WINDOW_WIDTH = 1500;
+    private final int WINDOW_HEIGHT = 900;
     private final String file_name = "pictures\\" + "\\intro2.jpg";
     private final JLabel photoIntroduction;
     private final JLabel messageIntroduction;
@@ -25,7 +26,6 @@ public class GraphicIdentification extends JFrame
     private final JLabel password;
     private final JTextField passwordEnter;
     private final JButton enter;
-    private boolean check;
     
     public GraphicIdentification()
     {

@@ -28,22 +28,31 @@ public class Java_project_desautel_pellen_perold {
         
         /* PARTIE GRAPHIQUE EN TEST */
         
-        testGraphique();
+        //testGraphiqueAccueil();
+        testGraphiqueElectors();
         
     }
     
-    public static void testGraphique()
+    public static void testGraphiqueAccueil()
     {
         GraphicIdentification test1 = new GraphicIdentification();
         test1.startIdentification();
-        boolean checkOut= false;
+        boolean checkIdentification = false;
         
         /* Blindage */ 
-        while (checkOut == false) {            
-            checkOut = test1.getCheck();
+        while (checkIdentification == false) {            
+            checkIdentification = test1.getCheck();
             System.out.print("");
         } 
         
         System.out.println("hey");
+    }
+    
+    public static void testGraphiqueElectors()
+    {
+        GraphicElectors test2 = new GraphicElectors();
+        test2.startElectors();
+        
+        boolean checkElectors = false;
     }
 }
