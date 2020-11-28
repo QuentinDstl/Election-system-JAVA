@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-public class GraphicElectors extends JFrame
+public class GraphicElectors extends GraphicIdentification
 {
     private boolean check;
     private final int WINDOW_WIDTH = 1500;

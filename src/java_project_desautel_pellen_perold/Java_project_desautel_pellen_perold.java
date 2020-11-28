@@ -55,4 +55,12 @@ public class Java_project_desautel_pellen_perold {
         
         boolean checkElectors = false;
     }
+    
+    public static void testGraphiqueCandidats()
+    {
+        GraphicCandidates test3 = new GraphicCandidates();
+        test3.startCandidates();
+        
+        boolean checkCandidates = false;
+    }
 }

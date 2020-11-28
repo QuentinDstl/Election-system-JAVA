@@ -5,6 +5,8 @@
  */
 package view_package;
 
+import dao_package.*;
+
 import javax.swing.*; // Needed for Swing classes
 import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
@@ -26,7 +28,8 @@ public class GraphicIdentification extends JFrame
     private final JLabel password;
     private final JTextField passwordEnter;
     private final JButton enter;
-    
+    protected Controller theController = null;
+
     public GraphicIdentification()
     {
         /* Initialisation of the interface */
