@@ -1,6 +1,6 @@
 package java_project_desautel_pellen_perold;
 
-public class Elector extends Personne {
+public class Elector extends Person {
     
     /* Variables */
     State m_state;

@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectorDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/OfficialDAOImpl.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/CandidateDAO.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Candidate.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Election.java</file>
@@ -11,9 +12,10 @@
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/CandidateDAOImpl.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Elector.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/State.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/OfficialDAO.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectorDAO.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Person.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Official.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Personne.java</file>
         </group>
     </open-files>
 </project-private>
