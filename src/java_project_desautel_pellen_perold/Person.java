@@ -6,19 +6,24 @@ public abstract class Person {
     private String m_last_name;
     private String m_first_name;
     private String m_password;
+    private int m_id;
     
     
-    /* Constructor */
+    /* Constructeeur */
+    /* De la DATABASE */
     public Person() {
-        m_last_name = " ";
-        m_first_name = " ";
-        m_password = "0000";
+        m_last_name = null;
+        m_first_name = null;
+        m_password = null;
+        m_id = 0;
     }
     
+    /* De le saisie d'un officiel */
     public Person(String last_name, String first_name, String password) {
         m_last_name = last_name;
         m_first_name = first_name;
         m_password = password;
+        //S'occuper de m_id
     }
     
     /* Getter */
@@ -41,5 +46,13 @@ public abstract class Person {
     
     public void setFirstNameFromDataBase(String first_name_db) {
         m_first_name = first_name_db;
+    }
+    
+    public void setPasswordFromDataBase(String password_db) {
+        m_password = password_db;
+    }
+    
+    public void setIdFromDataBase(int id_db) {
+        m_id = id_db;
     }
 }

@@ -16,6 +16,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
                                                         + "("
                                                         + " `lastname` VARCHAR(20) NOT NULL, "
                                                         + " `firstname` VARCHAR(20) NOT NULL, "
+                                                        + " `password` VARCHAR(10) NOT NULL, "
                                                         + " `nameState` VARCHAR(20) NOT NULL, "
                                                         + " `nameCandidate` VARCHAR(20), "
                                                         + " `id` INT(6) NOT NULL AUTO_INCREMENT, "
@@ -59,12 +60,13 @@ public class ElectorDAOImpl implements  ElectorDAO {
         System.out.println(DROP_TABLE_ELECTOR);
     }
     
-    public void addCandidate(String last_name, String first_name, String name_state) throws SQLException {
+    public void addCandidate(String last_name, String first_name, String password, String name_state) throws SQLException {
         statement.executeUpdate(ADD_ELECTOR 
-                                + "(`lastname`, `firstname`, `nameState`)"
+                                + "(`lastname`, `firstname`, `password`, `nameState`)"
                                 + "Values (" 
                                 + "'" +last_name + "', "
                                 + "'" +first_name  + "', "
+                                + "'" +password + "', "
                                 + "'" +name_state + "'"
                                 + ");");
         System.out.println(ADD_ELECTOR);

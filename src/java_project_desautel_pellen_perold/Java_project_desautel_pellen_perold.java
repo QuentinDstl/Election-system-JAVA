@@ -12,13 +12,13 @@ public class Java_project_desautel_pellen_perold {
         
         Candidate candidate = new Candidate(1);
         
-        /* ElectorDAOImpl yo = new ElectorDAOImpl("Clement");
+        /*ElectorDAOImpl yo = new ElectorDAOImpl(CandidateDAO.CONNECTION_NAME);
         
-        CandidateDAOImpl hey = new CandidateDAOImpl("Clement");
+        CandidateDAOImpl hey = new CandidateDAOImpl(CandidateDAO.CONNECTION_NAME);
         
         hey.dropTableCandidate();
         hey.createTableCandidate();
-        hey.addCandidate("Trump", "Donald", "Republican");*/
+        hey.addCandidate("Trump", "Donald", "Looser", "Democrate");*/
       
         //yo.createTableElector();
         //yo.addCandidate("Dého", "qd", "puceauLand");

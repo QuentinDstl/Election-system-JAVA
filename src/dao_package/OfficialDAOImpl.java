@@ -11,10 +11,11 @@ public class OfficialDAOImpl implements OfficialDAO {
     private String m_nameUser;
     
     /* Constants */
-    private static final String CREATION_TABLE_ELECTOR = "CREATE TABLE IF NOT EXISTS `official`"
+    private static final String CREATION_TABLE_OFFICIAL = "CREATE TABLE IF NOT EXISTS `official`"
                                                         + "("
                                                         + " `lastname` VARCHAR(20) NOT NULL, "
                                                         + " `firstname` VARCHAR(20) NOT NULL, "
+                                                        + " `password` VARCHAR(10) NOT NULL, "
                                                         + " `id` INT(6) NOT NULL AUTO_INCREMENT, "
                                                         + " PRIMARY KEY(`id`) "
                                                         + ") "
@@ -41,9 +42,9 @@ public class OfficialDAOImpl implements OfficialDAO {
     }
     
     public void createTableOfficial() throws SQLException {   
-        statement.executeUpdate(CREATION_TABLE_ELECTOR);
+        statement.executeUpdate(CREATION_TABLE_OFFICIAL);
         statement.executeUpdate("ALTER TABLE `official` AUTO_INCREMENT = " +FIRST_ID_OFFICIAL +";");
-        System.out.println(CREATION_TABLE_ELECTOR);
+        System.out.println(CREATION_TABLE_OFFICIAL);
     }
     
     public void dropTableOfficial() throws SQLException {

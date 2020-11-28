@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Election {
     private boolean m_openVote;
     private ArrayList<State> m_states;
-    private ArrayList<Person> m_persons;
 
     /* Constructor */
     public Election(boolean openVote) {

@@ -2,6 +2,14 @@ package dao_package;
 
 public interface OfficialDAO {
     
+    /* variables de connexion de l'utilisateur actuel */ 
+    static final String URL = "jdbc:mysql://localhost:3306/election_database";
+    static final String USER= "root";
+    static final String PASSWORD = "";
+    static final String CONNECTION_NAME= "Clement";
+    
+    
+    
     /* Clement's connexion variables */
     static final String URL_CLEMENT = "jdbc:mysql://localhost:3306/election_database";
     static final String USER_CLEMENT = "root";
