@@ -7,10 +7,9 @@ public class ElectorDAOImpl implements  ElectorDAO {
     /* Variables */
     private Connection Connection;
     private Statement statement;
-    
+
     private String m_nameUser;
-    
-    
+
     /* Constants */
     private static final String CREATION_TABLE_ELECTOR = "CREATE TABLE IF NOT EXISTS `elector`"
                                                         + "("
@@ -25,14 +24,14 @@ public class ElectorDAOImpl implements  ElectorDAO {
                                                         + "ENGINE = InnoDB " 
                                                         + "CHARACTER SET utf8mb4 " 
                                                         + "COLLATE utf8mb4_unicode_ci;";
-    
+
     private static final String DROP_TABLE_ELECTOR = "DROP TABLE IF EXISTS `elector`;";
-    
+
     private static final String ADD_ELECTOR = "INSERT INTO `elector`";
-    
+
     private static final String DELETE_ELECTOR = "DELETE FROM `elector`";
-    
-    
+
+
     /* Constructor */
     public ElectorDAOImpl(String nameUser) throws SQLException {   
         m_nameUser = nameUser;
