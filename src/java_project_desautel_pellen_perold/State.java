@@ -1,13 +1,33 @@
 package java_project_desautel_pellen_perold;
 
+import dao_package.StateDAO;
+import dao_package.StateDAOImpl;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class State {
     private boolean m_pause;
-    private boolean m_allWin;
+    private boolean m_all_Win;
     private String m_name;
-    private int m_nbrElector;
+    private int m_nbr_max_electors;
+   
     
-    /* Constructor */
-    public State(boolean pause, boolean allWin, String nameState, int nbrElector) throws IllegalArgumentException {
+    private StateDAOImpl state_from_db = new StateDAOImpl(StateDAO.CONNECTION_NAME);
+    
+    
+    /* Constructeur */
+    /* De la Database */
+    public State(int num_case) throws SQLException {
+        
+        m_name = state_from_db.getNameStateIntoTable(num_case);
+        m_nbr_max_electors = state_from_db.getNumberMaxOfElectorsInStateIntoTable(num_case);
+        m_all_Win = state_from_db.getConditionAllWinIntoTable(num_case);
+        m_pause = state_from_db.getConditionPauseIntoTable(num_case);
+    }
+    
+    
+    
+    /*public State(boolean pause, boolean allWin, String nameState, int nbrElector) throws IllegalArgumentException {
         m_pause = pause;
         m_allWin = allWin;
         if(nameState.equals(""))
@@ -18,7 +38,7 @@ public class State {
             throw new IllegalArgumentException("State constructor in the class State : nbrElector value <= 0");
         else
             m_nbrElector = nbrElector;
-    }
+    }*/
 
     /* Getters */
     public boolean isPause() {
@@ -26,7 +46,7 @@ public class State {
     }
     
     public boolean isAllWin() {
-        return m_allWin;
+        return m_all_Win;
     }
     
     public String getName() {
@@ -34,7 +54,7 @@ public class State {
     }
     
     public int getNbrElector() {
-        return m_nbrElector;
+        return m_nbr_max_electors;
     }
     
     /* Setters */
@@ -42,16 +62,16 @@ public class State {
         m_pause = pause;
     }
 
-    public void setAllWin(boolean allWin) {
-        m_allWin = allWin;
+    public void setAllWin(boolean all_Win) {
+        m_all_Win = all_Win;
     }
 
     public void setName(String name) {
         m_name = name;
     }
 
-    public void setNbrElector(int nbrElector) {
-        m_nbrElector = nbrElector;
+    public void setNbrElector(int nbr_elector) {
+        m_nbr_max_electors= nbr_elector;
     }
     
     public void showVote() {

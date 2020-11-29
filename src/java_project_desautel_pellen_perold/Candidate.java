@@ -8,15 +8,18 @@ import java.util.ArrayList;
 public class Candidate extends Person {
     
     /* Variables */
-    String party;
+    private String party;
+    private int nb_votes_total;
     
-    ArrayList<State> buffer_states_win;
-    ArrayList<Elector> buffer_elector_win;
+    private ArrayList<State> buffer_states_win;
+    private ArrayList<Elector> buffer_elector_win;
     
-    CandidateDAOImpl candidate_from_db = new CandidateDAOImpl(CandidateDAO.CONNECTION_NAME);
+    private CandidateDAOImpl candidate_from_db = new CandidateDAOImpl(CandidateDAO.CONNECTION_NAME);
+    
+    private Election election_access = new Election();
     
     
-    /* Constructeeur */
+    /* Constructeur */
     /* De la DATABASE */
     public Candidate(int num_case) throws SQLException {
         
@@ -27,9 +30,14 @@ public class Candidate extends Person {
         setIdFromDataBase(num_case);
         
         party = candidate_from_db.getPartyCandidateIntoTable(num_case);
+        nb_votes_total = candidate_from_db.getNbrVoteTotalCandidateIntoTable(num_case);
     }
     
     
     /* De le saisie d'un officiel */
     
+    
+    public void downLoadElectionDataBase() throws SQLException {
+        election_access.downloadDataBaseForCandidate();
+    }
 }

@@ -25,7 +25,9 @@ public class OfficialDAOImpl implements OfficialDAO {
     
     private static final String DROP_TABLE_OFFICIAL = "DROP TABLE IF EXISTS `official`;";
     
-    /* Constructor */
+    private static final String COUNT_NBR_OF_OFFICIALS = "SELECT COUNT(*) FROM `official`;";
+    
+    /* Constructeur */
     public OfficialDAOImpl(String nameUser) throws SQLException {   
         m_nameUser = nameUser;
         
@@ -50,6 +52,41 @@ public class OfficialDAOImpl implements OfficialDAO {
     public void dropTableOfficial() throws SQLException {
         statement.executeUpdate(DROP_TABLE_OFFICIAL);
         System.out.println(DROP_TABLE_OFFICIAL);
+    }
+    
+    
+    /* Méthodes de requêtes */
+    public int getNumberOfOfficialsIntoTable() throws SQLException {
+        int number_of_officials;
+        ResultSet resultLecture = statement.executeQuery(COUNT_NBR_OF_OFFICIALS);
+        resultLecture.next();
+        number_of_officials = resultLecture.getInt(1);
+        System.out.println("number officials : " +number_of_officials);
+        return number_of_officials;
+    }
+    
+    public String getLastNameOfficialIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `lastname` FROM `official` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("last name : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getFirstNameOfficialIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `firstname` FROM `official` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("first name : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getPasswordOfficialIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `password` FROM `official` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("password : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
     }
     
 }

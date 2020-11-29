@@ -32,6 +32,10 @@ public class ElectorDAOImpl implements  ElectorDAO {
     
     private static final String DELETE_ELECTOR = "DELETE FROM `elector`";
     
+    private static final String DECREMENT_ID_ELECTOR = "UPDATE `elector` SET id=id-1";
+    
+    private static final String COUNT_NBR_OF_ELECTORS = "SELECT COUNT(*) FROM `elector`;";
+    
     
     /* Constructor */
     public ElectorDAOImpl(String nameUser) throws SQLException {   
@@ -49,6 +53,8 @@ public class ElectorDAOImpl implements  ElectorDAO {
         statement = Connection.createStatement();
     }
     
+    
+    /* Méthodes de modification des tables */
     public void createTableElector() throws SQLException {   
         statement.executeUpdate(CREATION_TABLE_ELECTOR);
         statement.executeUpdate("ALTER TABLE `elector` AUTO_INCREMENT = " +FIRST_ID_ELECTOR +";");
@@ -76,6 +82,61 @@ public class ElectorDAOImpl implements  ElectorDAO {
         statement.executeUpdate(DELETE_ELECTOR 
                                 + "WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
+        decrementeIdCandidates(id);
     }
     
+    public void decrementeIdCandidates(int id) throws SQLException {
+        statement.executeUpdate(DECREMENT_ID_ELECTOR + "WHERE id > " +id + ";");
+    }
+    
+    
+    /* Méthodes de requêtes */
+    public int getNumberOfElectorsIntoTable() throws SQLException {
+        int number_of_electors;
+        ResultSet resultLecture = statement.executeQuery(COUNT_NBR_OF_ELECTORS);
+        resultLecture.next();
+        number_of_electors = resultLecture.getInt(1);
+        System.out.println("number electors : " +number_of_electors);
+        return number_of_electors;
+    }
+    
+    public String getLastNameElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `lastname` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("last name : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getFirstNameElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `firstname` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("first name : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getPasswordElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `password` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("password : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getNameStateOfElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `nameState` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("name state : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getNameCandidateOfElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = statement.executeQuery("SELECT `nameCandidate` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("name candidate : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
 }

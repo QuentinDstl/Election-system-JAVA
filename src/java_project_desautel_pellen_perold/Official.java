@@ -1,11 +1,32 @@
 package java_project_desautel_pellen_perold;
 
+import dao_package.OfficialDAO;
+import dao_package.OfficialDAOImpl;
+import java.sql.SQLException;
+
 public class Official extends Person {
     
-    /* Constructor */
-    public Official () {
+    private OfficialDAOImpl official_from_db = new OfficialDAOImpl(OfficialDAO.CONNECTION_NAME);
+    
+    private Election election_access = new Election();
+    
+    
+    /* Constructeur */
+    /* De la DATABASE */
+    public Official(int num_case) throws SQLException {
+        
         super();
+        setLastNameFromDataBase(official_from_db.getLastNameOfficialIntoTable(num_case));
+        setFirstNameFromDataBase(official_from_db.getFirstNameOfficialIntoTable(num_case));  
+        setPasswordFromDataBase(official_from_db.getPasswordOfficialIntoTable(num_case));
+        setIdFromDataBase(num_case + OfficialDAO.FIRST_ID_OFFICIAL);
+       
     }
+    
+    public void downLoadOfficialDataBase() throws SQLException {
+        election_access.downloadDataBaseForOfficial();
+    }
+    
     
     public void deleteElector() {
         
@@ -15,11 +36,11 @@ public class Official extends Person {
         
     }
     
-    public void deleteCandidat() {
+    public void deleteCandidate() {
         
     }
     
-    public void addCandidat() {
+    public void addCandidate() {
         
     }
     
