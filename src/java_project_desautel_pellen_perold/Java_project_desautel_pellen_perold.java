@@ -12,7 +12,7 @@ public class Java_project_desautel_pellen_perold {
     {
        // Candidate candidate = new Candidate(1);
 
-        Config config = new Config("a");
+        Config config = new Config("clement");
         Log log = new Log();
       
         //yo.createTableElector();

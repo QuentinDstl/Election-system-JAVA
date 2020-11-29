@@ -40,7 +40,7 @@ public class Election {
         m_electors = null;
     }
     
-    /* méthodes de chargement de la DataBase */
+    /* Méthodes de chargement de la DataBase */
     public ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
         int nb_states = StateDAO.NUMBER_OF_STATES;
@@ -91,10 +91,44 @@ public class Election {
     }
    
     
+    /* Méthodes de modification des listes */
+    public void deleteElector(int num_case) throws SQLException {
+        m_electors.remove(num_case);
+        elector_from_db.deleteElector(num_case + ElectorDAO.FIRST_ID_ELECTOR);
+    }
+    
+    public void addElector(String last_name, String first_name, State state) throws SQLException {
+        m_electors.add( new Elector(last_name, first_name, state));
+        elector_from_db.addElector(m_electors.get(m_electors.size()-1).getLastName(),
+                                   m_electors.get(m_electors.size()-1).getFirstName(), 
+                                   m_electors.get(m_electors.size()-1).getPassword(), 
+                                   m_electors.get(m_electors.size()-1).getState().getName());
+        m_electors.get(m_electors.size()-1).setId(m_electors.size()-1 + ElectorDAO.FIRST_ID_ELECTOR);
+    }
+    
+    
     /* Getters */
     public boolean getOpenVote() {
         return m_openVote;
     }
+    
+    public ArrayList<State> getStates() {
+        return  m_states;
+    }
+    
+    public ArrayList<Candidate> getCandidates() {
+        return  m_candidates;
+    }
+    
+    public ArrayList<Official> getOfficials() {
+        return m_officials;
+    }
+    
+    public ArrayList<Elector> getElectors() {
+        return  m_electors;
+    }
+    
+    
     /* Setters */
     public void setOpenVote(boolean openVote) {
         m_openVote = openVote;
@@ -115,4 +149,5 @@ public class Election {
     public void showWinner() {
         // Appeler Vue
     }
+    
 }

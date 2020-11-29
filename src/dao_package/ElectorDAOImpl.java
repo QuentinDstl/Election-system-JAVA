@@ -66,7 +66,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
         System.out.println(DROP_TABLE_ELECTOR);
     }
     
-    public void addCandidate(String last_name, String first_name, String password, String name_state) throws SQLException {
+    public void addElector(String last_name, String first_name, String password, String name_state) throws SQLException {
         statement.executeUpdate(ADD_ELECTOR 
                                 + "(`lastname`, `firstname`, `password`, `nameState`)"
                                 + "Values (" 
@@ -78,14 +78,14 @@ public class ElectorDAOImpl implements  ElectorDAO {
         System.out.println(ADD_ELECTOR);
     }
     
-    public void deleteCandidate(int id) throws SQLException {
+    public void deleteElector(int id) throws SQLException {
         statement.executeUpdate(DELETE_ELECTOR 
                                 + "WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
-        decrementeIdCandidates(id);
+        decrementeIdElectors(id);
     }
     
-    public void decrementeIdCandidates(int id) throws SQLException {
+    public void decrementeIdElectors(int id) throws SQLException {
         statement.executeUpdate(DECREMENT_ID_ELECTOR + "WHERE id > " +id + ";");
     }
     
