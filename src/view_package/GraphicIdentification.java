@@ -5,6 +5,8 @@
  */
 package view_package;
 
+import dao_package.*;
+
 import javax.swing.*; // Needed for Swing classes
 import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
@@ -13,18 +15,21 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class GraphicIdentification extends JFrame
 {
-    private final int WINDOW_WIDTH = 1400;   // Window width
-    private final int WINDOW_HEIGHT = 800;  // Window height
+    private boolean check;
+    private final int WINDOW_WIDTH = 1500;
+    private final int WINDOW_HEIGHT = 900;
     private final String file_name = "pictures\\" + "\\intro2.jpg";
     private final JLabel photoIntroduction;
     private final JLabel messageIntroduction;
-    private final JLabel id;
-    private final JTextField idEnter;
+    private final JLabel lastName;
+    private final JTextField lastNameEnter;
+    private final JLabel firstName;
+    private final JTextField firstNameEnter;
     private final JLabel password;
     private final JTextField passwordEnter;
     private final JButton enter;
-    private boolean check;
-    
+    protected Controller theController = null;
+
     public GraphicIdentification()
     {
         /* Initialisation of the interface */
@@ -36,10 +41,12 @@ public class GraphicIdentification extends JFrame
         check = false;
         photoIntroduction = new JLabel(new ImageIcon(file_name));
         messageIntroduction = new JLabel("Welcome to our voting system, "
-                + "please enter your ID and Password");
-        id = new JLabel("My ID : ");
+                + "please enter your lastname, firstname and Password");
+        lastName = new JLabel("My lastname : ");
+        firstName = new JLabel("My firstname : ");
         password = new JLabel("My Password : ");
-        idEnter = new JTextField(10);
+        lastNameEnter = new JTextField(10);
+        firstNameEnter = new JTextField(10);
         passwordEnter = new JTextField(10);
         enter = new JButton("identify me");
         enter.addActionListener(new PlayButtonIdentifyMe());
@@ -55,9 +62,13 @@ public class GraphicIdentification extends JFrame
         JPanel panelMessageIntroduction = new JPanel();
         panelMessageIntroduction.add(messageIntroduction);
         
-        JPanel panelMessageID = new JPanel();
-        panelMessageID.add(id);
-        panelMessageID.add(idEnter);
+        JPanel panelLastName = new JPanel();
+        panelLastName.add(lastName);
+        panelLastName.add(lastNameEnter);
+        
+        JPanel panelFirstName = new JPanel();
+        panelFirstName.add(firstName);
+        panelFirstName.add(firstNameEnter);
         
         JPanel panelMessagePassword = new JPanel();
         panelMessagePassword.add(password);
@@ -68,7 +79,8 @@ public class GraphicIdentification extends JFrame
         
         box.add(photoIntroduction);
         box.add(panelMessageIntroduction);
-        box.add(panelMessageID);
+        box.add(panelLastName);
+        box.add(panelFirstName);
         box.add(panelMessagePassword);
         box.add(panelButton);
         
@@ -87,11 +99,16 @@ public class GraphicIdentification extends JFrame
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            String captureIdString = idEnter.getText();
+            String captureLastName = lastNameEnter.getText();
+            String captureFirstName = firstNameEnter.getText();
             String capturePassword = passwordEnter.getText();
-            if (captureIdString.equals(""))
+            if (captureLastName.equals(""))
             {
-                System.out.println("You need to enter an ID");
+                System.out.println("You need to enter a lastname");
+            }
+            else if (captureFirstName.equals(""))
+            {
+                System.out.println("You need to enter a firstname");
             }
             else if (capturePassword.equals(""))
             {
@@ -99,8 +116,7 @@ public class GraphicIdentification extends JFrame
             }
             else
             {
-                int captureId = Integer.parseInt(captureIdString);
-                /* DELETE */ System.out.print(captureId + " " + capturePassword);
+                /* DELETE */ System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
                 check = true;
                 setVisible(false);
             }   
