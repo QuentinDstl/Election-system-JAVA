@@ -12,8 +12,8 @@ public class Java_project_desautel_pellen_perold {
     {
        // Candidate candidate = new Candidate(1);
 
-        Config config = new Config("a");
         Log log = new Log();
+        Config.initConfig("quentin");
       
         //yo.createTableElector();
         //yo.addCandidate("Dého", "qd", "puceauLand");

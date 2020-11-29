@@ -1,14 +1,13 @@
 package dao_package;
 
+import config_package.Config;
 import java.sql.*;
 
 public class OfficialDAOImpl implements OfficialDAO {
     
     /* Variables */
-    private Connection Connection;
-    private Statement statement;
-    
-    private String m_nameUser;
+    private Connection m_connection;
+    private Statement m_statement;
     
     /* Constants */
     private static final String CREATION_TABLE_OFFICIAL = "CREATE TABLE IF NOT EXISTS `official`"
@@ -26,29 +25,19 @@ public class OfficialDAOImpl implements OfficialDAO {
     private static final String DROP_TABLE_OFFICIAL = "DROP TABLE IF EXISTS `official`;";
     
     /* Constructor */
-    public OfficialDAOImpl(String nameUser) throws SQLException {   
-        m_nameUser = nameUser;
-        
-        if ((m_nameUser.equals("quentin")) || (m_nameUser.equals("Quentin")))
-            Connection = DriverManager.getConnection(URL_QUENTIN,USER_QUENTIN,PASSWORD_QUENTIN);
-        
-        else if ((m_nameUser.equals("charles")) || (m_nameUser.equals("Charles")))
-            Connection = DriverManager.getConnection(URL_CHARLES,USER_CHARLES,PASSWORD_CHARLES);
-        
-        else if ((m_nameUser.equals("clement")) || (m_nameUser.equals("Clement")))
-            Connection = DriverManager.getConnection(URL_CLEMENT,USER_CLEMENT,PASSWORD_CLEMENT);
-        
-        statement = Connection.createStatement();
+    public OfficialDAOImpl() throws SQLException {
+        m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
+        m_statement = m_connection.createStatement();
     }
     
     public void createTableOfficial() throws SQLException {   
-        statement.executeUpdate(CREATION_TABLE_OFFICIAL);
-        statement.executeUpdate("ALTER TABLE `official` AUTO_INCREMENT = " +FIRST_ID_OFFICIAL +";");
+        m_statement.executeUpdate(CREATION_TABLE_OFFICIAL);
+        m_statement.executeUpdate("ALTER TABLE `official` AUTO_INCREMENT = " +FIRST_ID_OFFICIAL +";");
         System.out.println(CREATION_TABLE_OFFICIAL);
     }
     
     public void dropTableOfficial() throws SQLException {
-        statement.executeUpdate(DROP_TABLE_OFFICIAL);
+        m_statement.executeUpdate(DROP_TABLE_OFFICIAL);
         System.out.println(DROP_TABLE_OFFICIAL);
     }
     

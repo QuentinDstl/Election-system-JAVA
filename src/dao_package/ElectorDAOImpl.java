@@ -1,14 +1,13 @@
 package dao_package;
 
+import config_package.Config;
 import java.sql.*;
 
 public class ElectorDAOImpl implements  ElectorDAO {
     
     /* Variables */
-    private Connection Connection;
-    private Statement statement;
-
-    private String m_nameUser;
+    private Connection m_connection;
+    private Statement m_statement;
 
     /* Constants */
     private static final String CREATION_TABLE_ELECTOR = "CREATE TABLE IF NOT EXISTS `elector`"
@@ -33,34 +32,24 @@ public class ElectorDAOImpl implements  ElectorDAO {
 
 
     /* Constructor */
-    public ElectorDAOImpl(String nameUser) throws SQLException {   
-        m_nameUser = nameUser;
-        
-        if ((m_nameUser.equals("quentin")) || (m_nameUser.equals("Quentin")))
-            Connection = DriverManager.getConnection(URL_QUENTIN,USER_QUENTIN,PASSWORD_QUENTIN);
-        
-        else if ((m_nameUser.equals("charles")) || (m_nameUser.equals("Charles")))
-            Connection = DriverManager.getConnection(URL_CHARLES,USER_CHARLES,PASSWORD_CHARLES);
-        
-        else if ((m_nameUser.equals("clement")) || (m_nameUser.equals("Clement")))
-            Connection = DriverManager.getConnection(URL_CLEMENT,USER_CLEMENT,PASSWORD_CLEMENT);
-        
-        statement = Connection.createStatement();
+    public ElectorDAOImpl() throws SQLException {
+        m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
+        m_statement = m_connection.createStatement();
     }
-    
+
     public void createTableElector() throws SQLException {   
-        statement.executeUpdate(CREATION_TABLE_ELECTOR);
-        statement.executeUpdate("ALTER TABLE `elector` AUTO_INCREMENT = " +FIRST_ID_ELECTOR +";");
+        m_statement.executeUpdate(CREATION_TABLE_ELECTOR);
+        m_statement.executeUpdate("ALTER TABLE `elector` AUTO_INCREMENT = " +FIRST_ID_ELECTOR +";");
         System.out.println(CREATION_TABLE_ELECTOR);
     }
     
     public void dropTableElector() throws SQLException {
-        statement.executeUpdate(DROP_TABLE_ELECTOR);
+        m_statement.executeUpdate(DROP_TABLE_ELECTOR);
         System.out.println(DROP_TABLE_ELECTOR);
     }
     
     public void addCandidate(String last_name, String first_name, String password, String name_state) throws SQLException {
-        statement.executeUpdate(ADD_ELECTOR 
+        m_statement.executeUpdate(ADD_ELECTOR 
                                 + "(`lastname`, `firstname`, `password`, `nameState`)"
                                 + "Values (" 
                                 + "'" +last_name + "', "
@@ -72,7 +61,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
     }
     
     public void deleteCandidate(int id) throws SQLException {
-        statement.executeUpdate(DELETE_ELECTOR 
+        m_statement.executeUpdate(DELETE_ELECTOR 
                                 + "WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
     }

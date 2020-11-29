@@ -1,17 +1,13 @@
 package dao_package;
 
+import config_package.Config;
 import java.sql.*;
-import java.util.ArrayList;
-import java_project_desautel_pellen_perold.Candidate;
 
 public class CandidateDAOImpl implements CandidateDAO
 {
     /* Variables */
-    private Connection Connection;
-    private Statement statement;
-    
-    private String m_nameUser;
-    
+    private Connection m_connection;
+    private Statement m_statement;    
     
     /* Constantes */
     private static final String CREATION_TABLE_CANDIDATE = "CREATE TABLE IF NOT EXISTS `candidate`"
@@ -41,35 +37,25 @@ public class CandidateDAOImpl implements CandidateDAO
     
     
     /* Constructor */
-    public CandidateDAOImpl(String nameUser) throws SQLException {   
-        m_nameUser = nameUser;
-        
-        if ((m_nameUser.equals("quentin")) || (m_nameUser.equals("Quentin")))
-            Connection = DriverManager.getConnection(URL_QUENTIN,USER_QUENTIN,PASSWORD_QUENTIN);
-        
-        else if ((m_nameUser.equals("charles")) || (m_nameUser.equals("Charles")))
-            Connection = DriverManager.getConnection(URL_CHARLES,USER_CHARLES,PASSWORD_CHARLES);
-        
-        else if ((m_nameUser.equals("clement")) || (m_nameUser.equals("Clement")))
-            Connection = DriverManager.getConnection(URL_CLEMENT,USER_CLEMENT,PASSWORD_CLEMENT);
-            
-        statement = Connection.createStatement();
+    public CandidateDAOImpl() throws SQLException {   
+        m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());            
+        m_statement = m_connection.createStatement();
     }
     
     
     /* Méthodes de modification des tables */
     public void createTableCandidate() throws SQLException {   
-        statement.executeUpdate(CREATION_TABLE_CANDIDATE);
+        m_statement.executeUpdate(CREATION_TABLE_CANDIDATE);
         System.out.println(CREATION_TABLE_CANDIDATE);
     }
     
     public void dropTableCandidate() throws SQLException {
-        statement.executeUpdate(DROP_TABLE_CANDIDATE);
+        m_statement.executeUpdate(DROP_TABLE_CANDIDATE);
         System.out.println(DROP_TABLE_CANDIDATE);
     }
     
     public void addCandidate(String last_name, String first_name, String password, String party) throws SQLException {
-        statement.executeUpdate(ADD_CANDIDATE 
+        m_statement.executeUpdate(ADD_CANDIDATE 
                                 + "(`lastname`, `firstname`, `password`, `party`)"
                                 + "Values (" 
                                 + "'" +last_name + "', "
@@ -81,21 +67,21 @@ public class CandidateDAOImpl implements CandidateDAO
     }
     
     public void deleteCandidate(int id) throws SQLException {
-        statement.executeUpdate(DELETE_CANDIDATE 
+        m_statement.executeUpdate(DELETE_CANDIDATE 
                                 + "WHERE `id` = " +id + ";");
         System.out.println(DELETE_CANDIDATE);
         decrementeIdCandidates(id);
     }
     
     public void decrementeIdCandidates(int id) throws SQLException {
-        statement.executeUpdate(DECREMENT_ID_CANDIDATE + "WHERE id > " +id + ";");
+        m_statement.executeUpdate(DECREMENT_ID_CANDIDATE + "WHERE id > " +id + ";");
     } 
     
     
     /* Méthodes de requêtes */
     public int getNumberOfCandidatesIntoTable() throws SQLException {
         int number_of_candidates;
-        ResultSet resultLecture = statement.executeQuery(COUNT_NBR_OF_CANDIDATES);
+        ResultSet resultLecture = m_statement.executeQuery(COUNT_NBR_OF_CANDIDATES);
         resultLecture.next();
         number_of_candidates = resultLecture.getInt(1);
         System.out.println("number candidates : " +number_of_candidates);
@@ -104,7 +90,7 @@ public class CandidateDAOImpl implements CandidateDAO
     
     public String getLastNameCandidateIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `lastname` FROM `candidate` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("last name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -112,7 +98,7 @@ public class CandidateDAOImpl implements CandidateDAO
     
     public String getFirstNameCandidateIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `firstname` FROM `candidate` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("first name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -120,7 +106,7 @@ public class CandidateDAOImpl implements CandidateDAO
     
     public String getPasswordCandidateIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `password` FROM `candidate` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("password : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -128,7 +114,7 @@ public class CandidateDAOImpl implements CandidateDAO
     
     public String getPartyCandidateIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `party` FROM `candidate` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `party` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("party : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -136,7 +122,7 @@ public class CandidateDAOImpl implements CandidateDAO
     
     public int getNbrVoteTotalCandidateIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `nbrVoteTotal` FROM `candidate` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nbrVoteTotal` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("nbr vote total : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);

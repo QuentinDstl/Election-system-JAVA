@@ -9,39 +9,48 @@ import java.util.Scanner;
 
 public class Config implements ConfigInterface {
 
-    private String m_url;
-    private String m_login;
-    private String m_password;
-    private String m_database;
+    private static String m_url;
+    private static String m_login;
+    private static String m_password;
+    private static String m_database;
     
     /* Constructor */
-    public Config(String owner) {
+    public static void initConfig(String owner) {
         NewProperties properties = new NewProperties(new Properties());
-        try(InputStream inputStream = new FileInputStream(FILE_NAME)) {
+        try {
+            InputStream inputStream = new FileInputStream(FILE_NAME);
             properties.load(inputStream);
             
         } 
         catch (FileNotFoundException e) {
-            Log.add(e.getMessage());
+            Log.add(e.getMessage() + ": fileNotFoundExeception");
             SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
         }
         catch (IOException | IllegalArgumentException ioe) {
-            Log.add(ioe.getMessage());
+            Log.add(ioe.getMessage() + ": IOException | IllegalArgumentException");
             SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
         }
+        
+        String errorMessage = "";
         try {
             m_url = properties.getProperty(owner + URL);
+            errorMessage += "url load -> ";
             m_login = properties.getProperty(owner + LOGIN);
+            errorMessage += "login load -> ";
             m_database = properties.getProperty(owner + DATABASE);
+            errorMessage += "database load -> ";
             m_password = properties.getProperty(owner + PASSWORD);
+            errorMessage += "password load -> ";
         }
         catch (IllegalArgumentException e) {
-            Log.add(e.getMessage());
+            Log.add(e.getMessage() + ": IllegalArgumentException :");
+            Log.add(errorMessage + "then throw exception");
             SecureLoad(); 
         }
     }
     
-    private void SecureLoad() {
+    /* If on of the config value do not load properly we do a secure load for all data */
+    private static void SecureLoad() {
         System.out.println("config_package.Config.SecureLoad()");
         Scanner scanner = new Scanner(System.in);
         System.out.println("\tURL=");
@@ -54,19 +63,19 @@ public class Config implements ConfigInterface {
         m_password = scanner.nextLine();
     }
 
-    public String getUrl() {
+    public static String getUrl() {
         return m_url;
     }
 
-    public String getLogin() {
+    public static String getLogin() {
         return m_login;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return m_password;
     }
 
-    public String getDatabase() {
+    public static String getDatabase() {
         return m_database;
     }
 }

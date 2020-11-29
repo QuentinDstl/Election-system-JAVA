@@ -13,7 +13,7 @@ public class Candidate extends Person {
     ArrayList<State> buffer_states_win;
     ArrayList<Elector> buffer_elector_win;
     
-    CandidateDAOImpl candidate_from_db = new CandidateDAOImpl(CandidateDAO.CONNECTION_NAME);
+    CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
     
     
     /* Constructeeur */
