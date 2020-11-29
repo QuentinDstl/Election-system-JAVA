@@ -3,19 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectorDAOImpl.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/OfficialDAOImpl.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/CandidateDAO.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Candidate.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Election.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Java_project_desautel_pellen_perold.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/CandidateDAOImpl.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Elector.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/State.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/OfficialDAO.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectorDAO.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Person.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Official.java</file>
+            <file>file:/C:/Users/c_per/OneDrive%20-%20Groupe%20INSEEC%20(POCE)/ING%203/Informatique%20-%20Java/_Projet%20Gui%20S5/_Projet%20GUI_Fork/java_project_desautel_pellen_perold/src/view_package/GraphicElectors.java</file>
+            <file>file:/C:/Users/c_per/OneDrive%20-%20Groupe%20INSEEC%20(POCE)/ING%203/Informatique%20-%20Java/_Projet%20Gui%20S5/_Projet%20GUI_Fork/java_project_desautel_pellen_perold/src/view_package/GraphicCandidatesNational.java</file>
+            <file>file:/C:/Users/c_per/OneDrive%20-%20Groupe%20INSEEC%20(POCE)/ING%203/Informatique%20-%20Java/_Projet%20Gui%20S5/_Projet%20GUI_Fork/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Java_project_desautel_pellen_perold.java</file>
+            <file>file:/C:/Users/c_per/OneDrive%20-%20Groupe%20INSEEC%20(POCE)/ING%203/Informatique%20-%20Java/_Projet%20Gui%20S5/_Projet%20GUI_Fork/java_project_desautel_pellen_perold/src/view_package/GraphicCandidates.java</file>
+            <file>file:/C:/Users/c_per/OneDrive%20-%20Groupe%20INSEEC%20(POCE)/ING%203/Informatique%20-%20Java/_Projet%20Gui%20S5/_Projet%20GUI_Fork/java_project_desautel_pellen_perold/src/view_package/GraphicIdentification.java</file>
         </group>
     </open-files>
 </project-private>

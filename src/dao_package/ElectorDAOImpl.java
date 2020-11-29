@@ -1,14 +1,13 @@
 package dao_package;
 
+import config_package.Config;
 import java.sql.*;
 
 public class ElectorDAOImpl implements  ElectorDAO {
     
     /* Variables */
-    private Connection Connection;
-    private Statement statement;
-
-    private String m_nameUser;
+    private Connection m_connection;
+    private Statement m_statement;
 
     /* Constants */
     private static final String CREATION_TABLE_ELECTOR = "CREATE TABLE IF NOT EXISTS `elector`"
@@ -38,36 +37,25 @@ public class ElectorDAOImpl implements  ElectorDAO {
     
 
     /* Constructor */
-    public ElectorDAOImpl(String nameUser) throws SQLException {   
-        m_nameUser = nameUser;
-        
-        if ((m_nameUser.equals("quentin")) || (m_nameUser.equals("Quentin")))
-            Connection = DriverManager.getConnection(URL_QUENTIN,USER_QUENTIN,PASSWORD_QUENTIN);
-        
-        else if ((m_nameUser.equals("charles")) || (m_nameUser.equals("Charles")))
-            Connection = DriverManager.getConnection(URL_CHARLES,USER_CHARLES,PASSWORD_CHARLES);
-        
-        else if ((m_nameUser.equals("clement")) || (m_nameUser.equals("Clement")))
-            Connection = DriverManager.getConnection(URL_CLEMENT,USER_CLEMENT,PASSWORD_CLEMENT);
-        
-        statement = Connection.createStatement();
+    public ElectorDAOImpl() throws SQLException {
+        m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
+        m_statement = m_connection.createStatement();
     }
-    
-    
-    /* Méthodes de modification des tables */
+
     public void createTableElector() throws SQLException {   
-        statement.executeUpdate(CREATION_TABLE_ELECTOR);
-        statement.executeUpdate("ALTER TABLE `elector` AUTO_INCREMENT = " +FIRST_ID_ELECTOR +";");
+        m_statement.executeUpdate(CREATION_TABLE_ELECTOR);
+        m_statement.executeUpdate("ALTER TABLE `elector` AUTO_INCREMENT = " +FIRST_ID_ELECTOR +";");
         System.out.println(CREATION_TABLE_ELECTOR);
     }
     
     public void dropTableElector() throws SQLException {
-        statement.executeUpdate(DROP_TABLE_ELECTOR);
+        m_statement.executeUpdate(DROP_TABLE_ELECTOR);
         System.out.println(DROP_TABLE_ELECTOR);
     }
     
-    public void addElector(String last_name, String first_name, String password, String name_state) throws SQLException {
-        statement.executeUpdate(ADD_ELECTOR 
+    
+    public void addCandidate(String last_name, String first_name, String password, String name_state) throws SQLException {
+        m_statement.executeUpdate(ADD_ELECTOR 
                                 + "(`lastname`, `firstname`, `password`, `nameState`)"
                                 + "Values (" 
                                 + "'" +last_name + "', "
@@ -79,21 +67,21 @@ public class ElectorDAOImpl implements  ElectorDAO {
     }
     
     public void deleteElector(int id) throws SQLException {
-        statement.executeUpdate(DELETE_ELECTOR 
+        m_statement.executeUpdate(DELETE_ELECTOR 
                                 + "WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
         decrementeIdElectors(id);
     }
     
     public void decrementeIdElectors(int id) throws SQLException {
-        statement.executeUpdate(DECREMENT_ID_ELECTOR + "WHERE id > " +id + ";");
+        m_statement.executeUpdate(DECREMENT_ID_ELECTOR + "WHERE id > " +id + ";");
     }
     
     
     /* Méthodes de requêtes */
     public int getNumberOfElectorsIntoTable() throws SQLException {
         int number_of_electors;
-        ResultSet resultLecture = statement.executeQuery(COUNT_NBR_OF_ELECTORS);
+        ResultSet resultLecture = m_statement.executeQuery(COUNT_NBR_OF_ELECTORS);
         resultLecture.next();
         number_of_electors = resultLecture.getInt(1);
         System.out.println("number electors : " +number_of_electors);
@@ -102,7 +90,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
     
     public String getLastNameElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `lastname` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `elector` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("last name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -110,7 +98,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
     
     public String getFirstNameElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `firstname` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `elector` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("first name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -118,7 +106,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
     
     public String getPasswordElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `password` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `elector` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("password : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -126,7 +114,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
     
     public String getNameStateOfElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `nameState` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `elector` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("name state : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -134,7 +122,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
     
     public String getNameCandidateOfElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `nameCandidate` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameCandidate` FROM `elector` WHERE id = " +num_case + ";");
         resultLecture.next();
         System.out.println("name candidate : " +resultLecture.getString(1));
         return resultLecture.getString(1);

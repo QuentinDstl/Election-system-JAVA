@@ -16,6 +16,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 public class GraphicIdentification extends JFrame
 {
     private boolean check;
+    protected boolean checkCandidates = false;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final String file_name = "pictures\\" + "\\intro2.jpg";
@@ -93,6 +94,11 @@ public class GraphicIdentification extends JFrame
     {
         return check;
     }
+    public boolean getCheckCandidates ()
+    {
+        return checkCandidates;
+    }
+
     
     private class PlayButtonIdentifyMe implements ActionListener
     {

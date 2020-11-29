@@ -14,7 +14,7 @@ public class Candidate extends Person {
     private ArrayList<State> buffer_states_win;
     private ArrayList<Elector> buffer_elector_win;
     
-    private CandidateDAOImpl candidate_from_db = new CandidateDAOImpl(CandidateDAO.CONNECTION_NAME);
+    private CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
     
     private Election election_access = new Election();
     

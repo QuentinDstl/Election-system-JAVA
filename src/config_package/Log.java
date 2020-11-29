@@ -18,7 +18,7 @@ public class Log {
             System.err.println(e.getMessage());
         }
     }
-    
+
     private static String getTime() throws Exception {
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");  
             Date date = new Date();  
