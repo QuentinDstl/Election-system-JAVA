@@ -140,6 +140,16 @@ public class CandidateDAOImpl implements CandidateDAO
     }
             
             
+    public int getIdUserWithConstraintUniquePerson(String last_name, String first_name, String password) throws  SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE lastname = " +last_name 
+                                                                                       + " AND firstname = " +first_name
+                                                                                       + ",AND password = " + password + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
     public int getIdUserWithLastName(String last_name) throws SQLException {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE lastname = " +last_name + ";");
