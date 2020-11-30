@@ -12,8 +12,8 @@ public class Java_project_desautel_pellen_perold {
     {
        // Candidate candidate = new Candidate(1);
 
-        Log log = new Log();
-        Config.initConfig("clement");
+        //Log log = new Log();
+        //Config.initConfig("clement");
       
         //yo.createTableElector();
         //yo.addCandidate("Dého", "qd", "puceauLand");
@@ -22,11 +22,11 @@ public class Java_project_desautel_pellen_perold {
         /* PARTIE GRAPHIQUE EN TEST */
         
         //testGraphiqueAccueil();
-        //testGraphiqueElectors();
-        testGraphiqueCandidats();
+        testGraphiqueElectors();
+        //testGraphiqueCandidats();
         
         System.exit(0);
-        
+        //testGraphiqueGLOBAL();
     }
     
     public static void testGraphiqueAccueil()
