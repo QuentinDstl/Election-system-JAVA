@@ -1,12 +1,9 @@
 package java_project_desautel_pellen_perold;
 
-import dao_package.CandidateDAO;
 import dao_package.CandidateDAOImpl;
-import dao_package.ElectionDAO;
 import dao_package.ElectionDAOImpl;
 import dao_package.ElectorDAO;
 import dao_package.ElectorDAOImpl;
-import dao_package.OfficialDAO;
 import dao_package.OfficialDAOImpl;
 import dao_package.StateDAO;
 import dao_package.StateDAOImpl;
@@ -22,11 +19,11 @@ public class Election {
     private ArrayList<Official> m_officials;
     private ArrayList<Elector> m_electors;
     
-    private ElectionDAOImpl election_from_db = new ElectionDAOImpl(ElectionDAO.CONNECTION_NAME);
-    private StateDAOImpl state_from_db = new StateDAOImpl(StateDAO.CONNECTION_NAME);
-    private CandidateDAOImpl candidate_from_db = new CandidateDAOImpl(CandidateDAO.CONNECTION_NAME);
-    private OfficialDAOImpl official_from_db = new OfficialDAOImpl(OfficialDAO.CONNECTION_NAME);
-    private ElectorDAOImpl elector_from_db = new ElectorDAOImpl(ElectorDAO.CONNECTION_NAME);
+    private final ElectionDAOImpl election_from_db = new ElectionDAOImpl();
+    private final StateDAOImpl state_from_db = new StateDAOImpl();
+    private final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
+    private final OfficialDAOImpl official_from_db = new OfficialDAOImpl();
+    private final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
 
     
     /* Constructeeur */

@@ -22,7 +22,7 @@ public class Java_project_desautel_pellen_perold {
         /* PARTIE GRAPHIQUE EN TEST */
         
         //testGraphiqueAccueil();
-        testGraphiqueElectors();
+        //testGraphiqueElectors();
         
     }
     

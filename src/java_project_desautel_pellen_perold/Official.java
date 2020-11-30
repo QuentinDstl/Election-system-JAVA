@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Official extends Person {
     
-    private OfficialDAOImpl official_from_db = new OfficialDAOImpl(OfficialDAO.CONNECTION_NAME);
+    private OfficialDAOImpl official_from_db = new OfficialDAOImpl();
     
     private Election election_access = new Election();
     
@@ -21,8 +21,7 @@ public class Official extends Person {
         setLastNameFromDataBase(official_from_db.getLastNameOfficialIntoTable(num_case));
         setFirstNameFromDataBase(official_from_db.getFirstNameOfficialIntoTable(num_case));  
         setPasswordFromDataBase(official_from_db.getPasswordOfficialIntoTable(num_case));
-        setIdFromDataBase(num_case + OfficialDAO.FIRST_ID_OFFICIAL);
-       
+        setIdFromDataBase(num_case + OfficialDAO.FIRST_ID_OFFICIAL);   
     }
     
     public void downLoadOfficialDataBase() throws SQLException {

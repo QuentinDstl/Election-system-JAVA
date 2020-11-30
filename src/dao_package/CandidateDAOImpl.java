@@ -6,8 +6,8 @@ import java.sql.*;
 public class CandidateDAOImpl implements CandidateDAO
 {
     /* Variables */
-    private Connection m_connection;
-    private Statement m_statement;    
+    private final Connection m_connection;
+    private final Statement m_statement;    
     
     /* Constantes */
     private static final String CREATION_TABLE_CANDIDATE = "CREATE TABLE IF NOT EXISTS `candidate`"

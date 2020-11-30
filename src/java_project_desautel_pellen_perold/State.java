@@ -1,9 +1,9 @@
 package java_project_desautel_pellen_perold;
 
-import dao_package.StateDAO;
+
 import dao_package.StateDAOImpl;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 public class State {
     private boolean m_pause;
@@ -12,7 +12,7 @@ public class State {
     private int m_nbr_max_electors;
    
     
-    private StateDAOImpl state_from_db = new StateDAOImpl(StateDAO.CONNECTION_NAME);
+    private final StateDAOImpl state_from_db = new StateDAOImpl();
     
     
     /* Constructeur */

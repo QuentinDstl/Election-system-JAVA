@@ -1,6 +1,5 @@
 package java_project_desautel_pellen_perold;
 
-import dao_package.CandidateDAO;
 import dao_package.CandidateDAOImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ public class Candidate extends Person {
     private ArrayList<State> buffer_states_win;
     private ArrayList<Elector> buffer_elector_win;
     
-    private CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
+    private final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
     
-    private Election election_access = new Election();
+    private final Election election_access = new Election();
     
     
     /* Constructeur */

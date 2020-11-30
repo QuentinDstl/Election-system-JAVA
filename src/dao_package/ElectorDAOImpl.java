@@ -6,8 +6,8 @@ import java.sql.*;
 public class ElectorDAOImpl implements  ElectorDAO {
     
     /* Variables */
-    private Connection m_connection;
-    private Statement m_statement;
+    private final Connection m_connection;
+    private final Statement m_statement;
 
     /* Constants */
     private static final String CREATION_TABLE_ELECTOR = "CREATE TABLE IF NOT EXISTS `elector`"
@@ -54,7 +54,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
     }
     
     
-    public void addCandidate(String last_name, String first_name, String password, String name_state) throws SQLException {
+    public void addElector(String last_name, String first_name, String password, String name_state) throws SQLException {
         m_statement.executeUpdate(ADD_ELECTOR 
                                 + "(`lastname`, `firstname`, `password`, `nameState`)"
                                 + "Values (" 

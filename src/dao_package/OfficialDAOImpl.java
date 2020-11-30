@@ -6,8 +6,8 @@ import java.sql.*;
 public class OfficialDAOImpl implements OfficialDAO {
     
     /* Variables */
-    private Connection m_connection;
-    private Statement m_statement;
+    private final Connection m_connection;
+    private final Statement m_statement;
     
     /* Constants */
     private static final String CREATION_TABLE_OFFICIAL = "CREATE TABLE IF NOT EXISTS `official`"

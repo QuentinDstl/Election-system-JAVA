@@ -3,18 +3,18 @@ package java_project_desautel_pellen_perold;
 import dao_package.ElectorDAO;
 import dao_package.ElectorDAOImpl;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 public class Elector extends Person {
     
     /* Variables */
-    State m_state;
-    Candidate m_candidate;
-    boolean m_voteDone;
+    private State m_state;
+    private Candidate m_candidate;
+    private boolean m_voteDone;
     
-    ElectorDAOImpl elector_from_db = new ElectorDAOImpl(ElectorDAO.CONNECTION_NAME);
+    private final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
     
-    Election election_access = new Election();
+    private final Election election_access = new Election();
     
     
     /* Constructeeur */

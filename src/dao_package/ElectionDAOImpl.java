@@ -1,15 +1,14 @@
 package dao_package;
 
+import config_package.Config;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class ElectionDAOImpl implements ElectionDAO {
     
     /* Variables */
-    private Connection Connection;
-    private Statement statement;
+    private final Connection m_connection;
+    private final Statement m_statement;
     
-    private String m_nameUser;
     
     /* Constantes */
     private static final String CREATION_TABLE_ELECTION = "CREATE TABLE IF NOT EXISTS `election`"
@@ -23,29 +22,19 @@ public class ElectionDAOImpl implements ElectionDAO {
     private static final String DROP_TABLE_ELECTION = "DROP TABLE IF EXISTS `election`;";
     
     /* Constructor */
-    public ElectionDAOImpl(String nameUser) throws SQLException {   
-        m_nameUser = nameUser;
-        
-        if ((m_nameUser.equals("quentin")) || (m_nameUser.equals("Quentin")))
-            Connection = DriverManager.getConnection(URL_QUENTIN,USER_QUENTIN,PASSWORD_QUENTIN);
-        
-        else if ((m_nameUser.equals("charles")) || (m_nameUser.equals("Charles")))
-            Connection = DriverManager.getConnection(URL_CHARLES,USER_CHARLES,PASSWORD_CHARLES);
-        
-        else if ((m_nameUser.equals("clement")) || (m_nameUser.equals("Clement")))
-            Connection = DriverManager.getConnection(URL_CLEMENT,USER_CLEMENT,PASSWORD_CLEMENT);
-        
-        statement = Connection.createStatement();
+    public ElectionDAOImpl() throws SQLException {   
+        m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
+        m_statement = m_connection.createStatement();
     }
     
     /* Méthodes de modification des tables */
     public void createTableCandidate() throws SQLException {   
-        statement.executeUpdate(CREATION_TABLE_ELECTION);
+        m_statement.executeUpdate(CREATION_TABLE_ELECTION);
         System.out.println(CREATION_TABLE_ELECTION);
     }
     
     public void dropTableCandidate() throws SQLException {
-        statement.executeUpdate(DROP_TABLE_ELECTION);
+        m_statement.executeUpdate(DROP_TABLE_ELECTION);
         System.out.println(DROP_TABLE_ELECTION);
     }
     
@@ -53,7 +42,7 @@ public class ElectionDAOImpl implements ElectionDAO {
     /* Méthodes de requêtes */
     public boolean getOpenVoteConditionIntoTable() throws SQLException {
         
-        ResultSet resultLecture = statement.executeQuery("SELECT `openVote` FROM `election;");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `openVote` FROM `election;");
         resultLecture.next();
         System.out.println("open vote : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);
