@@ -63,7 +63,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
                                 + "'" +password + "', "
                                 + "'" +name_state + "'"
                                 + ");");
-        System.out.println(ADD_ELECTOR);
+        System.out.println(ADD_ELECTOR);      
     }
     
     public void deleteElector(int id) throws SQLException {
@@ -126,5 +126,41 @@ public class ElectorDAOImpl implements  ElectorDAO {
         resultLecture.next();
         System.out.println("name candidate : " +resultLecture.getString(1));
         return resultLecture.getString(1);
+    }
+    
+    
+    /* Méthodes de vérification des données de l'utilisateur */
+    public boolean checkUserElectorName(String last_name, String first_name) throws SQLException {
+        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name));
+    }
+    
+    public boolean checkUserElectorPassword(String last_name, String first_name, String password) throws SQLException {
+        return (getIdUserWithPassword(password) == getIdUserWithLastName(last_name) &&
+                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name));
+    }
+            
+            
+    public int getIdUserWithLastName(String last_name) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE lastname = " +last_name + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
+    public int getIdUserWithFirstName(String first_name) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE firstname = " +first_name + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
+    public int getIdUserWithPassword(String password) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE password = " +password + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
     }
 }

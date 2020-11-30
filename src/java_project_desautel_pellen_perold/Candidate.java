@@ -32,8 +32,10 @@ public class Candidate extends Person {
         nb_votes_total = candidate_from_db.getNbrVoteTotalCandidateIntoTable(num_case);
     }
     
-    
     /* De le saisie d'un officiel */
+    /*public Candidate(String last_name, String first_name, String password) {
+        
+    }*/
     
     
     public void downLoadElectionDataBase() throws SQLException {

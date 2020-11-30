@@ -127,4 +127,39 @@ public class CandidateDAOImpl implements CandidateDAO
         System.out.println("nbr vote total : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
+    
+    /* Méthodes de vérification des données de l'utilisateur */
+    public boolean checkUserCandidateName(String last_name, String first_name) throws SQLException {
+        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name));
+    }
+    
+    public boolean checkUserCandidatePassword(String last_name, String first_name, String password) throws SQLException {
+        return (getIdUserWithPassword(password) == getIdUserWithLastName(last_name) &&
+                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name));
+    }
+            
+            
+    public int getIdUserWithLastName(String last_name) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE lastname = " +last_name + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
+    public int getIdUserWithFirstName(String first_name) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE firstname = " +first_name + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
+    public int getIdUserWithPassword(String password) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE password = " +password + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
 }

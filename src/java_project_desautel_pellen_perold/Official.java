@@ -50,7 +50,7 @@ public class Official extends Person {
     }
     
     public void addCandidate() {
-        
+        election_access.add
     }
     
     public void openVote() {
@@ -73,4 +73,5 @@ public class Official extends Person {
         else
             state.setPause(!state.isPause());                                   // We inverse the actual value in pause
     }
+   
 }
