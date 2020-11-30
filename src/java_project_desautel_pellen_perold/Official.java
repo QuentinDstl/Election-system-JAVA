@@ -50,7 +50,7 @@ public class Official extends Person {
     }
     
     public void addCandidate() {
-        election_access.add
+        
     }
     
     public void openVote() {

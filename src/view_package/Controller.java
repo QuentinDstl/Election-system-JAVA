@@ -4,6 +4,7 @@ import dao_package.CandidateDAOImpl;
 import dao_package.ElectorDAOImpl;
 import dao_package.OfficialDAOImpl;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java_project_desautel_pellen_perold.Candidate;
 import java_project_desautel_pellen_perold.Elector;
 import java_project_desautel_pellen_perold.Official;
@@ -45,9 +46,10 @@ public class Controller {
         }
     }
     
-    public void createUser(String last_name, String first_name, String password) throws  SQLException {
+    private void createUser(String last_name, String first_name, String password) throws  SQLException {
         
-        if(access_to_candidate_table.checkUserCandidateName(last_name, first_name)) {
+        if(checkUserName(last_name, first_name)) {
+           
             if(access_to_candidate_table.checkUserCandidatePassword(last_name, first_name, password)) {
                 m_user_candidate = new Candidate(access_to_candidate_table.getIdUserWithPassword(password));
                 m_user_official = null;
@@ -55,36 +57,33 @@ public class Controller {
                 m_type_user = CANDIDATE;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
             }
-            else {
-                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE L'INTERFACE FASSE QUAND LE PASSWORD N'EST PAS BON
-            }
-        }
-        else if(access_to_official_table.checkUserOfficialName(last_name, first_name)) {
-            if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
+           else if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
                 m_user_official = new Official(access_to_official_table.getIdUserWithPassword(password));
                 m_user_candidate = null;
                 m_user_elector = null;
                 m_type_user = OFFICIAL;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-            }
-            else {
-                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE L'INTERFACE FASSE QUAND LE PASSWORD N'EST PAS BON
-            }
-        }
-        else if(access_to_elector_table.checkUserElectorName(last_name, first_name)) {
-            if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
+           }
+           else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
                 m_user_elector = new Elector(access_to_elector_table.getIdUserWithPassword(password));
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-            }
-            else {
-                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE L'INTERFACE FASSE QUAND LE PASSWORD N'EST PAS BON
-            }
+           } 
+           else {
+               ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE L'INTERFACE FASSE QUAND LE PASSWORD N'EST PAS BON
+           }
+            
         }
         else {
             ///POUR CHARLES : RAJOUTER ICI CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND LE NOM ET LE PRENOM NE CORRESPONDENT PAS A QUELQU'UN
         }
+    }
+    
+    private boolean checkUserName(String last_name, String first_name) throws SQLException {
+        return  access_to_candidate_table.checkUserCandidateName(last_name, first_name) || 
+                access_to_official_table.checkUserOfficialName(last_name, first_name) ||
+                access_to_elector_table.checkUserElectorName(last_name, first_name);
     }
 }

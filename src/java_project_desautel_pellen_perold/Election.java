@@ -95,12 +95,22 @@ public class Election {
     }
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {
-        m_electors.add( new Elector(last_name, first_name, state));
-        elector_from_db.addElector(m_electors.get(m_electors.size()-1).getLastName(),
-                                   m_electors.get(m_electors.size()-1).getFirstName(), 
-                                   m_electors.get(m_electors.size()-1).getPassword(), 
-                                   m_electors.get(m_electors.size()-1).getState().getName());
-        m_electors.get(m_electors.size()-1).setId(m_electors.size()-1 + ElectorDAO.FIRST_ID_ELECTOR);
+        //try {
+            m_electors.add( new Elector(last_name, first_name, state));
+            elector_from_db.addElector(m_electors.get(m_electors.size()-1).getLastName(),
+                                       m_electors.get(m_electors.size()-1).getFirstName(), 
+                                       m_electors.get(m_electors.size()-1).getPassword(), 
+                                       m_electors.get(m_electors.size()-1).getState().getName());
+            //if(m_electors.size()-1 + ElectorDAO.FIRST_ID_ELECTOR < 100) {
+                //throw IllegalArgumentException();
+            //}
+            //else {
+                m_electors.get(m_electors.size()-1).setId(m_electors.size()-1 + ElectorDAO.FIRST_ID_ELECTOR);
+            //}
+        //} 
+        //catch(IllegalArgumentException e) {
+            
+        //}
     }
     
     
