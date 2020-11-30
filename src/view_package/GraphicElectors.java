@@ -113,6 +113,7 @@ public class GraphicElectors extends GraphicIdentification
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("JE SUIS UNE MERDE ET JE NE VEUX PLUS VOTER");
+            
         }
     }
 }

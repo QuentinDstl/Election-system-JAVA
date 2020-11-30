@@ -16,9 +16,9 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*; 
 import org.jfree.data.general.*;
 
-public class GraphicCandidatesNational extends GraphicCandidates
+public class GraphicCandidatesNational extends JFrame
 {
-    private boolean checkCandidatesNational;
+    protected int checkCandidatesNational = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JPanel panelCamembert;
@@ -26,23 +26,22 @@ public class GraphicCandidatesNational extends GraphicCandidates
     private final JButton buttonBack;
     
     public GraphicCandidatesNational()
+    {    
+        checkCandidatesNational = 0;
+        panelCamembert = new JPanel(new BorderLayout());
+        messageEnter = new JLabel("You are the candidate DONALD TRUMP");
+        buttonBack = new JButton("Back to menu candidat");
+        buttonBack.addActionListener(new PlayButtonBack());
+    }
+    
+    public void startCandidatesNational()
     {
         /* Initialisation of the interface */
         setTitle("Score NATIONAL");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);     
+        setLocationRelativeTo(null); 
         
-        panelCamembert = new JPanel(new BorderLayout());
-        messageEnter = new JLabel("You are the candidate DONALD TRUMP");
-        buttonBack = new JButton("Back to menu candidat");
-        buttonBack.addActionListener(new PlayButtonBack());
-        
-        setVisible(true);
-    }
-    
-    public void startCandidatesNational()
-    {
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
         pieDataset.setValue("You ", new Integer(27)); 
         pieDataset.setValue("Valeur2", new Integer(10)); 
@@ -62,10 +61,11 @@ public class GraphicCandidatesNational extends GraphicCandidates
         box.add(panelButtonBack);
         
         add(box);
+        checkCandidatesNational = 0;
         setVisible(true);
     }
     
-    public boolean getCheckCandidatesNational ()
+     public int getCheckCandidatesNational ()
     {
         return checkCandidatesNational;
     }
@@ -76,7 +76,7 @@ public class GraphicCandidatesNational extends GraphicCandidates
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            checkCandidatesNational = true;
+            checkCandidatesNational = -1;
         }
     }
 }
