@@ -61,7 +61,6 @@ public class GraphicCandidatesNational extends JFrame
         box.add(panelButtonBack);
         
         add(box);
-        checkCandidatesNational = 0;
         setVisible(true);
     }
     

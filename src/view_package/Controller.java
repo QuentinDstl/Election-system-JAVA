@@ -17,6 +17,8 @@ public class Controller {
     
     private int m_type_user;
     
+    private int m_reset = 0;
+    
     private final CandidateDAOImpl access_to_candidate_table = new CandidateDAOImpl();
     private final OfficialDAOImpl access_to_official_table = new OfficialDAOImpl();
     private final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
@@ -30,6 +32,107 @@ public class Controller {
     
     public Controller() throws SQLException {}
     
+    public void startGraphiqueAccueil() throws SQLException
+    {
+        GraphicIdentification myIdentification = new GraphicIdentification();
+        myIdentification.startIdentification();
+        boolean checkIdentification = false;
+        
+        /* Blindage */ 
+        while (checkIdentification == false) {            
+            checkIdentification = myIdentification.getCheck();
+            System.out.print("");
+        }
+        
+        /* 1ER NIVEAU DE CONNEXION */
+        createUser(myIdentification.getLastName(), myIdentification.getFirstName(), myIdentification.getPassword());
+        executeProgram();
+    }
+    
+    /* PROGRAMME TERMINE */
+    public void startGraphiqueElectors()
+    {
+        GraphicElectors myElectors = new GraphicElectors();
+        myElectors.startElectors();
+        int checkElectorsOut = 0;
+        
+        do {            
+            System.out.print("");
+            checkElectorsOut = myElectors.getCheckElectors();
+        } while (checkElectorsOut == 0);
+        
+        m_reset = 1;
+    }
+    
+    public void startGraphiqueCandidats()
+    {
+        GraphicCandidates myCandidates = new GraphicCandidates();
+        myCandidates.startCandidates();
+        int checkCandidatesOut = 0;
+        int checkCandidatesNationalOut = 0;
+        int checkCandidatesStatesOut = 0;
+        int checkCandidatesStatesUniqueOut = 0;
+        
+        while (checkCandidatesOut != -1) 
+        {   
+            checkCandidatesOut = myCandidates.getCheckCandidates();
+            System.out.print("");
+            
+            if(checkCandidatesOut == 1)// DISPLAY NATIONAL
+            {
+                GraphicCandidatesNational myCandidatesNational = new GraphicCandidatesNational();
+                myCandidatesNational.startCandidatesNational();
+                
+                while(checkCandidatesNationalOut != -1)
+                {
+                    checkCandidatesNationalOut = myCandidatesNational.getCheckCandidatesNational();
+                    System.out.print("");
+                }
+                myCandidates = new GraphicCandidates();
+                myCandidates.startCandidates();
+                checkCandidatesOut = 0;
+                checkCandidatesNationalOut = 0;
+            }
+            if(checkCandidatesOut == 2)// DISPLAY STATES
+            {
+                GraphicCandidatesStates myCandidatesStates = new GraphicCandidatesStates();
+                myCandidatesStates.startCandidatesStates(m_user_candidate);
+                
+                while(checkCandidatesStatesOut != -1)
+                {
+                    checkCandidatesStatesOut = myCandidatesStates.getCheckCandidatesStates();
+                    System.out.print("");
+                    
+                    if (checkCandidatesStatesOut == 1)
+                    {
+                        GraphicCandidatesStatesUnique myUniqueState = new GraphicCandidatesStatesUnique();
+                        myUniqueState.startCandidatesStates(m_user_candidate);
+                        
+                        while(checkCandidatesStatesUniqueOut != -1)
+                        {
+                            checkCandidatesStatesUniqueOut = myUniqueState.getCheckCandidatesStatesUnique();
+                            System.out.print("");
+                        }
+                        myCandidatesStates = new GraphicCandidatesStates();
+                        myCandidatesStates.startCandidatesStates(m_user_candidate);
+                        checkCandidatesStatesOut = 0;
+                        checkCandidatesStatesUniqueOut = 0;
+                    }
+                }
+                myCandidates = new GraphicCandidates();
+                myCandidates.startCandidates();
+                checkCandidatesOut = 0;
+                checkCandidatesStatesOut = 0;
+            }
+        }
+        m_reset = 1;
+    }
+    
+    public int getReset()
+    {
+        return m_reset;
+    }
+    
     public void executeProgram() {
         ///interface acheminant les infos de la personne qui se connecte
         //createUser(last_name, first_name, password);
@@ -41,7 +144,8 @@ public class Controller {
            //INTERFACE DE L'OFFICIAL
         }
         else if(m_type_user == ELECTOR) {
-           //INTERFACE DE L'ELECTOR
+           /* 2EME NIVEAU DE CONNEXION */
+           startGraphiqueElectors();
         }
     }
     

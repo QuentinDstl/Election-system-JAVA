@@ -73,7 +73,8 @@ public class GraphicCandidates extends JFrame
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("JE REGARDE STATE");
+            setVisible(false);
+            checkCandidates = 2;
         }
     }
     private class PlayButtonCancel implements ActionListener

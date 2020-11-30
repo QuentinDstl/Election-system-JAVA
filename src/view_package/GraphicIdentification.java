@@ -16,8 +16,9 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 public class GraphicIdentification extends JFrame
 {
     private boolean check;
-    protected boolean checkCandidates;
-    protected boolean checkCandidatesNational = false;
+    private String m_lastName;
+    private String m_firstName;
+    private String m_password;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final String file_name = "pictures\\" + "\\intro2.jpg";
@@ -93,6 +94,18 @@ public class GraphicIdentification extends JFrame
     {
         return check;
     }
+    public String getLastName()
+    {
+        return m_lastName;
+    }
+    public String getFirstName()
+    {
+        return m_firstName;
+    }
+    public String getPassword()
+    {
+        return m_password;
+    }
     
     private class PlayButtonIdentifyMe implements ActionListener
     {
@@ -116,7 +129,10 @@ public class GraphicIdentification extends JFrame
             }
             else
             {
-                /* DELETE */ System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
+                //System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
+                m_firstName = captureFirstName;
+                m_lastName = captureLastName;
+                m_password = capturePassword;
                 check = true;
                 setVisible(false);
             }   
