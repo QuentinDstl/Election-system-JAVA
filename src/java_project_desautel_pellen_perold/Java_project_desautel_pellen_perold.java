@@ -22,7 +22,10 @@ public class Java_project_desautel_pellen_perold {
         /* PARTIE GRAPHIQUE EN TEST */
         
         //testGraphiqueAccueil();
-        testGraphiqueElectors();
+        //testGraphiqueElectors();
+        testGraphiqueCandidats();
+        
+        System.exit(0);
         
     }
     
@@ -53,7 +56,36 @@ public class Java_project_desautel_pellen_perold {
     {
         GraphicCandidates test3 = new GraphicCandidates();
         test3.startCandidates();
+        int checkCandidatesOut = 0;
+        int checkCandidatesNationalOut = 0;
         
-        boolean checkCandidates = false;
+        while (checkCandidatesOut != -1) 
+        {   
+            checkCandidatesOut = test3.getCheckCandidates();
+            System.out.print("");
+            
+            if(checkCandidatesOut == 1)
+            {
+                //System.out.println("HEY NIV1" + " Candidat : " + checkCandidatesOut);
+                GraphicCandidatesNational test5 = new GraphicCandidatesNational();
+                test5.startCandidatesNational();
+                
+                while(checkCandidatesNationalOut != -1)
+                {
+                    checkCandidatesNationalOut = test5.getCheckCandidatesNational();
+                    System.out.print("");
+                    
+                    /*if(checkCandidatesNationalOut == -1)
+                    {
+                        System.out.println("HEY NIV2" + " Candidat : " + checkCandidatesOut);
+                    }*/
+                }
+                test3 = new GraphicCandidates();
+                test3.startCandidates();
+                checkCandidatesOut = 0;
+                checkCandidatesNationalOut = 0;
+            }
+        }
+        System.out.println("SORTI");
     }
 }
