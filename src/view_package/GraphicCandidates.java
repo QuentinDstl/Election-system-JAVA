@@ -5,6 +5,8 @@
  */
 package view_package;
 
+import dao_package.*;
+import java_project_desautel_pellen_perold.*;
 import javax.swing.*; // Needed for Swing classes
 import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
@@ -21,7 +23,7 @@ public class GraphicCandidates extends JFrame
     private final JButton buttonState;
     private final JButton buttonCancel;
     
-    public GraphicCandidates()
+    public GraphicCandidates(Candidate m_user_candidate)
     {
         checkCandidates = 0;
         messageEnter = new JLabel("You are the candidate DONALD TRUMP");
@@ -56,7 +58,6 @@ public class GraphicCandidates extends JFrame
     public int getCheckCandidates ()
     {
         return checkCandidates;
-        
     }
    
     private class PlayButtonShowNational implements ActionListener

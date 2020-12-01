@@ -52,7 +52,7 @@ public class Controller {
     /* PROGRAMME TERMINE */
     public void startGraphiqueElectors()
     {
-        GraphicElectors myElectors = new GraphicElectors();
+        GraphicElectors myElectors = new GraphicElectors(m_user_elector);
         myElectors.startElectors();
         int checkElectorsOut = 0;
         
@@ -66,7 +66,7 @@ public class Controller {
     
     public void startGraphiqueCandidats()
     {
-        GraphicCandidates myCandidates = new GraphicCandidates();
+        GraphicCandidates myCandidates = new GraphicCandidates(m_user_candidate);
         myCandidates.startCandidates();
         int checkCandidatesOut = 0;
         int checkCandidatesNationalOut = 0;
@@ -81,14 +81,14 @@ public class Controller {
             if(checkCandidatesOut == 1)// DISPLAY NATIONAL
             {
                 GraphicCandidatesNational myCandidatesNational = new GraphicCandidatesNational();
-                myCandidatesNational.startCandidatesNational();
+                myCandidatesNational.startCandidatesNational(m_user_candidate);
                 
                 while(checkCandidatesNationalOut != -1)
                 {
                     checkCandidatesNationalOut = myCandidatesNational.getCheckCandidatesNational();
                     System.out.print("");
                 }
-                myCandidates = new GraphicCandidates();
+                myCandidates = new GraphicCandidates(m_user_candidate);
                 myCandidates.startCandidates();
                 checkCandidatesOut = 0;
                 checkCandidatesNationalOut = 0;
@@ -106,7 +106,7 @@ public class Controller {
                     if (checkCandidatesStatesOut == 1)
                     {
                         GraphicCandidatesStatesUnique myUniqueState = new GraphicCandidatesStatesUnique();
-                        myUniqueState.startCandidatesStates(m_user_candidate);
+                        myUniqueState.startCandidatesStatesUnique(m_user_candidate);
                         
                         while(checkCandidatesStatesUniqueOut != -1)
                         {
@@ -119,11 +119,141 @@ public class Controller {
                         checkCandidatesStatesUniqueOut = 0;
                     }
                 }
-                myCandidates = new GraphicCandidates();
+                myCandidates = new GraphicCandidates(m_user_candidate);
                 myCandidates.startCandidates();
                 checkCandidatesOut = 0;
                 checkCandidatesStatesOut = 0;
             }
+        }
+        m_reset = 1;
+    }
+    
+    public void startGraphiqueOfficials()
+    {
+        GraphicOfficials myOfficials = new GraphicOfficials(m_user_official);
+        myOfficials.startOfficials();
+        int checkOfficialsOut = 0;
+        int checkOfficialsAddCandidatesOut = 0;
+        int checkOfficialsDelCandidatesOut = 0;
+        int checkOfficialsAddElectorsOut = 0;
+        int checkOfficialsDelElectorsOut = 0;
+        int checkOfficialsNationalOut = 0;
+        int checkOfficialsStatesOut = 0;
+        int checkOfficialsStatesUniqueOut = 0;
+        int checkOfficialsWinnersOut = 0;
+        
+        while (checkOfficialsOut != -1) 
+        {   
+            checkOfficialsOut = myOfficials.getCheckOfficials();
+            System.out.print("");
+            
+            if(checkOfficialsOut == 1)// ADD CANDIDAT
+            {
+                GraphicOfficialsAddCandidate myOfficialsAddCandidate = new GraphicOfficialsAddCandidate();
+                myOfficialsAddCandidate.startOfficialsAddCandidate();
+                
+                while(checkOfficialsAddCandidatesOut != -1)
+                {
+                    checkOfficialsAddCandidatesOut = myOfficialsAddCandidate.getCheckOfficialsAddCandidate();
+                    System.out.print("");
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsAddCandidatesOut = 0;
+            }
+            if(checkOfficialsOut == 2)// DELETE CANDIDATE
+            {
+                GraphicOfficialsDelCandidate myOfficialsDelCandidate = new GraphicOfficialsDelCandidate();
+                myOfficialsDelCandidate.startOfficialsDelCandidate();
+                
+                while(checkOfficialsDelCandidatesOut != -1)
+                {
+                    checkOfficialsDelCandidatesOut = myOfficialsDelCandidate.getCheckOfficialsDelCandidate();
+                    System.out.print("");
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsDelCandidatesOut = 0;
+            }
+            if(checkOfficialsOut == 3)// ADD ELECTOR
+            {
+                GraphicOfficialsAddElector myOfficialsAddElector = new GraphicOfficialsAddElector();
+                myOfficialsAddElector.startOfficialsAddElector();
+                
+                while(checkOfficialsAddElectorsOut != -1)
+                {
+                    checkOfficialsAddElectorsOut = myOfficialsAddElector.getCheckOfficialsAddElector();
+                    System.out.print("");
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsAddElectorsOut = 0;
+            }
+            if(checkOfficialsOut == 4)// DELETE ELECTOR
+            {
+                GraphicOfficialsDelElector myOfficialsDelElector = new GraphicOfficialsDelElector();
+                myOfficialsDelElector.startOfficialsDelElector();
+                
+                while(checkOfficialsDelElectorsOut != -1)
+                {
+                    checkOfficialsDelElectorsOut = myOfficialsDelElector.getCheckOfficialsDelElector();
+                    System.out.print("");
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsDelElectorsOut = 0;
+            }
+            if(checkOfficialsOut == 5)// SHOW NATIONAL
+            {
+                GraphicOfficialsNational myOfficialsNational = new GraphicOfficialsNational();
+                myOfficialsNational.startOfficialsNational(m_user_official);
+                
+                while(checkOfficialsNationalOut != -1)
+                {
+                    checkOfficialsNationalOut = myOfficialsNational.getCheckOfficialsNational();
+                    System.out.print("");
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsNationalOut = 0;
+            }
+            if(checkOfficialsOut == 6)// DISPLAY STATES
+            {
+                GraphicOfficialsStates myOfficialsStates = new GraphicOfficialsStates();
+                myOfficialsStates.startOfficialsStates(m_user_official);
+                
+                while(checkOfficialsStatesOut != -1)
+                {
+                    checkOfficialsStatesOut = myOfficialsStates.getCheckOfficialsStates();
+                    System.out.print("");
+                    
+                    if (checkOfficialsStatesOut == 1)
+                    {
+                        GraphicOfficialsStatesUnique myUniqueState = new GraphicOfficialsStatesUnique();
+                        myUniqueState.startOfficialsStatesUnique(m_user_official);
+                        
+                        while(checkOfficialsStatesUniqueOut != -1)
+                        {
+                            checkOfficialsStatesUniqueOut = myUniqueState.getCheckOfficialsStatesUnique();
+                            System.out.print("");
+                        }
+                        myOfficialsStates = new GraphicOfficialsStates();
+                        myOfficialsStates.startOfficialsStates(m_user_official);
+                        checkOfficialsStatesOut = 0;
+                        checkOfficialsStatesUniqueOut = 0;
+                    }
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsStatesOut = 0;
+            }
+            
         }
         m_reset = 1;
     }
@@ -138,7 +268,7 @@ public class Controller {
         //createUser(last_name, first_name, password);
         
         if(m_type_user == CANDIDATE) {
-            //INTERFACE DU CANDIDAT
+            startGraphiqueCandidats();
         }
         else if(m_type_user == OFFICIAL) {
            //INTERFACE DE L'OFFICIAL

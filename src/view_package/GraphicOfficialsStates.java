@@ -19,21 +19,21 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*; 
 import org.jfree.data.general.*;
 
-public class GraphicCandidatesStates extends JFrame
+public class GraphicOfficialsStates extends JFrame
 {
-    protected int checkCandidatesStates = 0;
+    protected int checkOfficialsStates = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JButton buttonBack;
     
-    public GraphicCandidatesStates()
+    public GraphicOfficialsStates()
     {
-        checkCandidatesStates = 0;
-        buttonBack = new JButton("Back to menu candidat");
+        checkOfficialsStates = 0;
+        buttonBack = new JButton("Back to menu officials");
         buttonBack.addActionListener(new PlayButtonBack());
     }
 
-    public void startCandidatesStates(Candidate m_user_candidate)
+    public void startOfficialsStates(Official m_user_official)
     {
         /* Copy to display states*/
         //m_candidate = m_user_candidate;
@@ -62,9 +62,9 @@ public class GraphicCandidatesStates extends JFrame
         setVisible(true);
     }
     
-    public int getCheckCandidatesStates()
+    public int getCheckOfficialsStates()
     {
-        return checkCandidatesStates;
+        return checkOfficialsStates;
     }
     
     private class PlayButtonBack implements ActionListener
@@ -73,7 +73,7 @@ public class GraphicCandidatesStates extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            checkCandidatesStates = -1;
+            checkOfficialsStates = -1;
         }
     }
     private class PlayButtonState implements ActionListener
@@ -83,7 +83,7 @@ public class GraphicCandidatesStates extends JFrame
         {
             setVisible(false);
             String nameState = e.getActionCommand();
-            checkCandidatesStates = 1;    
+            checkOfficialsStates = 1;    
         }
     }
 }

@@ -24,24 +24,44 @@ public class GraphicCandidatesStatesUnique extends JFrame
     protected int checkCandidatesStatesUnique = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
+    private final JPanel panelCamembert;
     private final JButton buttonBack;
     
     public GraphicCandidatesStatesUnique()
     {
         checkCandidatesStatesUnique = 0;
-        buttonBack = new JButton("Back to menu candidat");
+        panelCamembert = new JPanel(new BorderLayout());
+        buttonBack = new JButton("Back to menu officials");
         buttonBack.addActionListener(new PlayButtonBack());
     }
     
-    public void startCandidatesStates(Candidate m_user_candidate)
+    public void startCandidatesStatesUnique(Candidate m_user_candidate)
     {   
-        /* Initialisation of the interface */
+       /* Initialisation of the interface */
         setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); 
         
-        add(buttonBack);
+        DefaultPieDataset pieDataset = new DefaultPieDataset(); 
+        pieDataset.setValue("You ", new Integer(27)); 
+        pieDataset.setValue("Valeur2", new Integer(10)); 
+        pieDataset.setValue("Valeur3", new Integer(50)); 
+        pieDataset.setValue("Valeur4", new Integer(5)); 
+
+        JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween other candidates", pieDataset, true, true, true); 
+        ChartPanel cPanel = new ChartPanel(pieChart); 
+        panelCamembert.add(cPanel); 
+        
+        JPanel panelButtonBack = new JPanel();
+        panelButtonBack.add(buttonBack);
+        
+        JPanel box = new JPanel();
+        box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
+        box.add(panelCamembert);
+        box.add(panelButtonBack);
+        
+        add(box);
         setVisible(true);
     }
     
