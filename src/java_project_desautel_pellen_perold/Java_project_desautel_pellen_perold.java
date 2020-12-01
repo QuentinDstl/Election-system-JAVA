@@ -26,8 +26,8 @@ public class Java_project_desautel_pellen_perold {
         Controller THEController = new Controller();
         
         //THEController.startGraphiqueElectors();
-        THEController.startGraphiqueCandidats();
-        
+        //THEController.startGraphiqueCandidats();
+        THEController.startGraphiqueOfficials();
         //THEController.startGraphiqueAccueil();
         int resetOut = 0;
         

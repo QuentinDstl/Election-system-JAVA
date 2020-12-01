@@ -19,23 +19,23 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*; 
 import org.jfree.data.general.*;
 
-public class GraphicCandidatesNational extends JFrame
+public class GraphicOfficialsNational extends JFrame
 {
-    protected int checkCandidatesNational = 0;
+    protected int checkOfficialsNational = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JPanel panelCamembert;
     private final JButton buttonBack;
     
-    public GraphicCandidatesNational()
+    public GraphicOfficialsNational()
     {    
-        checkCandidatesNational = 0;
+        checkOfficialsNational = 0;
         panelCamembert = new JPanel(new BorderLayout());
-        buttonBack = new JButton("Back to menu candidat");
+        buttonBack = new JButton("Back to menu officials");
         buttonBack.addActionListener(new PlayButtonBack());
     }
     
-    public void startCandidatesNational(Candidate m_user_candidate)
+    public void startOfficialsNational(Official m_user_candidate)
     {
         /* Initialisation of the interface */
         setTitle("Score NATIONAL");
@@ -44,12 +44,12 @@ public class GraphicCandidatesNational extends JFrame
         setLocationRelativeTo(null); 
         
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
-        pieDataset.setValue("You ", new Integer(27)); 
+        pieDataset.setValue("Valeur 1 ", new Integer(27)); 
         pieDataset.setValue("Valeur2", new Integer(10)); 
         pieDataset.setValue("Valeur3", new Integer(50)); 
         pieDataset.setValue("Valeur4", new Integer(5)); 
 
-        JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween other candidates", pieDataset, true, true, true); 
+        JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween all candidates", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
         panelCamembert.add(cPanel); 
         
@@ -65,9 +65,9 @@ public class GraphicCandidatesNational extends JFrame
         setVisible(true);
     }
     
-     public int getCheckCandidatesNational ()
+     public int getCheckOfficialsNational ()
     {
-        return checkCandidatesNational;
+        return checkOfficialsNational;
     }
     
     private class PlayButtonBack implements ActionListener
@@ -76,7 +76,7 @@ public class GraphicCandidatesNational extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            checkCandidatesNational = -1;
+            checkOfficialsNational = -1;
         }
     }
 }
