@@ -16,7 +16,9 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 public class GraphicIdentification extends JFrame
 {
     private boolean check;
-    protected boolean checkCandidates = false;
+    private String m_lastName;
+    private String m_firstName;
+    private String m_password;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final String file_name = "pictures\\" + "\\intro2.jpg";
@@ -33,12 +35,6 @@ public class GraphicIdentification extends JFrame
 
     public GraphicIdentification()
     {
-        /* Initialisation of the interface */
-        setTitle("Voting system by 'Go Percer.'");
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
         check = false;
         photoIntroduction = new JLabel(new ImageIcon(file_name));
         messageIntroduction = new JLabel("Welcome to our voting system, "
@@ -51,12 +47,16 @@ public class GraphicIdentification extends JFrame
         passwordEnter = new JTextField(10);
         enter = new JButton("identify me");
         enter.addActionListener(new PlayButtonIdentifyMe());
-       
-        setVisible(true);
     }
     
     public void startIdentification()
     {
+        /* Initialisation of the interface */
+        setTitle("Voting system by 'Go Percer.'");
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
         JPanel box = new JPanel();
         box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
         
@@ -94,11 +94,18 @@ public class GraphicIdentification extends JFrame
     {
         return check;
     }
-    public boolean getCheckCandidates ()
+    public String getLastName()
     {
-        return checkCandidates;
+        return m_lastName;
     }
-
+    public String getFirstName()
+    {
+        return m_firstName;
+    }
+    public String getPassword()
+    {
+        return m_password;
+    }
     
     private class PlayButtonIdentifyMe implements ActionListener
     {
@@ -122,7 +129,10 @@ public class GraphicIdentification extends JFrame
             }
             else
             {
-                /* DELETE */ System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
+                //System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
+                m_firstName = captureFirstName;
+                m_lastName = captureLastName;
+                m_password = capturePassword;
                 check = true;
                 setVisible(false);
             }   

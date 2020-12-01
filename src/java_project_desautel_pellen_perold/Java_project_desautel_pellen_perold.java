@@ -25,41 +25,31 @@ public class Java_project_desautel_pellen_perold {
         //yo.createTableElector();
         //yo.addCandidate("Dého", "qd", "puceauLand");
         
+
         /* PARTIE GRAPHIQUE EN TEST */
+        Controller THEController = new Controller();
         
-        //testGraphiqueAccueil();
-        testGraphiqueElectors();
+        //THEController.startGraphiqueElectors();
+        THEController.startGraphiqueCandidats();
         
-    }
-    
-    public static void testGraphiqueAccueil()
-    {
-        GraphicIdentification test1 = new GraphicIdentification();
-        test1.startIdentification();
-        boolean checkIdentification = false;
+        //THEController.startGraphiqueAccueil();
+        int resetOut = 0;
         
-        /* Blindage */ 
-        while (checkIdentification == false) {            
-            checkIdentification = test1.getCheck();
+        do 
+        {            
             System.out.print("");
-        } 
+            resetOut = THEController.getReset();
+            if (resetOut == 1)
+            {
+                THEController = new Controller();
+                THEController.startGraphiqueAccueil();
+                resetOut =0;
+            }
+        } while (resetOut == 0);
+
         
-        System.out.println("hey");
+        System.exit(0);
     }
     
-    public static void testGraphiqueElectors()
-    {
-        GraphicElectors test2 = new GraphicElectors();
-        test2.startElectors();
-        
-        boolean checkElectors = false;
-    }
     
-    public static void testGraphiqueCandidats()
-    {
-        GraphicCandidates test3 = new GraphicCandidates();
-        test3.startCandidates();
-        
-        boolean checkCandidates = false;
-    }
 }

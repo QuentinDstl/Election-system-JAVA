@@ -8,6 +8,9 @@ public abstract class Person {
     private String m_password;
     private int m_id;
     
+    /* Constantes */
+    private int ID_NOT_DEFINED = -1;
+    
     
     /* Constructeeur */
     /* De la DATABASE */
@@ -15,7 +18,7 @@ public abstract class Person {
         m_last_name = null;
         m_first_name = null;
         m_password = null;
-        m_id = 0;
+        m_id = ID_NOT_DEFINED;
     }
     
     /* De le saisie d'un officiel */
@@ -23,7 +26,7 @@ public abstract class Person {
         m_last_name = last_name;
         m_first_name = first_name;
         m_password = password;
-        //S'occuper de m_id
+        m_id = ID_NOT_DEFINED;
     }
     
     /* Getter */
@@ -37,6 +40,10 @@ public abstract class Person {
     
     public String getPassword() {
         return m_password;
+    }
+    
+    public int getId() {
+        return m_id;
     }
     
     /* Setters pour la DATABASE */
@@ -54,5 +61,11 @@ public abstract class Person {
     
     public void setIdFromDataBase(int id_db) {
         m_id = id_db;
+    }
+    
+    
+    /* Setters */
+    public void setId(int id) {
+        m_id = id;
     }
 }

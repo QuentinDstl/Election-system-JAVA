@@ -6,8 +6,8 @@ import java.sql.*;
 public class ElectorDAOImpl implements  ElectorDAO {
     
     /* Variables */
-    private Connection m_connection;
-    private Statement m_statement;
+    private final Connection m_connection;
+    private final Statement m_statement;
 
     /* Constants */
     private static final String CREATION_TABLE_ELECTOR = "CREATE TABLE IF NOT EXISTS `elector`"
@@ -18,7 +18,8 @@ public class ElectorDAOImpl implements  ElectorDAO {
                                                         + " `nameState` VARCHAR(20) NOT NULL, "
                                                         + " `nameCandidate` VARCHAR(20), "
                                                         + " `id` INT(6) NOT NULL AUTO_INCREMENT, "
-                                                        + " PRIMARY KEY(`id`) "
+                                                        + " PRIMARY KEY(`id`), "
+                                                        + " CONSTRAINT `unique_person` UNIQUE (`lastname`, `firstname`, `password`) "
                                                         + ") "
                                                         + "ENGINE = InnoDB " 
                                                         + "CHARACTER SET utf8mb4 " 
@@ -29,7 +30,12 @@ public class ElectorDAOImpl implements  ElectorDAO {
     private static final String ADD_ELECTOR = "INSERT INTO `elector`";
 
     private static final String DELETE_ELECTOR = "DELETE FROM `elector`";
-
+    
+    private static final String DECREMENT_ID_ELECTOR = "UPDATE `elector` SET id=id-1";
+    
+    private static final String COUNT_NBR_OF_ELECTORS = "SELECT COUNT(*) FROM `elector`;";
+    
+    
 
     /* Constructor */
     public ElectorDAOImpl() throws SQLException {
@@ -48,7 +54,8 @@ public class ElectorDAOImpl implements  ElectorDAO {
         System.out.println(DROP_TABLE_ELECTOR);
     }
     
-    public void addCandidate(String last_name, String first_name, String password, String name_state) throws SQLException {
+    
+    public void addElector(String last_name, String first_name, String password, String name_state) throws SQLException {
         m_statement.executeUpdate(ADD_ELECTOR 
                                 + "(`lastname`, `firstname`, `password`, `nameState`)"
                                 + "Values (" 
@@ -57,13 +64,114 @@ public class ElectorDAOImpl implements  ElectorDAO {
                                 + "'" +password + "', "
                                 + "'" +name_state + "'"
                                 + ");");
-        System.out.println(ADD_ELECTOR);
+        System.out.println(ADD_ELECTOR);      
     }
     
-    public void deleteCandidate(int id) throws SQLException {
+    public void deleteElector(int id) throws SQLException {
         m_statement.executeUpdate(DELETE_ELECTOR 
                                 + "WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
+        decrementeIdElectors(id);
     }
     
+    public void decrementeIdElectors(int id) throws SQLException {
+        m_statement.executeUpdate(DECREMENT_ID_ELECTOR + "WHERE id > " +id + ";");
+    }
+    
+    
+    /* Méthodes de requêtes */
+    public int getNumberOfElectorsIntoTable() throws SQLException {
+        int number_of_electors;
+        ResultSet resultLecture = m_statement.executeQuery(COUNT_NBR_OF_ELECTORS);
+        resultLecture.next();
+        number_of_electors = resultLecture.getInt(1);
+        System.out.println("number electors : " +number_of_electors);
+        return number_of_electors;
+    }
+    
+    public String getLastNameElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("last name : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getFirstNameElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("first name : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getPasswordElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("password : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getNameStateOfElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("name state : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    public String getNameCandidateOfElectorIntoTable(int num_case) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameCandidate` FROM `elector` WHERE id = " +num_case + ";");
+        resultLecture.next();
+        System.out.println("name candidate : " +resultLecture.getString(1));
+        return resultLecture.getString(1);
+    }
+    
+    
+    /* Méthodes de vérification des données de l'utilisateur */
+    public boolean checkUserElectorName(String last_name, String first_name) throws SQLException {
+        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name));
+    }
+    
+    public boolean checkUserElectorPassword(String last_name, String first_name, String password) throws SQLException {
+        return (getIdUserWithPassword(password) == getIdUserWithLastName(last_name) &&
+                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name));
+    }
+            
+            
+    public int getIdUserWithConstraintUniquePerson(String last_name, String first_name, String password) throws  SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE lastname = " +last_name 
+                                                                                       + " AND firstname = " +first_name
+                                                                                       + ",AND password = " +password + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
+    public int getIdUserWithLastName(String last_name) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE lastname = " +last_name + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
+    public int getIdUserWithFirstName(String first_name) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE firstname = " +first_name + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
+    
+    public int getIdUserWithPassword(String password) throws SQLException {
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE password = " +password + ";");
+        resultLecture.next();
+        System.out.println("id : " +resultLecture.getInt(1));
+        return resultLecture.getInt(1);
+    }
 }

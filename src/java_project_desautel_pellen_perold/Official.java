@@ -1,25 +1,55 @@
 package java_project_desautel_pellen_perold;
 
+import dao_package.ElectorDAO;
+import dao_package.OfficialDAO;
+import dao_package.OfficialDAOImpl;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Official extends Person {
     
-    /* Constructor */
-    public Official () {
+    private OfficialDAOImpl official_from_db = new OfficialDAOImpl();
+    
+    private Election election_access = new Election();
+    
+    
+    /* Constructeur */
+    /* De la DATABASE */
+    public Official(int num_case) throws SQLException {
+        
         super();
+        setLastNameFromDataBase(official_from_db.getLastNameOfficialIntoTable(num_case));
+        setFirstNameFromDataBase(official_from_db.getFirstNameOfficialIntoTable(num_case));  
+        setPasswordFromDataBase(official_from_db.getPasswordOfficialIntoTable(num_case));
+        setIdFromDataBase(num_case + OfficialDAO.FIRST_ID_OFFICIAL);   
     }
     
-    public void deleteElector() {
+    public void downLoadOfficialDataBase() throws SQLException {
+        election_access.downloadDataBaseForOfficial();
+    }
+    
+    
+    public ArrayList<Elector> getElectors() {
+        return election_access.getElectors();
+    }
+    
+    public void deleteElector(Elector choosen_elector) throws SQLException {
+        election_access.deleteElector(choosen_elector.getId() - ElectorDAO.FIRST_ID_ELECTOR);
+    }
+    
+    public void addElector(String last_name, String first_name, State state) throws SQLException {
+        election_access.addElector(last_name, first_name, state);
+    }
+    
+    public ArrayList<Candidate> getCandidates() {
+        return election_access.getCandidates();
+    }
+    
+    public void deleteCandidate() {
         
     }
     
-    public void addElector() {
-        
-    }
-    
-    public void deleteCandidat() {
-        
-    }
-    
-    public void addCandidat() {
+    public void addCandidate() {
         
     }
     
@@ -43,4 +73,5 @@ public class Official extends Person {
         else
             state.setPause(!state.isPause());                                   // We inverse the actual value in pause
     }
+   
 }

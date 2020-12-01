@@ -13,7 +13,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class GraphicElectors extends GraphicIdentification
 {
-    private boolean check;
+    private int checkElectors = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 750;
     private final String imageBiden = "pictures\\" + "\\biden.jpg";
@@ -38,7 +38,7 @@ public class GraphicElectors extends GraphicIdentification
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        check = false;
+        checkElectors = 0;
         messageIntro1 = new JLabel("                                       Your lastname :                                    ");
         messageIntro2 = new JLabel("                                          LASTAME                                        ");
         messageIntro2.setForeground(Color.BLUE);
@@ -86,9 +86,9 @@ public class GraphicElectors extends GraphicIdentification
         setVisible(true);
     }
     
-    public boolean getCheck()
+    public int getCheckElectors()
     {
-        return check;
+        return checkElectors;
     }
     
     private class PlayButtonTrump implements ActionListener
@@ -111,8 +111,9 @@ public class GraphicElectors extends GraphicIdentification
     {
         @Override
         public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("JE SUIS UNE MERDE ET JE NE VEUX PLUS VOTER");
+        {   
+            setVisible(false);
+            checkElectors = -1;   
         }
     }
 }

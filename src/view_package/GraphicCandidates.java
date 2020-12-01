@@ -11,8 +11,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-public class GraphicCandidates extends GraphicIdentification
+public class GraphicCandidates extends JFrame
 {
+    protected int checkCandidates = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JLabel messageEnter;
@@ -22,12 +23,7 @@ public class GraphicCandidates extends GraphicIdentification
     
     public GraphicCandidates()
     {
-        /* Initialisation of the interface */
-        setTitle("See your futur victory");
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-
+        checkCandidates = 0;
         messageEnter = new JLabel("You are the candidate DONALD TRUMP");
         buttonNational = new  JButton("See my national score");
         buttonNational.addActionListener(new PlayButtonShowNational());
@@ -39,6 +35,12 @@ public class GraphicCandidates extends GraphicIdentification
     
     public void startCandidates()
     {
+        /* Initialisation of the interface */
+        setTitle("See your futur victory");
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
         setLayout(new GridLayout(4,1));
         
         JPanel panelMessageEnter = new JPanel();
@@ -48,37 +50,31 @@ public class GraphicCandidates extends GraphicIdentification
         add(buttonNational);
         add(buttonState);
         add(buttonCancel);
-        
         setVisible(true);
     }
     
+    public int getCheckCandidates ()
+    {
+        return checkCandidates;
+        
+    }
+   
     private class PlayButtonShowNational implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            GraphicCandidatesNational test4 = new GraphicCandidatesNational();
-            test4.startCandidatesNational();
-            boolean checkCandidatesNationalOut = false;
-           
-            
-            while (checkCandidatesNationalOut == false) {  
-                System.out.print("");
-                checkCandidatesNationalOut = test4.getCheckCandidatesNational();
-            }
-            
-            System.out.println("HEYYYYYY");
+            checkCandidates = 1;
         }
     }
-    
-    
     private class PlayButtonShowState implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("JE REGARDE STATE");
+            setVisible(false);
+            checkCandidates = 2;
         }
     }
     private class PlayButtonCancel implements ActionListener
@@ -87,7 +83,7 @@ public class GraphicCandidates extends GraphicIdentification
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            checkCandidates = true;
+            checkCandidates = -1;
         }
     }
 }
