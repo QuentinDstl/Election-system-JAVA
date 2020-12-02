@@ -25,6 +25,10 @@ public class OfficialDAOImpl implements OfficialDAO {
     
     private static final String DROP_TABLE_OFFICIAL = "DROP TABLE IF EXISTS `official`;";
     
+    private static final String DELETE_OFFICIAL = "DELETE FROM `official`";
+    
+    private static final String DECREMENT_ID_OFFICIAL = "UPDATE `official` SET id=id-1";
+    
     private static final String COUNT_NBR_OF_OFFICIALS = "SELECT COUNT(*) FROM `official`;";
     
     /* Constructeur */
@@ -42,6 +46,17 @@ public class OfficialDAOImpl implements OfficialDAO {
     public void dropTableOfficial() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_OFFICIAL);
         System.out.println(DROP_TABLE_OFFICIAL);
+    }
+    
+    public void deleteOfficial(int id) throws SQLException {
+        m_statement.executeUpdate(DELETE_OFFICIAL 
+                                + "WHERE `id` = " +id + ";");
+        System.out.println(DELETE_OFFICIAL);
+        decrementeIdOfficials(id);
+    }
+    
+    public void decrementeIdOfficials(int id) throws SQLException {
+        m_statement.executeUpdate(DECREMENT_ID_OFFICIAL + "WHERE id > " +id + ";");
     }
     
     

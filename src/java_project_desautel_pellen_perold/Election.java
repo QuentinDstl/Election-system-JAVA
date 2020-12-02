@@ -1,9 +1,12 @@
 package java_project_desautel_pellen_perold;
 
+import config_package.Log;
+import dao_package.CandidateDAO;
 import dao_package.CandidateDAOImpl;
 import dao_package.ElectionDAOImpl;
 import dao_package.ElectorDAO;
 import dao_package.ElectorDAOImpl;
+import dao_package.OfficialDAO;
 import dao_package.OfficialDAOImpl;
 import dao_package.StateDAO;
 import dao_package.StateDAOImpl;
@@ -48,7 +51,12 @@ public class Election {
     }
     
     public void downloadDataBaseForCandidate() throws SQLException {
-        m_candidates = downLoadCandidatesListFromTable();
+        try {
+            m_candidates = downLoadCandidatesListFromTable();
+        }
+        catch(IllegalArgumentException e) {
+            Log.add(e.getMessage());
+        }
     }
     
     public void downloadDataBaseForOfficial() throws  SQLException {
@@ -60,29 +68,101 @@ public class Election {
         m_candidates = downLoadCandidatesListFromTable();
     }
     
-    public ArrayList<Candidate> downLoadCandidatesListFromTable() throws SQLException { 
+    public ArrayList<Candidate> downLoadCandidatesListFromTable() throws SQLException, IllegalArgumentException { 
         ArrayList<Candidate> candidates = new ArrayList<>();
-        int nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
+        int nb_candidates;
+        
+        if(candidate_from_db.getNumberOfCandidatesIntoTable() < 0) {
+            throw new IllegalArgumentException(": Negative number of candidates");
+        } 
+        else if(candidate_from_db.getNumberOfCandidatesIntoTable() > CandidateDAO.NUMBER_MAX_OF_CANDIDATES) {
+            throw new IllegalArgumentException(": Too much candidates to add one more");
+        }
+        else {
+            nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
+        }
+        
         for(int case_index=0; case_index<nb_candidates; ++case_index) {
-            candidates.add(new Candidate(case_index));
+            try {
+                candidates.add(new Candidate(case_index));
+            }
+            catch(SQLException e) {
+                try {
+                    Log.add(e.getMessage() 
+                        +candidate_from_db.getLastNameCandidateIntoTable(case_index)
+                        +candidate_from_db.getFirstNameCandidateIntoTable(case_index));
+                }
+                catch(SQLException excep2) {
+                    Log.add(excep2.getMessage());
+                }
+                case_index--;
+                candidate_from_db.deleteCandidate(case_index);
+            }
         }
         return candidates;
     }
     
     public ArrayList<Official> downLoadOfficialsListFromTable() throws SQLException { 
         ArrayList<Official> officials = new ArrayList<>();
-        int nb_officials = official_from_db.getNumberOfOfficialsIntoTable();
+        int nb_officials;
+        
+        if(official_from_db.getNumberOfOfficialsIntoTable()< 0) {
+            throw new IllegalArgumentException(": Negative number of officials");
+        } 
+        else if(official_from_db.getNumberOfOfficialsIntoTable() > OfficialDAO.NUMBER_MAX_OFFICIALS) {
+            throw new IllegalArgumentException(": Too much officials to add one more");
+        }
+        else {
+            nb_officials = official_from_db.getNumberOfOfficialsIntoTable();
+        }
+        
         for(int case_index=0; case_index<nb_officials; ++case_index) {
-            officials.add(new Official(case_index));
+            try {
+                officials.add(new Official(case_index));
+            }
+            catch(SQLException e) {
+                try {
+                    Log.add(e.getMessage() 
+                        +official_from_db.getLastNameOfficialIntoTable(case_index)
+                        +official_from_db.getFirstNameOfficialIntoTable(case_index));
+                }
+                catch(SQLException excep2) {
+                    Log.add(excep2.getMessage());
+                }
+                case_index--;
+                official_from_db.deleteOfficial(case_index);
+            }
         }
         return officials;
     }
     
     public ArrayList<Elector> downLoadElectorsListFromTable() throws SQLException { 
         ArrayList<Elector> electors = new ArrayList<>();
-        int nb_electors = elector_from_db.getNumberOfElectorsIntoTable();
+        int nb_electors;
+        
+        if(elector_from_db.getNumberOfElectorsIntoTable()< 0) {
+            throw new IllegalArgumentException(": Negative number of electors");
+        } 
+        else {
+            nb_electors = official_from_db.getNumberOfOfficialsIntoTable();
+        }
+        
         for(int case_index=0; case_index<nb_electors; ++case_index) {
-            electors.add(new Elector(case_index));
+            try {
+                electors.add(new Elector(case_index));
+            }
+            catch(SQLException e) {
+                try {
+                    Log.add(e.getMessage() 
+                        +elector_from_db.getLastNameElectorIntoTable(case_index)
+                        +elector_from_db.getFirstNameElectorIntoTable(case_index));
+                }
+                catch(SQLException excep2) {
+                    Log.add(excep2.getMessage());
+                }
+                case_index--;
+                elector_from_db.deleteElector(case_index);
+            }
         }
         return electors;
     }
