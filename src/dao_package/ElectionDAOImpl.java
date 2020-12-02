@@ -28,12 +28,12 @@ public class ElectionDAOImpl implements ElectionDAO {
     }
     
     /* Méthodes de modification des tables */
-    public void createTableCandidate() throws SQLException {   
+    public void createTableElection() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_ELECTION);
         System.out.println(CREATION_TABLE_ELECTION);
     }
     
-    public void dropTableCandidate() throws SQLException {
+    public void dropTableElection() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_ELECTION);
         System.out.println(DROP_TABLE_ELECTION);
     }
