@@ -1,7 +1,6 @@
 package java_project_desautel_pellen_perold;
 
-import dao_package.ElectorDAO;
-import dao_package.OfficialDAO;
+import dao_package.DAO;
 import dao_package.OfficialDAOImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class Official extends Person {
         setLastNameFromDataBase(official_from_db.getLastNameOfficialIntoTable(num_case));
         setFirstNameFromDataBase(official_from_db.getFirstNameOfficialIntoTable(num_case));  
         setPasswordFromDataBase(official_from_db.getPasswordOfficialIntoTable(num_case));
-        setIdFromDataBase(num_case + OfficialDAO.FIRST_ID_OFFICIAL);   
+        setIdFromDataBase(num_case + DAO.FIRST_ID_OFFICIAL);   
     }
     
     public void downLoadOfficialDataBase() throws SQLException {
@@ -34,7 +33,7 @@ public class Official extends Person {
     }
     
     public void deleteElector(Elector choosen_elector) throws SQLException {
-        election_access.deleteElector(choosen_elector.getId() - ElectorDAO.FIRST_ID_ELECTOR);
+        election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR);
     }
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {

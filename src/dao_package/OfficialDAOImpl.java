@@ -3,7 +3,7 @@ package dao_package;
 import config_package.Config;
 import java.sql.*;
 
-public class OfficialDAOImpl implements OfficialDAO {
+public class OfficialDAOImpl implements DAO {
     
     /* Variables */
     private final Connection m_connection;
@@ -28,6 +28,8 @@ public class OfficialDAOImpl implements OfficialDAO {
     private static final String DELETE_OFFICIAL = "DELETE FROM `official`";
     
     private static final String DECREMENT_ID_OFFICIAL = "UPDATE `official` SET id=id-1";
+
+    private static final String ADD_OFFICIAL = "INSERT INTO `official`";
     
     private static final String COUNT_NBR_OF_OFFICIALS = "SELECT COUNT(*) FROM `official`;";
     
@@ -37,28 +39,46 @@ public class OfficialDAOImpl implements OfficialDAO {
         m_statement = m_connection.createStatement();
     }
     
-    public void createTableOfficial() throws SQLException {   
+    @Override
+    public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_OFFICIAL);
         m_statement.executeUpdate("ALTER TABLE `official` AUTO_INCREMENT = " +FIRST_ID_OFFICIAL +";");
         System.out.println(CREATION_TABLE_OFFICIAL);
     }
     
-    public void dropTableOfficial() throws SQLException {
+    @Override
+    public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_OFFICIAL);
         System.out.println(DROP_TABLE_OFFICIAL);
     }
-    
+
     public void deleteOfficial(int id) throws SQLException {
         m_statement.executeUpdate(DELETE_OFFICIAL 
                                 + "WHERE `id` = " +id + ";");
         System.out.println(DELETE_OFFICIAL);
         decrementeIdOfficials(id);
     }
-    
+
     public void decrementeIdOfficials(int id) throws SQLException {
         m_statement.executeUpdate(DECREMENT_ID_OFFICIAL + "WHERE id > " +id + ";");
     }
-    
+
+    /**
+     * @param args
+     * String lastName, String firstName, String password
+     * @throws java.sql.SQLException
+    */
+    @Override
+    public void addToTable(String... args) throws SQLException, IllegalArgumentException {      
+        String query = ADD_OFFICIAL + "(`lastname`, `firstname`, `password`)" + "Values (" ;
+        for(String str : args){
+                query += "'" + str + "', ";
+        }
+        query = query.substring(0, query.length() - 2);
+        query += ");";
+        m_statement.executeUpdate(query);
+        System.out.println(ADD_OFFICIAL);
+    }
     
     /* Méthodes de requêtes */
     public int getNumberOfOfficialsIntoTable() throws SQLException {

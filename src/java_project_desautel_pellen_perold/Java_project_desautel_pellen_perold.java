@@ -36,7 +36,7 @@ public class Java_project_desautel_pellen_perold {
         int resetOut = 0;
         
         do 
-        {            
+        {
             System.out.print("");
             resetOut = THEController.getReset();
             if (resetOut == 1)
@@ -46,10 +46,6 @@ public class Java_project_desautel_pellen_perold {
                 resetOut =0;
             }
         } while (resetOut == 0);
-
-        
         System.exit(0);
     }
-    
-    
 }

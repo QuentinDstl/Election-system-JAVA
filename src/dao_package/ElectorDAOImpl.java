@@ -3,7 +3,7 @@ package dao_package;
 import config_package.Config;
 import java.sql.*;
 
-public class ElectorDAOImpl implements  ElectorDAO {
+public class ElectorDAOImpl implements  DAO {
     
     /* Variables */
     private final Connection m_connection;
@@ -17,6 +17,7 @@ public class ElectorDAOImpl implements  ElectorDAO {
                                                         + " `password` VARCHAR(10) NOT NULL, "
                                                         + " `nameState` VARCHAR(20) NOT NULL, "
                                                         + " `nameCandidate` VARCHAR(20), "
+                                                        + " `vote` BOOLEAN DEFAULT 0, "
                                                         + " `id` INT(6) NOT NULL AUTO_INCREMENT, "
                                                         + " PRIMARY KEY(`id`), "
                                                         + " CONSTRAINT `unique_person` UNIQUE (`lastname`, `firstname`, `password`) "
@@ -43,28 +44,36 @@ public class ElectorDAOImpl implements  ElectorDAO {
         m_statement = m_connection.createStatement();
     }
 
-    public void createTableElector() throws SQLException {   
+    @Override
+    public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_ELECTOR);
         m_statement.executeUpdate("ALTER TABLE `elector` AUTO_INCREMENT = " +FIRST_ID_ELECTOR +";");
         System.out.println(CREATION_TABLE_ELECTOR);
     }
     
-    public void dropTableElector() throws SQLException {
+    @Override
+    public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_ELECTOR);
         System.out.println(DROP_TABLE_ELECTOR);
     }
     
     
-    public void addElector(String last_name, String first_name, String password, String name_state) throws SQLException {
-        m_statement.executeUpdate(ADD_ELECTOR 
-                                + "(`lastname`, `firstname`, `password`, `nameState`)"
-                                + "Values (" 
-                                + "'" +last_name + "', "
-                                + "'" +first_name  + "', "
-                                + "'" +password + "', "
-                                + "'" +name_state + "'"
-                                + ");");
-        System.out.println(ADD_ELECTOR);      
+    /**
+     * @param args
+     * String lastName, String firstName, String password, String nameState, String nameCandidate, String (boolean) vote
+     * @throws java.sql.SQLException
+    */
+    @Override
+    public void addToTable(String... args) throws SQLException {       
+        String query = ADD_ELECTOR + "(`lastname`, `firstname`, `password`, `nameState`, `nameCandidate`, `vote`)" + "Values (" ;
+        System.out.println("add1");
+        for(int i=0; i<args.length-1; i++){
+            query += "'" + args[i] + "', ";
+            System.out.println("add : " + i);
+        }
+        query += "'" + Integer.parseInt(args[5]) + "');";
+        m_statement.executeUpdate(query);
+        System.out.println(ADD_ELECTOR);
     }
     
     public void deleteElector(int id) throws SQLException {

@@ -3,7 +3,7 @@ package dao_package;
 import config_package.Config;
 import java.sql.*;
 
-public class CandidateDAOImpl implements CandidateDAO
+public class CandidateDAOImpl implements DAO
 {
     /* Variables */
     private final Connection m_connection;
@@ -45,25 +45,31 @@ public class CandidateDAOImpl implements CandidateDAO
     
     
     /* Méthodes de modification des tables */
-    public void createTableCandidate() throws SQLException {   
+    @Override
+    public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_CANDIDATE);
         System.out.println(CREATION_TABLE_CANDIDATE);
     }
     
-    public void dropTableCandidate() throws SQLException {
+    @Override
+    public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_CANDIDATE);
         System.out.println(DROP_TABLE_CANDIDATE);
-    }
+    }    
     
-    public void addCandidate(String last_name, String first_name, String password, String party) throws SQLException {
-        m_statement.executeUpdate(ADD_CANDIDATE 
-                                + "(`lastname`, `firstname`, `password`, `party`)"
-                                + "Values (" 
-                                + "'" +last_name + "', "
-                                + "'" +first_name  + "', "
-                                + "'" +password + "', "
-                                + "'" +party + "'"
-                                + ");");
+    /**
+     * @param args
+     * String lastName, String firstName, String password, String party, String (int) nbrVoteTotal
+     * @throws java.sql.SQLException
+    */
+    @Override
+    public void addToTable(String... args) throws SQLException, IllegalArgumentException {
+        String query = ADD_CANDIDATE + "(`lastname`, `firstname`, `password`, `party`, `nbrVoteTotal`)" + "Values (" ;
+        for(int i= 0; i<args.length-1; i++){
+            query += "'" + args[i] + "', ";
+        }
+        query +=  "'" + Integer.parseInt(args[4]) + "');";
+        m_statement.executeUpdate(query);
         System.out.println(ADD_CANDIDATE);
     }
     
