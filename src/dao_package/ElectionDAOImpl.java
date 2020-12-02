@@ -3,7 +3,7 @@ package dao_package;
 import config_package.Config;
 import java.sql.*;
 
-public class ElectionDAOImpl implements ElectionDAO {
+public class ElectionDAOImpl implements DAO {
     
     /* Variables */
     private final Connection m_connection;
@@ -21,6 +21,8 @@ public class ElectionDAOImpl implements ElectionDAO {
     
     private static final String DROP_TABLE_ELECTION = "DROP TABLE IF EXISTS `election`;";
     
+    private static final String ADD_ELECTION = "INSERT INTO `election`";
+    
     /* Constructor */
     public ElectionDAOImpl() throws SQLException {   
         m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
@@ -28,17 +30,34 @@ public class ElectionDAOImpl implements ElectionDAO {
     }
     
     /* Méthodes de modification des tables */
-    public void createTableElection() throws SQLException {   
+    @Override
+    public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_ELECTION);
         System.out.println(CREATION_TABLE_ELECTION);
     }
     
-    public void dropTableElection() throws SQLException {
+    @Override
+    public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_ELECTION);
         System.out.println(DROP_TABLE_ELECTION);
     }
     
-    
+    /**
+     * @param args
+     * String (boolean) openVote
+     * @throws java.sql.SQLException
+    */
+    @Override
+    public void addToTable(String... args) throws SQLException, IllegalArgumentException {
+        if(args.length!=1)
+            throw new IllegalArgumentException("ElectionDAOImpl.addToTable() need 4 Strings");
+        String query = ADD_ELECTION + "(`openVote`)" + "Values (" ;
+        query += "'" + Integer.parseInt(args[0]) + "');";
+
+        m_statement.executeUpdate(query);
+        System.out.println(ADD_ELECTION);
+    }
+
     /* Méthodes de requêtes */
     public boolean getOpenVoteConditionIntoTable() throws SQLException {
         

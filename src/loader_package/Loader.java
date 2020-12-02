@@ -1,4 +1,5 @@
 // https://www.mets-blog.com/java-read-excel-xlsx-file-part-1/
+// https://docs.oracle.com/javase/tutorial/java/generics/bounded.html
 package loader_package;
 
 import config_package.Log;
@@ -10,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -39,26 +42,31 @@ public class Loader implements LoaderInterface {
         }
     }
     
-    private static <T> void addToDataBase(int sheetType, String[] data, T t) {
+    private static <T extends DAO> void addToDataBase(int sheetType, String[] data,T t) {
         
-        switch (sheetType) {
-            case ELECTOR_SHEET:
-                //t.addElector(data[0], data[1], data[3], data[2]);
-                break;
-            case CANDIDAT_SHEET:
-                
-                break;
-            case STATE_SHEET:
-                
-                break;
-            case OFFICIAL_SHEET:
-                
-                break;
-            case ELECTION_SHEET:
-                
-                break;
-            default:
-                throw new IllegalArgumentException("sheetType is not inside [0,4]");
+        try {
+            switch (sheetType) {
+                case ELECTOR_SHEET:
+                    t.addToTable(data[0],data[1],data[2],data[3],data[4],data[5]);
+                    break;
+                case CANDIDAT_SHEET:
+                    t.addToTable(data[0],data[1],data[2],data[3],data[4]);
+                    break;
+                case STATE_SHEET:
+                    t.addToTable(data[0],data[1],data[2],data[3]);
+                    break;
+                case OFFICIAL_SHEET:
+                    t.addToTable(data[0],data[1],data[2]);
+                    break;
+                case ELECTION_SHEET:
+                    t.addToTable(data[0]);
+                    break;
+                default:
+                    throw new IllegalArgumentException("sheetType is not inside [0,4]");
+            }
+        }
+        catch (SQLException | ArrayIndexOutOfBoundsException e) {
+            Log.add("error SQL in addToDataBase in the Loader : " + e.getMessage());
         }
     }
     
@@ -114,7 +122,7 @@ public class Loader implements LoaderInterface {
         return stringList;
     }
 
-    private static <T> void loadSheet(InputStream input, List<String> sharedStrings, int sheetType, T t)
+    private static <T extends DAO> void loadSheet(InputStream input, List<String> sharedStrings, int sheetType, T t)
             throws XMLStreamException, FactoryConfigurationError, IOException, IllegalArgumentException {
 
         int sizeOfCells = getSizeofSheet(sheetType);
@@ -165,35 +173,39 @@ public class Loader implements LoaderInterface {
     
     public static void loadXLSX(String filename) {
         
+        Log.add("start laodXLSX");
+        
         try (ZipFile zipFile = new ZipFile(filename)) {
             ArrayList<InputStream> list = getSheetsXML(zipFile);
             List<String> input = getSharedStrings(zipFile);
             
             final ElectorDAOImpl electorDAOImpl = new ElectorDAOImpl();
-            electorDAOImpl.createTableElector();
-            loadSheet(list.get(ELECTOR_SHEET), input, ELECTOR_SHEET, electorDAOImpl);
+            initInTable(ELECTOR_SHEET, input, list, electorDAOImpl);
             
             final CandidateDAOImpl candidateDAOImpl = new CandidateDAOImpl();
-            candidateDAOImpl.createTableCandidate();
-            loadSheet(list.get(CANDIDAT_SHEET), input, CANDIDAT_SHEET, candidateDAOImpl);
+            initInTable(CANDIDAT_SHEET, input, list, candidateDAOImpl);
             
             final StateDAOImpl stateDAOImpl = new StateDAOImpl();
-            stateDAOImpl.createTableState();
-            loadSheet(list.get(STATE_SHEET), input, STATE_SHEET, stateDAOImpl);
+            initInTable(STATE_SHEET, input, list, stateDAOImpl);
             
             final OfficialDAOImpl officialDAOImpl = new OfficialDAOImpl();
-            officialDAOImpl.createTableOfficial();
-            loadSheet(list.get(OFFICIAL_SHEET), input, OFFICIAL_SHEET, officialDAOImpl);
+            initInTable(OFFICIAL_SHEET, input, list, officialDAOImpl);
             
             final ElectionDAOImpl electionDAOImpl = new ElectionDAOImpl();
-            electionDAOImpl.createTableElection();
-            loadSheet(list.get(ELECTION_SHEET), input, ELECTION_SHEET, electionDAOImpl);
+            initInTable(ELECTION_SHEET, input, list, electionDAOImpl);
         }
         catch (IOException | XMLStreamException | FactoryConfigurationError e) {
             Log.add("The loadding of the xlsx file have problem : " + e.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(Loader.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (SQLException e) {
-            Log.add("Can't create table : + " + e.getMessage());
-        }
+        Log.add("end laodXLSX");
+    }
+    
+    private static <T extends DAO> void initInTable(int sheetType, List<String> input, ArrayList<InputStream> list, T t)
+            throws FactoryConfigurationError, IOException, SQLException, XMLStreamException {
+        t.dropTable();
+        t.createTable();
+        loadSheet(list.get(sheetType), input, sheetType, t);
     }
 }

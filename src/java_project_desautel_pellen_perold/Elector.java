@@ -1,6 +1,6 @@
 package java_project_desautel_pellen_perold;
 
-import dao_package.ElectorDAO;
+import dao_package.DAO;
 import dao_package.ElectorDAOImpl;
 import java.sql.SQLException;
 
@@ -25,7 +25,7 @@ public class Elector extends Person {
         setLastNameFromDataBase(elector_from_db.getLastNameElectorIntoTable(num_case));
         setFirstNameFromDataBase(elector_from_db.getFirstNameElectorIntoTable(num_case));  
         setPasswordFromDataBase(elector_from_db.getPasswordElectorIntoTable(num_case));
-        setIdFromDataBase(num_case + ElectorDAO.FIRST_ID_ELECTOR);
+        setIdFromDataBase(num_case + DAO.FIRST_ID_ELECTOR);
         
         m_state = setStateFromDatabase(elector_from_db.getNameStateOfElectorIntoTable(num_case), 
                                         num_case);

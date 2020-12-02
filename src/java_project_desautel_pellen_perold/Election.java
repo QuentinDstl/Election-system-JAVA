@@ -2,10 +2,9 @@ package java_project_desautel_pellen_perold;
 
 import dao_package.CandidateDAOImpl;
 import dao_package.ElectionDAOImpl;
-import dao_package.ElectorDAO;
+import dao_package.DAO;
 import dao_package.ElectorDAOImpl;
 import dao_package.OfficialDAOImpl;
-import dao_package.StateDAO;
 import dao_package.StateDAOImpl;
 import java.util.ArrayList;
 import java.sql.SQLException;
@@ -40,7 +39,7 @@ public class Election {
     /* Méthodes de chargement de la DataBase */
     public ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
-        int nb_states = StateDAO.NUMBER_OF_STATES;
+        int nb_states = DAO.NUMBER_OF_STATES;
         for(int case_index=0; case_index<nb_states; ++case_index) {
             states.add(new State(case_index));
         }
@@ -91,21 +90,21 @@ public class Election {
     /* Méthodes de modification des listes */
     public void deleteElector(int num_case) throws SQLException {
         m_electors.remove(num_case);
-        elector_from_db.deleteElector(num_case + ElectorDAO.FIRST_ID_ELECTOR);
+        elector_from_db.deleteElector(num_case + DAO.FIRST_ID_ELECTOR);
     }
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {
         //try {
             m_electors.add( new Elector(last_name, first_name, state));
-            elector_from_db.addElector(m_electors.get(m_electors.size()-1).getLastName(),
+            elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
                                        m_electors.get(m_electors.size()-1).getFirstName(), 
                                        m_electors.get(m_electors.size()-1).getPassword(), 
                                        m_electors.get(m_electors.size()-1).getState().getName());
-            //if(m_electors.size()-1 + ElectorDAO.FIRST_ID_ELECTOR < 100) {
+            //if(m_electors.size()-1 + DAO.FIRST_ID_ELECTOR < 100) {
                 //throw IllegalArgumentException();
             //}
             //else {
-                m_electors.get(m_electors.size()-1).setId(m_electors.size()-1 + ElectorDAO.FIRST_ID_ELECTOR);
+                m_electors.get(m_electors.size()-1).setId(m_electors.size()-1 + DAO.FIRST_ID_ELECTOR);
             //}
         //} 
         //catch(IllegalArgumentException e) {
