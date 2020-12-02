@@ -19,26 +19,26 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*; 
 import org.jfree.data.general.*;
 
-public class GraphicCandidatesNational extends JFrame
+public class GraphicOfficialsStatesUnique extends JFrame
 {
-    protected int checkCandidatesNational = 0;
+    protected int checkOfficialsStatesUnique = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JPanel panelCamembert;
     private final JButton buttonBack;
     
-    public GraphicCandidatesNational()
-    {    
-        checkCandidatesNational = 0;
+    public GraphicOfficialsStatesUnique()
+    {
+        checkOfficialsStatesUnique = 0;
         panelCamembert = new JPanel(new BorderLayout());
-        buttonBack = new JButton("Back to menu candidat");
+        buttonBack = new JButton("Back to menu states");
         buttonBack.addActionListener(new PlayButtonBack());
     }
     
-    public void startCandidatesNational(Candidate m_user_candidate)
-    {
-        /* Initialisation of the interface */
-        setTitle("Score NATIONAL");
+    public void startOfficialsStatesUnique(Official m_user_official)
+    {   
+       /* Initialisation of the interface */
+        setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
@@ -65,9 +65,9 @@ public class GraphicCandidatesNational extends JFrame
         setVisible(true);
     }
     
-     public int getCheckCandidatesNational ()
+    public int getCheckOfficialsStatesUnique()
     {
-        return checkCandidatesNational;
+        return checkOfficialsStatesUnique;
     }
     
     private class PlayButtonBack implements ActionListener
@@ -76,7 +76,7 @@ public class GraphicCandidatesNational extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            checkCandidatesNational = -1;
+            checkOfficialsStatesUnique = -1;
         }
     }
 }
