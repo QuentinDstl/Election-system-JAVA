@@ -66,10 +66,8 @@ public class ElectorDAOImpl implements  DAO {
     @Override
     public void addToTable(String... args) throws SQLException {       
         String query = ADD_ELECTOR + "(`lastname`, `firstname`, `password`, `nameState`, `nameCandidate`, `vote`)" + "Values (" ;
-        System.out.println("add1");
         for(int i=0; i<args.length-1; i++){
             query += "'" + args[i] + "', ";
-            System.out.println("add : " + i);
         }
         query += "'" + Integer.parseInt(args[5]) + "');";
         m_statement.executeUpdate(query);
