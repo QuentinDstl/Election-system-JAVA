@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class Election {
     private boolean m_openVote;
-    private final ArrayList<State> m_states;
+    private ArrayList<State> m_states;
     
     private ArrayList<Candidate> m_candidates;
     private ArrayList<Official> m_officials;
@@ -40,8 +40,8 @@ public class Election {
     public final ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
         int nb_states = /*DAO.NUMBER_OF_STATES*/3;
-        for(int case_index=1; case_index<=nb_states; ++case_index) {
-            states.add(new State(case_index));
+        for(int case_index=0; case_index<nb_states; ++case_index) {
+            states.add(new State(case_index+1));
         }
         return states;
     }
@@ -51,7 +51,7 @@ public class Election {
     }
     
     public void downloadDataBaseForOfficial() throws  SQLException {
-        //m_candidates = downLoadCandidatesListFromTable();
+        m_candidates = downLoadCandidatesListFromTable();
         m_electors = downLoadElectorsListFromTable();
     }
     
@@ -62,8 +62,8 @@ public class Election {
     public final ArrayList<Candidate> downLoadCandidatesListFromTable() throws SQLException { 
         ArrayList<Candidate> candidates = new ArrayList<>();
         int nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
-        for(int case_index=1; case_index<=nb_candidates; ++case_index) {
-            candidates.add(new Candidate(case_index));
+        for(int case_index=0; case_index<nb_candidates; ++case_index) {
+            candidates.add(new Candidate(case_index + DAO.FIRST_ID_CANDIDATE));
         }
         return candidates;
     }
@@ -71,8 +71,8 @@ public class Election {
     public final ArrayList<Official> downLoadOfficialsListFromTable() throws SQLException { 
         ArrayList<Official> officials = new ArrayList<>();
         int nb_officials = official_from_db.getNumberOfOfficialsIntoTable();
-        for(int case_index=1; case_index<=nb_officials; ++case_index) {
-            officials.add(new Official(case_index + DAO.FIRST_ID_OFFICIAL));
+        for(int case_index=0; case_index<nb_officials; ++case_index) {
+            officials.add(new Official(case_index + DAO.FIRST_ID_OFFICIAL, this));
         }
         return officials;
     }
@@ -80,8 +80,8 @@ public class Election {
     public final ArrayList<Elector> downLoadElectorsListFromTable() throws SQLException { 
         ArrayList<Elector> electors = new ArrayList<>();
         int nb_electors = elector_from_db.getNumberOfElectorsIntoTable();
-        for(int case_index=1; case_index<=nb_electors; ++case_index) {
-            electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR));
+        for(int case_index=0; case_index<nb_electors; ++case_index) {
+            electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR, m_candidates));
         }
         return electors;
     }
@@ -99,7 +99,8 @@ public class Election {
             elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
                                        m_electors.get(m_electors.size()-1).getFirstName(), 
                                        m_electors.get(m_electors.size()-1).getPassword(), 
-                                       m_electors.get(m_electors.size()-1).getState().getName());
+                                       m_electors.get(m_electors.size()-1).getState().getName(),
+                                       null, "0");
             //if(m_electors.size()-1 + DAO.FIRST_ID_ELECTOR < 100) {
                 //throw IllegalArgumentException();
             //}
@@ -110,6 +111,21 @@ public class Election {
         //catch(IllegalArgumentException e) {
             
         //}
+    }
+    
+    public void deleteCandidate(int num_case) throws SQLException {
+        m_candidates.remove(num_case);
+        candidate_from_db.deleteCandidate(num_case + DAO.FIRST_ID_CANDIDATE);
+    }
+    
+    public void addCandidate(String last_name, String first_name, String party) throws SQLException {
+        m_candidates.add( new Candidate(last_name, first_name, party));
+        candidate_from_db.addToTable(m_candidates.get(m_candidates.size()-1).getLastName(),
+                                     m_candidates.get(m_candidates.size()-1).getFirstName(),
+                                     m_candidates.get(m_candidates.size()-1).getPassword(),
+                                     m_candidates.get(m_candidates.size()-1).getParty(),
+                                     "0");
+        m_candidates.get(m_candidates.size()-1).setId(m_candidates.size()-1 + DAO.FIRST_ID_CANDIDATE);
     }
     
     

@@ -5,6 +5,7 @@ import dao_package.ElectorDAOImpl;
 import dao_package.OfficialDAOImpl;
 import java.sql.SQLException;
 import java_project_desautel_pellen_perold.Candidate;
+import java_project_desautel_pellen_perold.Election;
 import java_project_desautel_pellen_perold.Elector;
 import java_project_desautel_pellen_perold.Official;
 
@@ -22,6 +23,8 @@ public class Controller {
     private final CandidateDAOImpl access_to_candidate_table = new CandidateDAOImpl();
     private final OfficialDAOImpl access_to_official_table = new OfficialDAOImpl();
     private final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
+    
+    private final Election access_to_election = new Election();
     
     
     /* Constantes */
@@ -291,14 +294,14 @@ public class Controller {
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
             }
            else if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
-                m_user_official = new Official(access_to_official_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password));
+                m_user_official = new Official(access_to_official_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_candidate = null;
                 m_user_elector = null;
                 m_type_user = OFFICIAL;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
            }
            else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
-                m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password));
+                m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election.getCandidates());
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;

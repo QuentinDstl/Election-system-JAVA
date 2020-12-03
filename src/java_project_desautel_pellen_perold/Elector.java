@@ -3,6 +3,7 @@ package java_project_desautel_pellen_perold;
 import dao_package.DAO;
 import dao_package.ElectorDAOImpl;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Elector extends Person {
@@ -19,21 +20,17 @@ public class Elector extends Person {
     
     /* Constructeeur */
     /* De la DATABASE */
-    public Elector(int num_case) throws SQLException {
+    public Elector(int num_case, ArrayList<Candidate> candidates) throws SQLException {
         
         super();
-        System.out.println("\n\nJE SUUUUUUIS ICI Nb Candidates : ");
-        System.out.println(election_access.getCandidates().size());
         setLastNameFromDataBase(elector_from_db.getLastNameElectorIntoTable(num_case));
         setFirstNameFromDataBase(elector_from_db.getFirstNameElectorIntoTable(num_case));  
         setPasswordFromDataBase(elector_from_db.getPasswordElectorIntoTable(num_case));
-        setIdFromDataBase(num_case + DAO.FIRST_ID_ELECTOR);
+        setIdFromDataBase(num_case);
         
-        m_state = setStateFromDatabase(elector_from_db.getNameStateOfElectorIntoTable(num_case), 
-                                       num_case);
-        System.out.println("\n\nCHARGEMENT STATE DONE");
+        m_state = setStateFromDatabase(elector_from_db.getNameStateOfElectorIntoTable(num_case));
         
-        m_candidate = setCandidateFromDataBase(num_case);
+        m_candidate = setCandidateFromDataBase(candidates);
     }
     
     /* De la saisie d'un Official */
@@ -41,15 +38,14 @@ public class Elector extends Person {
         
         super(last_name, first_name, "0000");
         m_state = state;
+        m_voteDone = false;
     }
 
     
     /* méthodes de chargement */
-    public State setStateFromDatabase(String name_state_into_table, int num_case) throws SQLException {
+    public final State setStateFromDatabase(String name_state_into_table) throws SQLException {
         State state;
         int index_valid_database = 0;
-        System.out.println("\n\nNb States : " +election_access.getStates().size());
-        System.out.println(name_state_into_table);
         for(int i=0; i<election_access.getStates().size(); ++i) {
             if(election_access.getStates().get(i).getName().equals(name_state_into_table)) {
                 index_valid_database = i + 1;
@@ -59,12 +55,12 @@ public class Elector extends Person {
         return state;
     }
     
-    public Candidate setCandidateFromDataBase(int num_case) throws SQLException {
+    public final Candidate setCandidateFromDataBase(ArrayList<Candidate> candidates) throws SQLException {
         Candidate candidate;
         int index_valid_database = 0;
-        for(int i=0; i<election_access.getCandidates().size(); ++i) {
-            if(election_access.getCandidates().get(i).getId() == num_case) {
-                index_valid_database = i + 1;
+        for(int i=0; i<candidates.size(); ++i) {
+            if(candidates.get(i).getId() == i + DAO.FIRST_ID_CANDIDATE) {
+                index_valid_database = i + DAO.FIRST_ID_CANDIDATE;
             }
         }
         candidate = new Candidate(index_valid_database);

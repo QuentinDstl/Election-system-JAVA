@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Candidate extends Person {
     
     /* Variables */
-    private String party;
-    private int nb_votes_total;
+    private String m_party;
+    private int m_nb_votes_total;
     
     private ArrayList<State> buffer_states_win;
     private ArrayList<Elector> buffer_elector_win;
@@ -28,17 +28,28 @@ public class Candidate extends Person {
         setPasswordFromDataBase(candidate_from_db.getPasswordCandidateIntoTable(num_case));
         setIdFromDataBase(num_case);
         
-        party = candidate_from_db.getPartyCandidateIntoTable(num_case);
-        nb_votes_total = candidate_from_db.getNbrVoteTotalCandidateIntoTable(num_case);
+        m_party = candidate_from_db.getPartyCandidateIntoTable(num_case);
+        m_nb_votes_total = candidate_from_db.getNbrVoteTotalCandidateIntoTable(num_case);
     }
     
     /* De le saisie d'un officiel */
-    /*public Candidate(String last_name, String first_name, String password) {
+    public Candidate(String last_name, String first_name, String party) throws SQLException {
         
-    }*/
+        super(last_name, first_name, "0000");
+        m_party = party;
+        m_nb_votes_total = 0;
+    }
     
     
     public void downLoadElectionDataBase() throws SQLException {
         election_access.downloadDataBaseForCandidate();
+    }
+    
+    public String getParty() {
+        return m_party;
+    }
+    
+    public int getNbVotesTotal() {
+        return m_nb_votes_total;
     }
 }

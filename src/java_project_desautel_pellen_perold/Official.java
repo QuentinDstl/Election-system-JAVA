@@ -14,13 +14,15 @@ public class Official extends Person {
     
     /* Constructeur */
     /* De la DATABASE */
-    public Official(int num_case) throws SQLException {
+    public Official(int num_case, Election access_to_election) throws SQLException {
         
         super();
         setLastNameFromDataBase(official_from_db.getLastNameOfficialIntoTable(num_case));
         setFirstNameFromDataBase(official_from_db.getFirstNameOfficialIntoTable(num_case));  
         setPasswordFromDataBase(official_from_db.getPasswordOfficialIntoTable(num_case));
-        setIdFromDataBase(num_case + DAO.FIRST_ID_OFFICIAL);   
+        setIdFromDataBase(num_case + DAO.FIRST_ID_OFFICIAL); 
+        
+        election_access = access_to_election;
     }
     
     public void downLoadOfficialDataBase() throws SQLException {
@@ -33,7 +35,7 @@ public class Official extends Person {
     }
     
     public void deleteElector(Elector choosen_elector) throws SQLException {
-        election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR);
+        election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR +1);
     }
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {
@@ -44,12 +46,12 @@ public class Official extends Person {
         return election_access.getCandidates();
     }
     
-    public void deleteCandidate() {
-        
+    public void deleteCandidate(Candidate choosen_candidate) throws SQLException {
+        election_access.deleteCandidate(choosen_candidate.getId() - DAO.FIRST_ID_CANDIDATE +1);
     }
     
-    public void addCandidate() {
-        
+    public void addCandidate(String last_name, String first_name, String party) throws SQLException {
+        election_access.addCandidate(last_name, first_name, party);
     }
     
     public void openVote() {

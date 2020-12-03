@@ -32,7 +32,7 @@ public class ElectorDAOImpl implements  DAO {
 
     private static final String DELETE_ELECTOR = "DELETE FROM `elector`";
     
-    private static final String DECREMENT_ID_ELECTOR = "UPDATE `elector` SET id=id-1";
+    private static final String DECREMENT_ID_ELECTOR = "UPDATE `elector` SET `id`=`id`-1";
     
     private static final String COUNT_NBR_OF_ELECTORS = "SELECT COUNT(*) FROM `elector`;";
     
@@ -75,14 +75,13 @@ public class ElectorDAOImpl implements  DAO {
     }
     
     public void deleteElector(int id) throws SQLException {
-        m_statement.executeUpdate(DELETE_ELECTOR 
-                                + "WHERE `id` = " +id + ";");
+        m_statement.executeUpdate(DELETE_ELECTOR + " WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
         decrementeIdElectors(id);
     }
     
     public void decrementeIdElectors(int id) throws SQLException {
-        m_statement.executeUpdate(DECREMENT_ID_ELECTOR + "WHERE id > " +id + ";");
+        m_statement.executeUpdate(DECREMENT_ID_ELECTOR + " WHERE `id` > " +id + ";");
     }
     
     
