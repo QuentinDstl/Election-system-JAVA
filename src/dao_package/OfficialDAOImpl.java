@@ -14,7 +14,7 @@ public class OfficialDAOImpl implements DAO {
                                                         + "("
                                                         + " `lastname` VARCHAR(20) NOT NULL, "
                                                         + " `firstname` VARCHAR(20) NOT NULL, "
-                                                        + " `password` VARCHAR(10) NOT NULL, "
+                                                        + " `password` VARCHAR(20) NOT NULL, "
                                                         + " `id` INT(6) NOT NULL AUTO_INCREMENT, "
                                                         + " PRIMARY KEY(`id`), "
                                                         + " CONSTRAINT `unique_person` UNIQUE (`lastname`, `firstname`, `password`) "

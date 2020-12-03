@@ -14,7 +14,7 @@ public class CandidateDAOImpl implements DAO
                                                         + "("
                                                         + " `lastname` VARCHAR(20) NOT NULL, "
                                                         + " `firstname` VARCHAR(20) NOT NULL, "
-                                                        + " `password` VARCHAR(10) NOT NULL, "
+                                                        + " `password` VARCHAR(20) NOT NULL, "
                                                         + " `party` VARCHAR(20) NOT NULL, "
                                                         + " `nbrVoteTotal` INT DEFAULT 0, "
                                                         + " `id` INT(6) NOT NULL AUTO_INCREMENT, "

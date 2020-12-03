@@ -48,10 +48,10 @@ public class Elector extends Person {
         int index_valid_database = 0;
         for(int i=0; i<election_access.getStates().size(); ++i) {
             if(election_access.getStates().get(i).getName().equals(name_state_into_table)) {
-                index_valid_database = i + 1;
+                index_valid_database = i;
             }
         }
-        state = new State((index_valid_database));
+        state = election_access.getStates().get(index_valid_database);
         return state;
     }
     
@@ -60,10 +60,10 @@ public class Elector extends Person {
         int index_valid_database = 0;
         for(int i=0; i<candidates.size(); ++i) {
             if(candidates.get(i).getId() == i + DAO.FIRST_ID_CANDIDATE) {
-                index_valid_database = i + DAO.FIRST_ID_CANDIDATE;
+                index_valid_database = i;
             }
         }
-        candidate = new Candidate(index_valid_database);
+        candidate = candidates.get(index_valid_database);
         return candidate;
     }
     

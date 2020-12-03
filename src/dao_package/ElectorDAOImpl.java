@@ -14,7 +14,7 @@ public class ElectorDAOImpl implements  DAO {
                                                         + "("
                                                         + " `lastname` VARCHAR(20) NOT NULL, "
                                                         + " `firstname` VARCHAR(20) NOT NULL, "
-                                                        + " `password` VARCHAR(10) NOT NULL, "
+                                                        + " `password` VARCHAR(20) NOT NULL, "
                                                         + " `nameState` VARCHAR(20) NOT NULL, "
                                                         + " `nameCandidate` VARCHAR(20), "
                                                         + " `vote` BOOLEAN DEFAULT 0, "
