@@ -301,7 +301,7 @@ public class Controller {
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
            }
            else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
-                m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election.getCandidates());
+                m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election.getCandidates(), access_to_election.elector_from_db, access_to_election);
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;

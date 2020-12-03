@@ -22,7 +22,7 @@ public class Election {
     private final StateDAOImpl state_from_db = new StateDAOImpl();
     private final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
     private final OfficialDAOImpl official_from_db = new OfficialDAOImpl();
-    private final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
+    public final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
 
     
     /* Constructeeur */
@@ -81,7 +81,7 @@ public class Election {
         ArrayList<Elector> electors = new ArrayList<>();
         int nb_electors = elector_from_db.getNumberOfElectorsIntoTable();
         for(int case_index=0; case_index<nb_electors; ++case_index) {
-            electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR, m_candidates));
+            electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR, m_candidates, elector_from_db, this));
         }
         return electors;
     }
@@ -95,7 +95,7 @@ public class Election {
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {
         //try {
-            m_electors.add( new Elector(last_name, first_name, state));
+            m_electors.add( new Elector(last_name, first_name, state, this));
             elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
                                        m_electors.get(m_electors.size()-1).getFirstName(), 
                                        m_electors.get(m_electors.size()-1).getPassword(), 

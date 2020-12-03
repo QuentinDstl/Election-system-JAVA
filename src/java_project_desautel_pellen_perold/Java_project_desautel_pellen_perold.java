@@ -89,6 +89,6 @@ public class Java_project_desautel_pellen_perold {
         
         System.out.println("\n\n");
         System.out.println("JE SUPPRIME UN CANDIDAT PARCE QU'IL EST MOCHE");
-        official.deleteElector(election.getElectors().get(0));
+        official.deleteCandidate(election.getCandidates().get(0));
     }
 }

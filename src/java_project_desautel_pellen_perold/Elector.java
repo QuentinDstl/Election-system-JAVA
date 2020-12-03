@@ -13,14 +13,12 @@ public class Elector extends Person {
     private Candidate m_candidate;
     private boolean m_voteDone;
     
-    private final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
-    
-    private final Election election_access = new Election();
+    private final Election m_election_access;
     
     
     /* Constructeeur */
     /* De la DATABASE */
-    public Elector(int num_case, ArrayList<Candidate> candidates) throws SQLException {
+    public Elector(int num_case, ArrayList<Candidate> candidates, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException {
         
         super();
         setLastNameFromDataBase(elector_from_db.getLastNameElectorIntoTable(num_case));
@@ -28,15 +26,20 @@ public class Elector extends Person {
         setPasswordFromDataBase(elector_from_db.getPasswordElectorIntoTable(num_case));
         setIdFromDataBase(num_case);
         
+        m_election_access = election_access;
+        
         m_state = setStateFromDatabase(elector_from_db.getNameStateOfElectorIntoTable(num_case));
         
         m_candidate = setCandidateFromDataBase(candidates);
     }
     
     /* De la saisie d'un Official */
-    public Elector(String last_name, String first_name, State state) throws SQLException {
+    public Elector(String last_name, String first_name, State state, Election election_access) throws SQLException {
         
         super(last_name, first_name, "0000");
+        
+        m_election_access = election_access;
+        
         m_state = state;
         m_voteDone = false;
     }
@@ -46,12 +49,12 @@ public class Elector extends Person {
     public final State setStateFromDatabase(String name_state_into_table) throws SQLException {
         State state;
         int index_valid_database = 0;
-        for(int i=0; i<election_access.getStates().size(); ++i) {
-            if(election_access.getStates().get(i).getName().equals(name_state_into_table)) {
+        for(int i=0; i<m_election_access.getStates().size(); ++i) {
+            if(m_election_access.getStates().get(i).getName().equals(name_state_into_table)) {
                 index_valid_database = i;
             }
         }
-        state = election_access.getStates().get(index_valid_database);
+        state = m_election_access.getStates().get(index_valid_database);
         return state;
     }
     
@@ -69,7 +72,7 @@ public class Elector extends Person {
     
     
     public void downLoadElectionDataBase() throws SQLException {
-        election_access.downLoadDataBaseForElector();
+        m_election_access.downLoadDataBaseForElector();
     }
     
     

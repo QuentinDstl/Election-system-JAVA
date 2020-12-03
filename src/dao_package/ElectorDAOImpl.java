@@ -8,6 +8,8 @@ public class ElectorDAOImpl implements  DAO {
     /* Variables */
     private final Connection m_connection;
     private final Statement m_statement;
+    private ResultSet m_resultLecture;
+    private int m_previous_num_case;
 
     /* Constants */
     private static final String CREATION_TABLE_ELECTOR = "CREATE TABLE IF NOT EXISTS `elector`"
@@ -42,6 +44,8 @@ public class ElectorDAOImpl implements  DAO {
     public ElectorDAOImpl() throws SQLException {
         m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
         m_statement = m_connection.createStatement();
+        m_resultLecture = null;
+        m_previous_num_case = 0;
     }
 
     @Override
@@ -95,44 +99,69 @@ public class ElectorDAOImpl implements  DAO {
         return number_of_electors;
     }
     
+    private ResultSet getInformationsElectorIntoTable(int num_case) throws SQLException {
+        
+        return m_statement.executeQuery("SELECT * FROM `elector` WHERE `id` = " +num_case + ";");
+    }
+    
     public String getLastNameElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `elector` WHERE `id` = " +num_case + ";");
-        resultLecture.next();
-        System.out.println("last name : " +resultLecture.getString(1));
-        return resultLecture.getString(1);
+        if(num_case != m_previous_num_case) 
+        {
+            m_resultLecture = getInformationsElectorIntoTable(num_case);
+            m_resultLecture.next();
+            m_previous_num_case = num_case;
+        }
+        System.out.println("last name : " +m_resultLecture.getString(1));
+        return m_resultLecture.getString(1);
     }
     
     public String getFirstNameElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `elector` WHERE `id` = " +num_case + ";");
-        resultLecture.next();
-        System.out.println("first name : " +resultLecture.getString(1));
-        return resultLecture.getString(1);
+        if(num_case != m_previous_num_case) 
+        {
+            m_resultLecture = getInformationsElectorIntoTable(num_case);
+            m_resultLecture.next();
+            m_previous_num_case = num_case;
+        }  
+        System.out.println("first name : " +m_resultLecture.getString(2));
+        return m_resultLecture.getString(2);
     }
     
     public String getPasswordElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `elector` WHERE `id` = " +num_case + ";");
-        resultLecture.next();
-        System.out.println("password : " +resultLecture.getString(1));
-        return resultLecture.getString(1);
+        if(num_case != m_previous_num_case) 
+        {
+            m_resultLecture = getInformationsElectorIntoTable(num_case);
+            m_resultLecture.next();
+            m_previous_num_case = num_case;
+        }        
+        System.out.println("password : " +m_resultLecture.getString(3));
+        return m_resultLecture.getString(3);
     }
     
     public String getNameStateOfElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `elector` WHERE `id` = " +num_case + ";");
-        resultLecture.next();
-        System.out.println("name state : " +resultLecture.getString(1));
-        return resultLecture.getString(1);
+        if(num_case != m_previous_num_case) 
+        {
+            m_resultLecture = getInformationsElectorIntoTable(num_case);
+            m_resultLecture.next();
+            m_previous_num_case = num_case;
+        }        
+        System.out.println("name state : " +m_resultLecture.getString(4));
+        return m_resultLecture.getString(4);
     }
     
     public String getNameCandidateOfElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameCandidate` FROM `elector` WHERE `id` = " +num_case + ";");
-        resultLecture.next();
-        System.out.println("name candidate : " +resultLecture.getString(1));
-        return resultLecture.getString(1);
+        if(num_case != m_previous_num_case) 
+        {
+            m_resultLecture = getInformationsElectorIntoTable(num_case);
+            m_resultLecture.next();
+            m_previous_num_case = num_case;
+        }     
+        System.out.println("name candidate : " +m_resultLecture.getString(5));
+        return m_resultLecture.getString(5);
     }
     
     
