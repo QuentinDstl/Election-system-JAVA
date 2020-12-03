@@ -50,7 +50,7 @@ public class Java_project_desautel_pellen_perold {
         
         Election election = new Election();
         election.downLoadCandidatesListFromTable();
-        //election.downloadDataBaseForOfficial();
+        election.downloadDataBaseForOfficial();
         for(int i=0; i<election.getCandidates().size(); ++i) {
             System.out.println(election.getCandidates().get(i).getLastName()
                              + election.getCandidates().get(i).getFirstName()

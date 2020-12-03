@@ -31,9 +31,9 @@ public class Election {
         
         m_openVote = election_from_db.getOpenVoteConditionIntoTable();
         m_states = downLoadStatesListFromTable();
-        m_candidates = downLoadCandidatesListFromTable();
-        //m_officials = null;
-        m_electors = downLoadElectorsListFromTable();
+        m_candidates = null;
+        m_officials = null;
+        m_electors = null;
     }
     
     /* Méthodes de chargement de la DataBase */
