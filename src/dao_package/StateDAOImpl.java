@@ -1,6 +1,7 @@
 package dao_package;
 
 import config_package.Config;
+import java.lang.invoke.MethodHandles;
 import java.sql.*;
 
 public class StateDAOImpl implements DAO {
@@ -17,7 +18,9 @@ public class StateDAOImpl implements DAO {
                                                         + " `nbrMaxElectors` SMALLINT(6) NOT NULL, "
                                                         + " `allWin` BOOLEAN NOT NULL, "
                                                         + " `pause` BOOLEAN NOT NULL, "
-                                                        + " UNIQUE(`nameState`) "
+                                                        + " `numState` SMALLINT(6) AUTO_INCREMENT, "
+                                                        + " UNIQUE(`nameState`), "
+                                                        + " PRIMARY KEY (`numState`) "
                                                         + ") "
                                                         + "ENGINE = InnoDB " 
                                                         + "CHARACTER SET utf8mb4 " 
@@ -28,7 +31,7 @@ public class StateDAOImpl implements DAO {
     private static final String ADD_STATE = "INSERT INTO `state`";
     
     /* Constructeur */
-    public StateDAOImpl() throws SQLException {   
+    public StateDAOImpl() throws SQLException { 
         m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
         m_statement = m_connection.createStatement();
     }
@@ -61,33 +64,34 @@ public class StateDAOImpl implements DAO {
     /* Méthodes de requêtes */
     public String getNameStateIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `state` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        System.out.println("name state : " +resultLecture.getString(1));
+        //System.out.println("name state : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
     public int getNumberMaxOfElectorsInStateIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `nbrMaxElectors` FROM `state` WHERE id = " +num_case + ";");
+        
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nbrMaxElectors` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        System.out.println("number max of electors : " +resultLecture.getInt(1));
+        //System.out.println("number max of electors : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
     public boolean getConditionAllWinIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `allWin` FROM `state` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `allWin` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        System.out.println("all win : " +resultLecture.getBoolean(1));
+        //System.out.println("all win : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);
     }
     
     public boolean getConditionPauseIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `pause` FROM `state` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `pause` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        System.out.println("all win : " +resultLecture.getBoolean(1));
+        //System.out.println("pause : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);
     }
 }

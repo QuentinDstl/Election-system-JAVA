@@ -61,7 +61,7 @@ public class ElectionDAOImpl implements DAO {
     /* Méthodes de requêtes */
     public boolean getOpenVoteConditionIntoTable() throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `openVote` FROM `election;");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `openVote` FROM `election`;");
         resultLecture.next();
         System.out.println("open vote : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);

@@ -98,7 +98,7 @@ public class ElectorDAOImpl implements  DAO {
     
     public String getLastNameElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `elector` WHERE `id` = " +num_case + ";");
         resultLecture.next();
         System.out.println("last name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -106,7 +106,7 @@ public class ElectorDAOImpl implements  DAO {
     
     public String getFirstNameElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `elector` WHERE `id` = " +num_case + ";");
         resultLecture.next();
         System.out.println("first name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -114,7 +114,7 @@ public class ElectorDAOImpl implements  DAO {
     
     public String getPasswordElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `elector` WHERE `id` = " +num_case + ";");
         resultLecture.next();
         System.out.println("password : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -122,7 +122,7 @@ public class ElectorDAOImpl implements  DAO {
     
     public String getNameStateOfElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `elector` WHERE `id` = " +num_case + ";");
         resultLecture.next();
         System.out.println("name state : " +resultLecture.getString(1));
         return resultLecture.getString(1);
@@ -130,7 +130,7 @@ public class ElectorDAOImpl implements  DAO {
     
     public String getNameCandidateOfElectorIntoTable(int num_case) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameCandidate` FROM `elector` WHERE id = " +num_case + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `nameCandidate` FROM `elector` WHERE `id` = " +num_case + ";");
         resultLecture.next();
         System.out.println("name candidate : " +resultLecture.getString(1));
         return resultLecture.getString(1);

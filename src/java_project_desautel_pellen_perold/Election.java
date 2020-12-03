@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class Election {
     private boolean m_openVote;
-    private ArrayList<State> m_states;
+    private final ArrayList<State> m_states;
     
     private ArrayList<Candidate> m_candidates;
     private ArrayList<Official> m_officials;
@@ -31,16 +31,16 @@ public class Election {
         
         m_openVote = election_from_db.getOpenVoteConditionIntoTable();
         m_states = downLoadStatesListFromTable();
-        m_candidates = null;
-        m_officials = null;
-        m_electors = null;
+        m_candidates = downLoadCandidatesListFromTable();
+        //m_officials = null;
+        m_electors = downLoadElectorsListFromTable();
     }
     
     /* Méthodes de chargement de la DataBase */
-    public ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
+    public final ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
-        int nb_states = DAO.NUMBER_OF_STATES;
-        for(int case_index=0; case_index<nb_states; ++case_index) {
+        int nb_states = /*DAO.NUMBER_OF_STATES*/3;
+        for(int case_index=1; case_index<=nb_states; ++case_index) {
             states.add(new State(case_index));
         }
         return states;
@@ -51,7 +51,7 @@ public class Election {
     }
     
     public void downloadDataBaseForOfficial() throws  SQLException {
-        m_candidates = downLoadCandidatesListFromTable();
+        //m_candidates = downLoadCandidatesListFromTable();
         m_electors = downLoadElectorsListFromTable();
     }
     
@@ -59,29 +59,29 @@ public class Election {
         m_candidates = downLoadCandidatesListFromTable();
     }
     
-    public ArrayList<Candidate> downLoadCandidatesListFromTable() throws SQLException { 
+    public final ArrayList<Candidate> downLoadCandidatesListFromTable() throws SQLException { 
         ArrayList<Candidate> candidates = new ArrayList<>();
         int nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
-        for(int case_index=0; case_index<nb_candidates; ++case_index) {
+        for(int case_index=1; case_index<=nb_candidates; ++case_index) {
             candidates.add(new Candidate(case_index));
         }
         return candidates;
     }
     
-    public ArrayList<Official> downLoadOfficialsListFromTable() throws SQLException { 
+    public final ArrayList<Official> downLoadOfficialsListFromTable() throws SQLException { 
         ArrayList<Official> officials = new ArrayList<>();
         int nb_officials = official_from_db.getNumberOfOfficialsIntoTable();
-        for(int case_index=0; case_index<nb_officials; ++case_index) {
-            officials.add(new Official(case_index));
+        for(int case_index=1; case_index<=nb_officials; ++case_index) {
+            officials.add(new Official(case_index + DAO.FIRST_ID_OFFICIAL));
         }
         return officials;
     }
     
-    public ArrayList<Elector> downLoadElectorsListFromTable() throws SQLException { 
+    public final ArrayList<Elector> downLoadElectorsListFromTable() throws SQLException { 
         ArrayList<Elector> electors = new ArrayList<>();
         int nb_electors = elector_from_db.getNumberOfElectorsIntoTable();
-        for(int case_index=0; case_index<nb_electors; ++case_index) {
-            electors.add(new Elector(case_index));
+        for(int case_index=1; case_index<=nb_electors; ++case_index) {
+            electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR));
         }
         return electors;
     }
@@ -123,7 +123,7 @@ public class Election {
     }
     
     public ArrayList<Candidate> getCandidates() {
-        return  m_candidates;
+        return  this.m_candidates;
     }
     
     public ArrayList<Official> getOfficials() {

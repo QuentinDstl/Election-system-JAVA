@@ -22,13 +22,16 @@ public class Elector extends Person {
     public Elector(int num_case) throws SQLException {
         
         super();
+        System.out.println("\n\nJE SUUUUUUIS ICI Nb Candidates : ");
+        System.out.println(election_access.getCandidates().size());
         setLastNameFromDataBase(elector_from_db.getLastNameElectorIntoTable(num_case));
         setFirstNameFromDataBase(elector_from_db.getFirstNameElectorIntoTable(num_case));  
         setPasswordFromDataBase(elector_from_db.getPasswordElectorIntoTable(num_case));
         setIdFromDataBase(num_case + DAO.FIRST_ID_ELECTOR);
         
         m_state = setStateFromDatabase(elector_from_db.getNameStateOfElectorIntoTable(num_case), 
-                                        num_case);
+                                       num_case);
+        System.out.println("\n\nCHARGEMENT STATE DONE");
         
         m_candidate = setCandidateFromDataBase(num_case);
     }
@@ -43,22 +46,28 @@ public class Elector extends Person {
     
     /* méthodes de chargement */
     public State setStateFromDatabase(String name_state_into_table, int num_case) throws SQLException {
-        State state = new State(num_case);
+        State state;
+        int index_valid_database = 0;
+        System.out.println("\n\nNb States : " +election_access.getStates().size());
+        System.out.println(name_state_into_table);
         for(int i=0; i<election_access.getStates().size(); ++i) {
             if(election_access.getStates().get(i).getName().equals(name_state_into_table)) {
-                state = election_access.getStates().get(i);
+                index_valid_database = i + 1;
             }
         }
+        state = new State((index_valid_database));
         return state;
     }
     
     public Candidate setCandidateFromDataBase(int num_case) throws SQLException {
-        Candidate candidate = new Candidate(num_case);
+        Candidate candidate;
+        int index_valid_database = 0;
         for(int i=0; i<election_access.getCandidates().size(); ++i) {
             if(election_access.getCandidates().get(i).getId() == num_case) {
-                candidate = election_access.getCandidates().get(i);
+                index_valid_database = i + 1;
             }
         }
+        candidate = new Candidate(index_valid_database);
         return candidate;
     }
     
