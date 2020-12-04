@@ -26,8 +26,8 @@ public class GraphicOfficialsAddElector extends JFrame
     private String m_lastName;
     private String m_firstName;
     private String m_password;
-    private final int WINDOW_WIDTH = 1500;
-    private final int WINDOW_HEIGHT = 1300;
+    private final int WINDOW_WIDTH = 2000;
+    private final int WINDOW_HEIGHT = 1500;
     private final JLabel lastName;
     private final JTextField lastNameEnter;
     private final JLabel firstName;
