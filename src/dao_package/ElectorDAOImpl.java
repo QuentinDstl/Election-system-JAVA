@@ -82,6 +82,7 @@ public class ElectorDAOImpl implements  DAO {
         m_statement.executeUpdate(DELETE_ELECTOR + " WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
         decrementeIdElectors(id);
+        m_connection.close();
     }
     
     public void decrementeIdElectors(int id) throws SQLException {

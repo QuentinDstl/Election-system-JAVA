@@ -1,5 +1,6 @@
 package java_project_desautel_pellen_perold;
 
+import config_package.Log;
 import dao_package.CandidateDAOImpl;
 import dao_package.ElectionDAOImpl;
 import dao_package.DAO;
@@ -39,9 +40,9 @@ public class Election {
     /* Méthodes de chargement de la DataBase */
     public final ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
-        int nb_states = /*DAO.NUMBER_OF_STATES*/3;
+        int nb_states = DAO.NUMBER_OF_STATES;
         for(int case_index=0; case_index<nb_states; ++case_index) {
-            states.add(new State(case_index+1));
+            states.add(new State(case_index+1, state_from_db));
         }
         return states;
     }
@@ -80,8 +81,13 @@ public class Election {
     public final ArrayList<Elector> downLoadElectorsListFromTable() throws SQLException { 
         ArrayList<Elector> electors = new ArrayList<>();
         int nb_electors = elector_from_db.getNumberOfElectorsIntoTable();
-        for(int case_index=0; case_index<nb_electors; ++case_index) {
-            electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR, m_candidates, elector_from_db, this));
+        try {
+            for(int case_index=0; case_index<nb_electors; ++case_index) {
+                electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR, m_candidates, elector_from_db, this));
+            }
+        }
+        catch(SQLException sql_except) {
+            Log.add(sql_except.getMessage() + "Arret du chargement");
         }
         return electors;
     }

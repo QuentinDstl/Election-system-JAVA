@@ -14,8 +14,8 @@ public class Java_project_desautel_pellen_perold {
        // Candidate candidate = new Candidate(1);
 
         Log log = new Log();
-        Config.initConfig("charles");
-        loadXLSX("src\\loader_package\\pre_load.xlsx");
+        Config.initConfig("clement");
+        loadXLSX("src\\loader_package\\big_pre_load.xlsx");
 
         //yo.createTableElector();
         //yo.addCandidate("Dého", "qd", "puceauLand");
@@ -30,7 +30,7 @@ public class Java_project_desautel_pellen_perold {
         
         
         
-        THEController.startGraphiqueAccueil();
+        /*THEController.startGraphiqueAccueil();
         int resetOut = 0;
         
         do 
@@ -44,9 +44,9 @@ public class Java_project_desautel_pellen_perold {
                 resetOut =0;
             }
         } while (resetOut == 0);
-        System.exit(0);
+        System.exit(0);*/
         
-        /*Election election = new Election();
+        Election election = new Election();
         election.downloadDataBaseForOfficial();
         
         System.out.println("\n\n");
@@ -99,8 +99,8 @@ public class Java_project_desautel_pellen_perold {
         final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
         Elector elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson("Kibo", "Rodriguez", "tempus-mauris"), election.getCandidates(), access_to_elector_table, election);
 
-        //System.out.println("\n\n");
-        //System.out.println("JE SUPPRIME UN CANDIDAT PARCE QU'IL EST MOCHE");
-        //official.deleteCandidate(election.getCandidates().get(0));*/
+        System.out.println("\n\n");
+        System.out.println("JE SUPPRIME UN CANDIDAT PARCE QU'IL EST MOCHE");
+        official.deleteCandidate(election.getCandidates().get(0));
     }
 }
