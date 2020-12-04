@@ -132,7 +132,7 @@ public class Controller {
             if(checkCandidatesOut == 2)// DISPLAY STATES
             {
                 GraphicCandidatesStates myCandidatesStates = new GraphicCandidatesStates();
-                myCandidatesStates.startCandidatesStates(m_user_candidate);
+                myCandidatesStates.startCandidatesStates(access_to_election);
                 
                 while(checkCandidatesStatesOut != -1)
                 {
@@ -150,7 +150,7 @@ public class Controller {
                             System.out.print("");
                         }
                         myCandidatesStates = new GraphicCandidatesStates();
-                        myCandidatesStates.startCandidatesStates(m_user_candidate);
+                        myCandidatesStates.startCandidatesStates(access_to_election);
                         checkCandidatesStatesOut = 0;
                         checkCandidatesStatesUniqueOut = 0;
                     }

@@ -14,8 +14,8 @@ public class Java_project_desautel_pellen_perold {
        // Candidate candidate = new Candidate(1);
 
         Log log = new Log();
-        Config.initConfig("clement");
-        loadXLSX("src\\loader_package\\big_pre_load.xlsx");
+        Config.initConfig("charles");
+        loadXLSX("src\\loader_package\\pre_load.xlsx");
 
         //yo.createTableElector();
         //yo.addCandidate("Dého", "qd", "puceauLand");
