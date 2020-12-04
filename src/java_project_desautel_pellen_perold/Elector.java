@@ -114,6 +114,6 @@ public class Elector extends Person {
             throw new IllegalArgumentException("choosen candidate doesn't exist");
         }
         
-        m_elector_from_db.saveVoteElector(candidate.getId(), m_candidate_name);
+        m_elector_from_db.saveVoteElector(this.getId(), m_candidate_name);
     }
 }

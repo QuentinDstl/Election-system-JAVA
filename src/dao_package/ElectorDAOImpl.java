@@ -90,6 +90,7 @@ public class ElectorDAOImpl implements  DAO {
     }
     
     public void saveVoteElector(int id, String name_candidate) throws SQLException {
+        System.out.println(name_candidate +" " +id);
         m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = '" +name_candidate 
                                 + "', `vote` = 1" 
                                 + " WHERE `id` = " + id + ";");

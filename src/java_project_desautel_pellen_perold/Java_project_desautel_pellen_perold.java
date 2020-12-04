@@ -54,6 +54,6 @@ public class Java_project_desautel_pellen_perold {
         Elector elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson("Rayan", "Parrot", "haoh"), election.getCandidates(), access_to_elector_table, election);
         
         elector.Votes(election.getCandidates().get(1));
-        System.out.println("\n\n" + elector.getCandidate());
+        System.out.println("\n\n" + elector.getCandidate() + elector.isVoteDone());
     }
 }
