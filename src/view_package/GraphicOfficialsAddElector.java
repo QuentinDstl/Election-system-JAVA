@@ -27,7 +27,7 @@ public class GraphicOfficialsAddElector extends JFrame
     private String m_firstName;
     private String m_password;
     private final int WINDOW_WIDTH = 1500;
-    private final int WINDOW_HEIGHT = 900;
+    private final int WINDOW_HEIGHT = 1300;
     private final JLabel lastName;
     private final JTextField lastNameEnter;
     private final JLabel firstName;
@@ -55,14 +55,22 @@ public class GraphicOfficialsAddElector extends JFrame
     public void startOfficialsAddElector(Election myElection)
     {
         /* Initialisation of the interface */
-        setTitle("Add a candiate");
+        setTitle("Add a elector");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
         int heightTab = myElection.getStates().size();
-        int heightFinal = heightTab/10 +1;
-        setLayout(new GridLayout(10, heightFinal));
+        if (heightTab > 10)
+        {
+            int heightFinal = heightTab/10 +1;
+            setLayout(new GridLayout(10, heightFinal));
+            System.out.print(heightTab + " " + heightFinal);
+        }
+        else
+        {
+            setLayout(new GridLayout(10, 1));
+        }
         
         JPanel box = new JPanel();
         box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
@@ -150,7 +158,7 @@ public class GraphicOfficialsAddElector extends JFrame
                 m_firstName = captureFirstName;
                 m_lastName = captureLastName;
                 m_password = capturePassword;
-                checkOfficialsAddElector = -1;
+                checkOfficialsAddElector = 1;
                 m_intState = Integer.parseInt(parts[1]);
                 setVisible(false);
             }   

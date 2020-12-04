@@ -39,7 +39,7 @@ public class GraphicOfficialsDelCandidate extends JFrame
     public void startOfficialsDelCandidate(Election myElection)
     {
         /* Initialisation of the interface */
-        setTitle("Delete a candiate");
+        setTitle("Delete a candidate");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -84,7 +84,7 @@ public class GraphicOfficialsDelCandidate extends JFrame
             String source = e.getActionCommand();
             String[] parts = source.split(":");
             m_intCandidate = Integer.parseInt(parts[1]);          
-            checkOfficialsDelCandidate = -1;
+            checkOfficialsDelCandidate = 1;
             setVisible(false);   
         }
     }
