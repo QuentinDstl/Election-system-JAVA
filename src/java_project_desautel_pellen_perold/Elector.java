@@ -102,7 +102,7 @@ public class Elector extends Person {
     }
 
     /* Setters */
-    public void Votes(Candidate candidate) {
+    public void Votes(Candidate candidate) throws SQLException {
         boolean exist_candidate = false;
         for(int i=0; i<m_election_access.getCandidates().size(); ++i) {
             if(candidate.getId() == m_election_access.getCandidates().get(i).getId())
@@ -113,5 +113,7 @@ public class Elector extends Person {
         if(exist_candidate == false) {
             throw new IllegalArgumentException("choosen candidate doesn't exist");
         }
+        
+        m_elector_from_db.saveVoteElector(candidate.getId(), m_candidate_name);
     }
 }

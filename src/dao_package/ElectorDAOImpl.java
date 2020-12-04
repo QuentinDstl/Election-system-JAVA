@@ -89,10 +89,11 @@ public class ElectorDAOImpl implements  DAO {
         m_statement.executeUpdate(DECREMENT_ID_ELECTOR + " WHERE `id` > " +id + ";");
     }
     
-    /*public void saveVoteElector(int id, String name_candidate) throws SQLException {
-        m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = '" + name_candidate
-                                + "', ")
-    }*/
+    public void saveVoteElector(int id, String name_candidate) throws SQLException {
+        m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = '" +name_candidate 
+                                + "', `vote` = 1" 
+                                + " WHERE `id` = " + id + ";");
+    }
     
     
     /* Méthodes de requêtes */

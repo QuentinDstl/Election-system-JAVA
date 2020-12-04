@@ -63,8 +63,13 @@ public class Election {
     public final ArrayList<Candidate> downLoadCandidatesListFromTable() throws SQLException { 
         ArrayList<Candidate> candidates = new ArrayList<>();
         int nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
-        for(int case_index=0; case_index<nb_candidates; ++case_index) {
-            candidates.add(new Candidate(case_index + DAO.FIRST_ID_CANDIDATE, this));
+        try {
+            for(int case_index=0; case_index<nb_candidates; ++case_index) {
+                candidates.add(new Candidate(case_index + DAO.FIRST_ID_CANDIDATE, this));
+            }
+        }
+        catch(SQLException sql_except) {
+            Log.add(sql_except.getMessage() + " Arret du chargement");
         }
         return candidates;
     }
@@ -72,8 +77,13 @@ public class Election {
     public final ArrayList<Official> downLoadOfficialsListFromTable() throws SQLException { 
         ArrayList<Official> officials = new ArrayList<>();
         int nb_officials = official_from_db.getNumberOfOfficialsIntoTable();
-        for(int case_index=0; case_index<nb_officials; ++case_index) {
-            officials.add(new Official(case_index + DAO.FIRST_ID_OFFICIAL, this));
+        try {
+            for(int case_index=0; case_index<nb_officials; ++case_index) {
+                officials.add(new Official(case_index + DAO.FIRST_ID_OFFICIAL, this));
+            }
+        }
+        catch(SQLException sql_except) {
+            Log.add(sql_except.getMessage() + " Arret du chargement");
         }
         return officials;
     }
