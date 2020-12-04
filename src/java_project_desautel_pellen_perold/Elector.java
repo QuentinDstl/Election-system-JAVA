@@ -106,9 +106,12 @@ public class Elector extends Person {
         boolean exist_candidate = false;
         for(int i=0; i<m_election_access.getCandidates().size(); ++i) {
             if(candidate.getId() == m_election_access.getCandidates().get(i).getId())
+            {
                 m_candidate_name = candidate.getLastName();
                 m_voteDone = true;
                 exist_candidate = true;
+                m_election_access.getCandidates().get(i).incrementeNbrVotesTotal();
+            }
         }
         if(exist_candidate == false) {
             throw new IllegalArgumentException("choosen candidate doesn't exist");

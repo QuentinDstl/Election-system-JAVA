@@ -7,51 +7,52 @@ import java.util.ArrayList;
 
 public class Official extends Person {
     
-    private OfficialDAOImpl official_from_db = new OfficialDAOImpl();
+    private OfficialDAOImpl m_official_from_db;
     
-    private Election election_access = new Election();
+    private Election m_election_access;
     
     
     /* Constructeur */
     /* De la DATABASE */
-    public Official(int num_case, Election access_to_election) throws SQLException {
+    public Official(int num_case, OfficialDAOImpl official_from_db, Election election_access) throws SQLException {
         
         super();
-        setLastNameFromDataBase(official_from_db.getLastNameOfficialIntoTable(num_case));
-        setFirstNameFromDataBase(official_from_db.getFirstNameOfficialIntoTable(num_case));  
-        setPasswordFromDataBase(official_from_db.getPasswordOfficialIntoTable(num_case));
-        setIdFromDataBase(num_case + DAO.FIRST_ID_OFFICIAL); 
+        m_election_access = election_access;
+        m_official_from_db = official_from_db;
         
-        election_access = access_to_election;
+        setLastNameFromDataBase(m_official_from_db.getLastNameOfficialIntoTable(num_case));
+        setFirstNameFromDataBase(m_official_from_db.getFirstNameOfficialIntoTable(num_case));  
+        setPasswordFromDataBase(m_official_from_db.getPasswordOfficialIntoTable(num_case));
+        setIdFromDataBase(num_case + DAO.FIRST_ID_OFFICIAL); 
     }
     
     public void downLoadOfficialDataBase() throws SQLException {
-        election_access.downloadDataBaseForOfficial();
+        m_election_access.downloadDataBaseForOfficial();
     }
     
     
     public ArrayList<Elector> getElectors() {
-        return election_access.getElectors();
+        return m_election_access.getElectors();
     }
     
     public void deleteElector(Elector choosen_elector) throws SQLException {
-        election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR);
+        m_election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR);
     }
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {
-        election_access.addElector(last_name, first_name, state);
+        m_election_access.addElector(last_name, first_name, state);
     }
     
     public ArrayList<Candidate> getCandidates() {
-        return election_access.getCandidates();
+        return m_election_access.getCandidates();
     }
     
     public void deleteCandidate(Candidate choosen_candidate) throws SQLException {
-        election_access.deleteCandidate(choosen_candidate.getId() - DAO.FIRST_ID_CANDIDATE);
+        m_election_access.deleteCandidate(choosen_candidate.getId() - DAO.FIRST_ID_CANDIDATE);
     }
     
     public void addCandidate(String last_name, String first_name, String party) throws SQLException {
-        election_access.addCandidate(last_name, first_name, party);
+        m_election_access.addCandidate(last_name, first_name, party);
     }
     
     public void openVote() {

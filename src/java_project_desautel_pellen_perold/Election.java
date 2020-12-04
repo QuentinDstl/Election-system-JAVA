@@ -65,7 +65,7 @@ public class Election {
         int nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
         try {
             for(int case_index=0; case_index<nb_candidates; ++case_index) {
-                candidates.add(new Candidate(case_index + DAO.FIRST_ID_CANDIDATE, this));
+                candidates.add(new Candidate(case_index + DAO.FIRST_ID_CANDIDATE, candidate_from_db, this));
             }
         }
         catch(SQLException sql_except) {
@@ -79,7 +79,7 @@ public class Election {
         int nb_officials = official_from_db.getNumberOfOfficialsIntoTable();
         try {
             for(int case_index=0; case_index<nb_officials; ++case_index) {
-                officials.add(new Official(case_index + DAO.FIRST_ID_OFFICIAL, this));
+                officials.add(new Official(case_index + DAO.FIRST_ID_OFFICIAL, official_from_db, this));
             }
         }
         catch(SQLException sql_except) {
@@ -135,7 +135,7 @@ public class Election {
     }
     
     public void addCandidate(String last_name, String first_name, String party) throws SQLException {
-        m_candidates.add( new Candidate(last_name, first_name, party, this));
+        m_candidates.add( new Candidate(last_name, first_name, party, candidate_from_db, this));
         candidate_from_db.addToTable(m_candidates.get(m_candidates.size()-1).getLastName(),
                                      m_candidates.get(m_candidates.size()-1).getFirstName(),
                                      m_candidates.get(m_candidates.size()-1).getPassword(),

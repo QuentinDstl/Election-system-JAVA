@@ -14,7 +14,7 @@ public class Java_project_desautel_pellen_perold {
        // Candidate candidate = new Candidate(1);
 
         Log log = new Log();
-        Config.initConfig("charles");
+        Config.initConfig("clement");
         loadXLSX("src\\loader_package\\big_pre_load.xlsx");
 
         //yo.createTableElector();
@@ -22,7 +22,9 @@ public class Java_project_desautel_pellen_perold {
         
 
         /* PARTIE GRAPHIQUE EN TEST */
-        Controller THEController = new Controller();
+        Election access_to_election = new Election();
+        
+        Controller THEController = new Controller(access_to_election);
         
         //THEController.startGraphiqueElectors();
         //THEController.startGraphiqueCandidats();
@@ -37,20 +39,11 @@ public class Java_project_desautel_pellen_perold {
             resetOut = THEController.getReset();
             if (resetOut == 1)
             {
-                THEController = new Controller();
+                THEController = new Controller(access_to_election);
                 THEController.startGraphiqueAccueil();
                 resetOut =0;
             }
         } while (resetOut == 0);
         System.exit(0);
-        
-        Election election = new Election();
-        election.downLoadDataBaseForElector();
-        
-        final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
-        Elector elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson("Rayan", "Parrot", "haoh"), election.getCandidates(), access_to_elector_table, election);
-        
-        elector.Votes(election.getCandidates().get(1));
-        System.out.println("\n\n" + elector.getCandidate() + elector.isVoteDone());
     }
 }
