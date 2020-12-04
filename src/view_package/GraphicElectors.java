@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,7 +17,8 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 public class GraphicElectors extends GraphicIdentification
 {
     private int checkElectors = 0;
-    private final int WINDOW_WIDTH = 1900;
+    private int m_intCandidate;
+    private final int WINDOW_WIDTH = 2000;
     private final int WINDOW_HEIGHT = 1000;
     private final String imageBiden = "pictures\\" + "\\biden.jpg";
     private final String imageTrump = "pictures\\" + "\\trump.jpg";
@@ -31,17 +32,17 @@ public class GraphicElectors extends GraphicIdentification
     private final JLabel messageIntro4;
     private final JLabel messageIntro5;
     private final JLabel messageIntro6;
-    private final JLabel messageBiden;
-    private final JLabel messageJorgensen;
-    private final JLabel messageHawkins;
-    private final JLabel messageWest;
-    private final JLabel messageTrump;
-    private final JButton buttonBiden;
-    private final JButton buttonTrump;
-    private final JButton buttonJorgensen;
-    private final JButton buttonHawkins;
-    private final JButton buttonWest;
-    private final JButton buttonCancel;
+    private String messageBiden;
+    private String messageJorgensen;
+    private String messageHawkins;
+    private String messageWest;
+    private String messageTrump;
+    private JButton buttonBiden;
+    private JButton buttonTrump;
+    private JButton buttonJorgensen;
+    private JButton buttonHawkins;
+    private JButton buttonWest;
+    private JButton buttonCancel;
     
     public GraphicElectors(Elector myElector)
     {
@@ -61,25 +62,6 @@ public class GraphicElectors extends GraphicIdentification
         messageIntro5 = new JLabel("                                       Your state :                                    ");
         messageIntro6 = new JLabel("                                      " + myElector.getState().getName() + "                                ");
         messageIntro6.setForeground(Color.gray);
-        buttonBiden = new JButton(new ImageIcon(imageBiden));
-        messageBiden = new JLabel("Joe Biden, Democratic Party");
-        buttonBiden.addActionListener(new PlayButtonBiden());
-        
-        buttonTrump = new JButton(new ImageIcon(imageTrump));
-        messageTrump = new JLabel("Donald Trump, Republican Party");
-        buttonTrump.addActionListener(new PlayButtonTrump());
-        
-        buttonJorgensen = new JButton(new ImageIcon(imageJorgensen));
-        messageJorgensen = new JLabel("Jo Jorgensen, Liertarian Party");
-        buttonJorgensen.addActionListener(new PlayButtonJorgensen());
-        
-        buttonHawkins = new JButton(new ImageIcon(imageHawkins));
-        messageHawkins = new JLabel("Howie Hawkins, Green Party");
-        buttonHawkins.addActionListener(new PlayButtonHawkins());
-        
-        buttonWest = new JButton(new ImageIcon(imageWest));
-        messageWest = new JLabel("Kanye West, American Independent Party");
-        buttonWest.addActionListener(new PlayButtonWest());
         
         buttonCancel = new JButton("Cancel my vote, and back to identification");
         buttonCancel.addActionListener(new PlayButtonCancel());
@@ -106,37 +88,51 @@ public class GraphicElectors extends GraphicIdentification
         {
             if (myElection.getCandidates().get(a).getLastName().equals("Trump")) 
             {
+                messageTrump = "Donal Trump, Republican Party :" +a;
+                buttonTrump = new JButton(messageTrump,new ImageIcon(imageTrump));
+                buttonTrump.addActionListener(new PlayButtonVote());
                 JPanel panelTrump = new JPanel();
                 panelTrump.add(buttonTrump);
-                panelTrump.add(messageTrump);
+
                 add(panelTrump);
             }
             else if (myElection.getCandidates().get(a).getLastName().equals("Biden")) 
             {
+                messageBiden = "Joe Biden, Democratic Party :" +a;
+                buttonBiden = new JButton(messageBiden,new ImageIcon(imageBiden));
+                buttonBiden.addActionListener(new PlayButtonVote());
                 JPanel panelBiden= new JPanel();
                 panelBiden.add(buttonBiden);
-                panelBiden.add(messageBiden);
                 add(panelBiden);
             }
             else if (myElection.getCandidates().get(a).getLastName().equals("West")) 
             {
+                messageWest = "Kanye West, American Independent Party :" +a;
+                buttonWest = new JButton(messageWest,new ImageIcon(imageWest));
+                buttonWest.addActionListener(new PlayButtonVote());
                 JPanel panelWest= new JPanel();
                 panelWest.add(buttonWest);
-                panelWest.add(messageWest);
+
                 add(panelWest);
             }
             else if (myElection.getCandidates().get(a).getLastName().equals("Jorgensen")) 
             {
+                messageJorgensen = "Jo Jorgensen, Libertarian Party :" +a;
+                buttonJorgensen = new JButton(messageJorgensen,new ImageIcon(imageJorgensen));
+                buttonJorgensen.addActionListener(new PlayButtonVote());
                 JPanel panelJorgensen= new JPanel();
                 panelJorgensen.add(buttonJorgensen);
-                panelJorgensen.add(messageJorgensen);
+
                 add(panelJorgensen);
             }
             else if (myElection.getCandidates().get(a).getLastName().equals("Hawkins")) 
             {
+                messageHawkins = "Howie Hawkins, Green Party :" +a;
+                buttonHawkins = new JButton(messageHawkins,new ImageIcon(imageHawkins));
+                buttonHawkins.addActionListener(new PlayButtonVote());
                 JPanel panelHawkins= new JPanel();
                 panelHawkins.add(buttonHawkins);
-                panelHawkins.add(messageHawkins);
+
                 add(panelHawkins);
             }
             else
@@ -144,8 +140,8 @@ public class GraphicElectors extends GraphicIdentification
                 JButton buttonNew = new JButton(new ImageIcon(imageNew));
                 JLabel messageNew = new JLabel(myElection.getCandidates().get(a).getFirstName() 
                         + " " + myElection.getCandidates().get(a).getLastName()
-                        + " , " + myElection.getCandidates().get(a).getParty());
-                buttonNew.addActionListener(new PlayButtonNew());
+                        + " , " + myElection.getCandidates().get(a).getParty() + " : " + a);
+                buttonNew.addActionListener(new PlayButtonVote());
                 JPanel panelNew = new JPanel();
                 panelNew.add(buttonNew);
                 panelNew.add(messageNew);
@@ -179,56 +175,25 @@ public class GraphicElectors extends GraphicIdentification
     {
         return checkElectors;
     }
+    public int getIntCandidate()
+    {
+        return m_intCandidate;
+    }
     
-    private class PlayButtonTrump implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("JE VOTE POUR LE FOU");
-        }
-    }
-    private class PlayButtonBiden implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("JE VOTE POUR L'AVENIR");
-        }
-    }
-    private class PlayButtonWest implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("JE VOTE POUR UN INCONNU");
-        }
-    }
-    private class PlayButtonJorgensen implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("JE VOTE POUR LA LIERTE");
-        }
-    }
-    private class PlayButtonHawkins implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("JE VOTE POUR L'ECOLOGIE");
-        }
-    }
-    private class PlayButtonNew implements ActionListener
+    private class PlayButtonVote implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
             String source = e.getActionCommand();
-            System.out.println("JE VOTE ????" + source);
+            System.out.println(source);
+            String[] parts = source.split(":");
+            System.out.println(parts[1]);
+            m_intCandidate = Integer.parseInt(parts[1]);
+            checkElectors = 1;
         }
     }
+
     private class PlayButtonCancel implements ActionListener
     {
         @Override

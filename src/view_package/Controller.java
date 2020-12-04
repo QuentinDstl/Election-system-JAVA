@@ -80,7 +80,7 @@ public class Controller {
         }
     }
     
-    public void startGraphiqueElectors()
+    public void startGraphiqueElectors() throws SQLException
     {
         if (m_user_elector.isVoteDone() == false)
         {
@@ -92,6 +92,8 @@ public class Controller {
                 System.out.print("");
                 checkElectorsOut = myElectors.getCheckElectors();
             } while (checkElectorsOut == 0);
+            if (checkElectorsOut ==1)
+                m_user_elector.Votes(access_to_election.getCandidates().get(myElectors.getIntCandidate()));
         }
         else
         {

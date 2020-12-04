@@ -44,13 +44,13 @@ public class Java_project_desautel_pellen_perold {
         } while (resetOut == 0);
         System.exit(0);
         
-        /*Election election = new Election();
+        Election election = new Election();
         election.downLoadDataBaseForElector();
         
         final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
         Elector elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson("Rayan", "Parrot", "haoh"), election.getCandidates(), access_to_elector_table, election);
         
         elector.Votes(election.getCandidates().get(1));
-        System.out.println("\n\n" + elector.getCandidate() + elector.isVoteDone());*/
+        System.out.println("\n\n" + elector.getCandidate() + elector.isVoteDone());
     }
 }
