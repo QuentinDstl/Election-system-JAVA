@@ -160,7 +160,7 @@ public class CandidateDAOImpl implements DAO
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `lastname` = '" +last_name + "';");
         resultLecture.next();
-        System.out.println("id : " +resultLecture.next());
+        //System.out.println("id : " +resultLecture.next());
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
