@@ -38,7 +38,7 @@ public class GraphicOfficials extends JFrame
     public GraphicOfficials(Official m_user_official)
     {
         checkOfficials =0;
-        messageEnter = new JLabel("You are the official DONALD TRUMP");
+        messageEnter = new JLabel("You are the official " + m_user_official.getLastName() + " " + m_user_official.getFirstName());
         buttonAddCandidate = new JButton("Add candidate");
         buttonAddCandidate.addActionListener(new PlayButtonAddCandidate());
         buttonDelCandidate = new JButton("Delete candidate");

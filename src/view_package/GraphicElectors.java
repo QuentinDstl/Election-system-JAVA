@@ -53,13 +53,13 @@ public class GraphicElectors extends GraphicIdentification
         
         checkElectors = 0;
         messageIntro1 = new JLabel("                                       Your lastname :                                    ");
-        messageIntro2 = new JLabel("                                          LASTAME                                        ");
+        messageIntro2 = new JLabel("                                      " + m_user_elector.getLastName()+ "                                ");
         messageIntro2.setForeground(Color.BLUE);
         messageIntro3 = new JLabel("                                       Your firstname :                                    ");
-        messageIntro4 = new JLabel("                                          LASTAME                                        ");
+        messageIntro4 = new JLabel("                                      " + m_user_elector.getFirstName() + "                                ");
         messageIntro4.setForeground(Color.RED);
         messageIntro5 = new JLabel("                                       Your state :                                    ");
-        messageIntro6 = new JLabel("                                          STATE                                       ");
+        messageIntro6 = new JLabel("                                      " + m_user_elector.getState().getName() + "                                ");
         messageIntro6.setForeground(Color.gray);
         buttonBiden = new JButton(new ImageIcon(imageBiden));
         messageBiden = new JLabel("Joe Biden, Democratic Party");
@@ -125,10 +125,10 @@ public class GraphicElectors extends GraphicIdentification
         
         System.out.println("Hey de niv0" + access_to_election.getCandidates().size() + " " + taille);
         
-        if (access_to_election.getCandidates().size() > 5)
+        if (access_to_election.getCandidates().size() > 1)
         {
             System.out.println("Hey de niv1");
-            for(int i = 4; i <access_to_election.getCandidates().size(); i++)
+            for(int i = 1; i <access_to_election.getCandidates().size(); i++)
             {
                 System.out.println("Hey de niv2");
                 JButton buttonNew = new JButton(new ImageIcon(imageNew));

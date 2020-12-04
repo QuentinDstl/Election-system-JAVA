@@ -44,13 +44,11 @@ public class Controller {
         myIdentification.startIdentification();
         int checkIdentificationOut = 0;
         
-        System.out.print("NIV1");
         /* Blindage */ 
         while (checkIdentificationOut == 0) {            
             checkIdentificationOut = myIdentification.getCheckIdentification();
             System.out.print("");
         }
-        System.out.print(" NIV2");
         createUser(myIdentification.getLastName(), myIdentification.getFirstName(), myIdentification.getPassword());
         executeProgram();
     }
@@ -172,13 +170,15 @@ public class Controller {
             if(checkOfficialsOut == 2)// DELETE CANDIDATE
             {
                 GraphicOfficialsDelCandidate myOfficialsDelCandidate = new GraphicOfficialsDelCandidate();
-                myOfficialsDelCandidate.startOfficialsDelCandidate();
+                myOfficialsDelCandidate.startOfficialsDelCandidate(access_to_election);
                 
                 while(checkOfficialsDelCandidatesOut != -1)
                 {
                     checkOfficialsDelCandidatesOut = myOfficialsDelCandidate.getCheckOfficialsDelCandidate();
                     System.out.print("");
                 }
+                m_user_official.deleteCandidate(access_to_election.getCandidates().get(myOfficialsDelCandidate.getIntCandidate()));
+                
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -194,6 +194,7 @@ public class Controller {
                     checkOfficialsAddElectorsOut = myOfficialsAddElector.getCheckOfficialsAddElector();
                     System.out.print("");
                 }
+                m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), null);
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -202,13 +203,15 @@ public class Controller {
             if(checkOfficialsOut == 4)// DELETE ELECTOR
             {
                 GraphicOfficialsDelElector myOfficialsDelElector = new GraphicOfficialsDelElector();
-                myOfficialsDelElector.startOfficialsDelElector();
+                myOfficialsDelElector.startOfficialsDelElector(access_to_election);
                 
                 while(checkOfficialsDelElectorsOut != -1)
                 {
                     checkOfficialsDelElectorsOut = myOfficialsDelElector.getCheckOfficialsDelElector();
                     System.out.print("");
                 }
+                m_user_official.deleteElector(access_to_election.getElectors().get(myOfficialsDelElector.getIntElector()));
+                
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -313,21 +316,21 @@ public class Controller {
                 m_user_elector = null;
                 m_type_user = CANDIDATE;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-            }
+            }*/
             if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
                 m_user_official = new Official(access_to_official_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_candidate = null;
                 m_user_elector = null;
                 m_type_user = OFFICIAL;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-            }*/
-            if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
+            }
+            /*if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
                 m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election.getCandidates(), access_to_election.elector_from_db, access_to_election);
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-            } 
+            } */
            else {
                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE L'INTERFACE FASSE QUAND LE PASSWORD N'EST PAS BON
             }
@@ -339,8 +342,8 @@ public class Controller {
     }
     
     private boolean checkUserName(String last_name, String first_name) throws SQLException {
-        return  /*access_to_candidate_table.checkUserCandidateName(last_name, first_name) ||
-                access_to_official_table.checkUserOfficialName(last_name, first_name)||*/
-                access_to_elector_table.checkUserElectorName(last_name, first_name);
+        return  /*access_to_candidate_table.checkUserCandidateName(last_name, first_name) ||*/
+                access_to_official_table.checkUserOfficialName(last_name, first_name)/*||
+                access_to_elector_table.checkUserElectorName(last_name, first_name)*/;
     }
 }
