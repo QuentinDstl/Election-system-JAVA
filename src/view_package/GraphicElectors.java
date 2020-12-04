@@ -43,7 +43,7 @@ public class GraphicElectors extends GraphicIdentification
     private final JButton buttonWest;
     private final JButton buttonCancel;
     
-    public GraphicElectors(Elector m_user_elector)
+    public GraphicElectors(Elector myElector)
     {
         /* Initialisation of the interface */
         setTitle("Vote for YOUR FUTUR PRESIDENT");
@@ -53,13 +53,13 @@ public class GraphicElectors extends GraphicIdentification
         
         checkElectors = 0;
         messageIntro1 = new JLabel("                                       Your lastname :                                    ");
-        messageIntro2 = new JLabel("                                      " + m_user_elector.getLastName()+ "                                ");
+        messageIntro2 = new JLabel("                                      " + myElector.getLastName()+ "                                ");
         messageIntro2.setForeground(Color.BLUE);
         messageIntro3 = new JLabel("                                       Your firstname :                                    ");
-        messageIntro4 = new JLabel("                                      " + m_user_elector.getFirstName() + "                                ");
+        messageIntro4 = new JLabel("                                      " + myElector.getFirstName() + "                                ");
         messageIntro4.setForeground(Color.RED);
         messageIntro5 = new JLabel("                                       Your state :                                    ");
-        messageIntro6 = new JLabel("                                      " + m_user_elector.getState().getName() + "                                ");
+        messageIntro6 = new JLabel("                                      " + myElector.getState().getName() + "                                ");
         messageIntro6.setForeground(Color.gray);
         buttonBiden = new JButton(new ImageIcon(imageBiden));
         messageBiden = new JLabel("Joe Biden, Democratic Party");
@@ -87,10 +87,10 @@ public class GraphicElectors extends GraphicIdentification
         setVisible(true);
     }
     
-    public void startElectors(Election access_to_election)
+    public void startElectors(Election myElection)
     {
-        int taille = access_to_election.getCandidates().size()+1;
-        setLayout(new GridLayout(1, taille));
+        int taille = myElection.getCandidates().size()+1;
+        setLayout(new GridLayout(1, taille+1));
         
         JPanel panelCancel = new JPanel();
         panelCancel.add(messageIntro1);
@@ -123,16 +123,16 @@ public class GraphicElectors extends GraphicIdentification
         add(panelJorgensen);
         add(panelWest);
         
-        System.out.println("Hey de niv0" + access_to_election.getCandidates().size() + " " + taille);
+        System.out.println("Hey de niv0" + myElection.getCandidates().size() + " " + taille);
         
-        if (access_to_election.getCandidates().size() > 1)
+        if (myElection.getCandidates().size() > 4)
         {
             System.out.println("Hey de niv1");
-            for(int i = 1; i <access_to_election.getCandidates().size(); i++)
+            for(int i = 4; i <myElection.getCandidates().size(); i++)
             {
                 System.out.println("Hey de niv2");
                 JButton buttonNew = new JButton(new ImageIcon(imageNew));
-                JLabel messageNew = new JLabel(access_to_election.getCandidates().get(i).getFirstName());
+                JLabel messageNew = new JLabel(myElection.getCandidates().get(i).getFirstName());
                 buttonNew.addActionListener(new PlayButtonNew());
                 JPanel panelNew = new JPanel();
                 panelNew.add(buttonNew);

@@ -185,7 +185,7 @@ public class ElectorDAOImpl implements  DAO {
     /* Méthodes de vérification des données de l'utilisateur */
     public boolean checkUserElectorName(String last_name, String first_name) throws SQLException {
         return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name) &&
-                getIdUserWithLastName(last_name) == NOT_IN_TABLE);
+                getIdUserWithLastName(last_name) != NOT_IN_TABLE);
     }
     
     public boolean checkUserElectorPassword(String last_name, String first_name, String password) throws SQLException {

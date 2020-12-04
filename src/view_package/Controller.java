@@ -5,10 +5,8 @@ import dao_package.CandidateDAOImpl;
 import dao_package.ElectorDAOImpl;
 import dao_package.OfficialDAOImpl;
 import java.sql.SQLException;
-import java_project_desautel_pellen_perold.Candidate;
-import java_project_desautel_pellen_perold.Election;
-import java_project_desautel_pellen_perold.Elector;
-import java_project_desautel_pellen_perold.Official;
+import javax.swing.*;
+import java_project_desautel_pellen_perold.*;
 
 public class Controller {
     
@@ -44,27 +42,61 @@ public class Controller {
         GraphicIdentification myIdentification = new GraphicIdentification();
         myIdentification.startIdentification();
         int checkIdentificationOut = 0;
+        int checkExistence = 0;
         
         /* Blindage */ 
-        while (checkIdentificationOut == 0) {            
-            checkIdentificationOut = myIdentification.getCheckIdentification();
-            System.out.print("");
+        while (checkExistence ==0) 
+        {
+            while (checkIdentificationOut == 0) 
+            {            
+                checkIdentificationOut = myIdentification.getCheckIdentification();
+                System.out.print("");
+            }
+            
+            checkExistence = createUser(myIdentification.getLastName(), myIdentification.getFirstName(), myIdentification.getPassword());
+            
+            if (checkExistence == 1) 
+            {
+                JOptionPane.showMessageDialog(null, "Your lastname or your firstname is incorrect");
+                myIdentification = null;
+                myIdentification = new GraphicIdentification();
+                myIdentification.startIdentification();
+                checkIdentificationOut = 0;
+                checkExistence =0;
+            }
+            else if (checkExistence == 2) 
+            {
+                JOptionPane.showMessageDialog(null, "Your password is incorrect");
+                myIdentification = null;
+                myIdentification = new GraphicIdentification();
+                myIdentification.startIdentification();
+                checkIdentificationOut = 0;
+                checkExistence =0;
+            }
+            else
+            {
+                executeProgram();
+            } 
         }
-        createUser(myIdentification.getLastName(), myIdentification.getFirstName(), myIdentification.getPassword());
-        executeProgram();
     }
     
     public void startGraphiqueElectors()
     {
-        GraphicElectors myElectors = new GraphicElectors(m_user_elector);
-        myElectors.startElectors(access_to_election);
-        int checkElectorsOut = 0;
-        
-        do {            
-            System.out.print("");
-            checkElectorsOut = myElectors.getCheckElectors();
-        } while (checkElectorsOut == 0);
-        
+        if (m_user_elector.isVoteDone() == false)
+        {
+            GraphicElectors myElectors = new GraphicElectors(m_user_elector);
+            myElectors.startElectors(access_to_election);
+            int checkElectorsOut = 0;
+
+            do {            
+                System.out.print("");
+                checkElectorsOut = myElectors.getCheckElectors();
+            } while (checkElectorsOut == 0);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "You have already voted");
+        }
         m_reset = 1;
     }
     
@@ -303,11 +335,11 @@ public class Controller {
         }
         else if(m_type_user == ELECTOR) {
             access_to_election.downLoadDataBaseForElector();
-           startGraphiqueElectors();
+            startGraphiqueElectors();
         }
     }
     
-    private void createUser(String last_name, String first_name, String password) throws  SQLException {
+    private int createUser(String last_name, String first_name, String password) throws  SQLException {
         
         if(checkUserName(last_name, first_name)) {
            
@@ -316,29 +348,29 @@ public class Controller {
                 m_user_official = null;
                 m_user_elector = null;
                 m_type_user = CANDIDATE;
-                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
+                return -1;
             }
             else if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
                 m_user_official = new Official(access_to_official_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_candidate = null;
                 m_user_elector = null;
                 m_type_user = OFFICIAL;
-                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
+                return -1;
             }
             else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
                 m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election.getCandidates(), access_to_election.elector_from_db, access_to_election);
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;
-                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
+                return -1;
             } 
            else {
-               ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE L'INTERFACE FASSE QUAND LE PASSWORD N'EST PAS BON
+                return 2;
             }
             
         }
         else {
-            ///POUR CHARLES : RAJOUTER ICI CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND LE NOM ET LE PRENOM NE CORRESPONDENT PAS A QUELQU'UN
+            return 1;
         }
     }
     
