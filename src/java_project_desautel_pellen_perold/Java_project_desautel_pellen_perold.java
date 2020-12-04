@@ -29,7 +29,6 @@ public class Java_project_desautel_pellen_perold {
         //THEController.startGraphiqueOfficials();
         
         
-        
         THEController.startGraphiqueAccueil();
         int resetOut = 0;
         

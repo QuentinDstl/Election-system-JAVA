@@ -123,7 +123,7 @@ public class OfficialDAOImpl implements DAO {
     
     public int getIdUserWithLastName(String last_name) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE lastname = " +last_name + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE lastname = '" +last_name + "';");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
@@ -131,7 +131,7 @@ public class OfficialDAOImpl implements DAO {
     
     public int getIdUserWithFirstName(String first_name) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE firstname = " +first_name + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE firstname = '" +first_name + "';");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
@@ -139,7 +139,7 @@ public class OfficialDAOImpl implements DAO {
     
     public int getIdUserWithPassword(String password) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE password = " +password + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE password = '" +password + "';");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);

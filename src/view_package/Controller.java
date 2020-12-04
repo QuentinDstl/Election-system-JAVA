@@ -20,9 +20,9 @@ public class Controller {
     
     private int m_reset = 0;
     
-    private final CandidateDAOImpl access_to_candidate_table = new CandidateDAOImpl();
-    private final OfficialDAOImpl access_to_official_table = new OfficialDAOImpl();
-    private final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
+    private final CandidateDAOImpl access_to_candidate_table;
+    private final OfficialDAOImpl access_to_official_table;
+    private final ElectorDAOImpl access_to_elector_table;
     
     private final Election access_to_election = new Election();
     
@@ -33,6 +33,9 @@ public class Controller {
     
     
     public Controller() throws SQLException {
+        access_to_candidate_table = access_to_election.candidate_from_db;
+        access_to_official_table = access_to_election.official_from_db;
+        access_to_elector_table = access_to_election.elector_from_db;
     }
     
     public void startGraphiqueAccueil() throws SQLException
@@ -130,7 +133,7 @@ public class Controller {
         m_reset = 1;
     }
     
-    public void startGraphiqueOfficials()
+    public void startGraphiqueOfficials() throws SQLException
     {
         GraphicOfficials myOfficials = new GraphicOfficials(m_user_official);
         myOfficials.startOfficials();
@@ -160,6 +163,7 @@ public class Controller {
                     checkOfficialsAddCandidatesOut = myOfficialsAddCandidate.getCheckOfficialsAddCandidate();
                     System.out.print("");
                 }
+                m_user_official.addCandidate(myOfficialsAddCandidate.getLastName(), myOfficialsAddCandidate.getFirstName(),myOfficialsAddCandidate.getParty());
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -303,30 +307,30 @@ public class Controller {
         
         if(checkUserName(last_name, first_name)) {
            
-            if(access_to_candidate_table.checkUserCandidatePassword(last_name, first_name, password)) {
+            /*if(access_to_candidate_table.checkUserCandidatePassword(last_name, first_name, password)) {
                 m_user_candidate = new Candidate(access_to_candidate_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_official = null;
                 m_user_elector = null;
                 m_type_user = CANDIDATE;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-            }
-           else if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
+            }*/
+            if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
                 m_user_official = new Official(access_to_official_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_candidate = null;
                 m_user_elector = null;
                 m_type_user = OFFICIAL;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-           }
-           else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
+            }
+            else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
                 m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election.getCandidates(), access_to_election.elector_from_db, access_to_election);
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-           } 
+            } 
            else {
                ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE L'INTERFACE FASSE QUAND LE PASSWORD N'EST PAS BON
-           }
+            }
             
         }
         else {
@@ -335,8 +339,8 @@ public class Controller {
     }
     
     private boolean checkUserName(String last_name, String first_name) throws SQLException {
-        return  access_to_candidate_table.checkUserCandidateName(last_name, first_name) || 
-                access_to_official_table.checkUserOfficialName(last_name, first_name) ||
-                access_to_elector_table.checkUserElectorName(last_name, first_name);
+        return  /*access_to_candidate_table.checkUserCandidateName(last_name, first_name) ||*/ 
+                access_to_official_table.checkUserOfficialName(last_name, first_name) /*||
+                access_to_elector_table.checkUserElectorName(last_name, first_name)*/;
     }
 }
