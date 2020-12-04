@@ -234,8 +234,11 @@ public class Controller {
                     System.out.print("");
                 }
                 if (checkOfficialsAddElectorsOut ==1)
+                {
                     m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), m_access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
-                
+                    System.out.print("j'aoute quelqu'un");
+                }
+                   
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;

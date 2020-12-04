@@ -23,8 +23,8 @@ public class GraphicOfficialsDelElector extends JFrame
 {
     private int checkOfficialsDelElector;
     private int m_intElector;
-    private final int WINDOW_WIDTH = 1500;
-    private final int WINDOW_HEIGHT = 900;
+    private final int WINDOW_WIDTH = 3240;
+    private final int WINDOW_HEIGHT = 2160;
 
     private final JButton buttonCancel;
     public GraphicOfficialsDelElector()
@@ -44,10 +44,10 @@ public class GraphicOfficialsDelElector extends JFrame
         setLocationRelativeTo(null);
 
         int heightTab = myElection.getElectors().size();
-        if (heightTab > 10)
+        if (heightTab > 100)
         {
-            int heightFinal = heightTab/10 +1;
-            setLayout(new GridLayout(10, heightFinal));
+            int heightFinal = heightTab/100 +1;
+            setLayout(new GridLayout(100, heightFinal));
             System.out.print(heightTab + " " + heightFinal);
         }
         else

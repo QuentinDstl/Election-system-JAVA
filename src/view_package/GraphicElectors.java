@@ -185,6 +185,7 @@ public class GraphicElectors extends GraphicIdentification
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            setVisible(false);
             String source = e.getActionCommand();
             System.out.println(source);
             String[] parts = source.split(":");
