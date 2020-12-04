@@ -1,58 +1,60 @@
 package config_package;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Scanner;
+import static loader_package.Loader.loadXLSX;
 
 public class Config implements ConfigInterface {
 
+    private static String m_xlxs;
+    private static String m_config;
+    
     private static String m_url;
     private static String m_login;
     private static String m_password;
     private static String m_database;
-    
-    /* Constructor */
-    public static void initConfig(String owner) {
+
+    /**
+     * @param args
+     * String configName, String xlsxName
+    */
+    public static void initConfig(String ...args) {
         NewProperties properties = new NewProperties(new Properties());
-        try {
-            InputStream inputStream = new FileInputStream(FILE_NAME);
-            properties.load(inputStream);
-            
-        } 
-        catch (FileNotFoundException e) {
-            Log.add(e.getMessage() + ": fileNotFoundExeception");
-            SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
+        m_xlxs = "";
+        m_config = "";
+
+        if(args.length>1) {
+            m_config = args[0];
+            m_xlxs = args[1];
+            if(m_xlxs.equals(""))
+                askForXLSX();
+            loadConfig(properties);
         }
-        catch (IOException | IllegalArgumentException ioe) {
-            Log.add(ioe.getMessage() + ": IOException | IllegalArgumentException");
-            SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
+        else {
+            loadInfoConfig(properties);
+            if(m_config.equals("") && m_xlxs.equals(""))
+            {
+                askForXLSX();
+                m_config = "default";
+                createConfig(properties);
+            }
+            else
+                loadConfig(properties);
         }
-        
-        String errorMessage = "";
-        try {
-            m_url = properties.getProperty(owner + URL);
-            errorMessage += "url load -> ";
-            m_login = properties.getProperty(owner + LOGIN);
-            errorMessage += "login load -> ";
-            m_database = properties.getProperty(owner + DATABASE);
-            errorMessage += "database load -> ";
-            m_password = properties.getProperty(owner + PASSWORD);
-            errorMessage += "password load -> ";
-        }
-        catch (IllegalArgumentException e) {
-            Log.add(e.getMessage() + ": IllegalArgumentException :");
-            Log.add(errorMessage + "then throw exception");
-            SecureLoad(); 
-        }
+        loadXLSX(m_xlxs);
+        saveConfig(properties);
     }
-    
+
     /* If on of the config value do not load properly we do a secure load for all data */
     private static void SecureLoad() {
         System.out.println("config_package.Config.SecureLoad()");
         Scanner scanner = new Scanner(System.in);
+        
         System.out.println("\tURL=");
         m_url = scanner.nextLine();
         System.out.println("\tLOGIN=");
@@ -63,6 +65,92 @@ public class Config implements ConfigInterface {
         m_password = scanner.nextLine();
     }
 
+    private static void askForXLSX() {
+        System.out.println("What is the excel name in the src\\loader_package : ");
+        Scanner scanner = new Scanner(System.in);
+        m_xlxs = "src\\loader_package\\" + scanner.nextLine() + ".xlsx";
+    }
+
+    private static void saveConfig(NewProperties properties) {
+        try (FileOutputStream outputStream = new FileOutputStream(FILE_NAME)) {
+            properties.setProperty(CONFIG, m_config);
+            properties.setProperty(XLSX, m_xlxs);
+            properties.store(outputStream);
+            Log.add("default properties have been saved in: " + FILE_NAME);
+        }
+        catch (IOException e) {
+            Log.add("default properties haven't been saved : " + e.getLocalizedMessage());
+        }
+    }
+
+    private static void createConfig(NewProperties properties) {
+        SecureLoad();
+        properties.setProperty(m_config + URL, m_url);
+        properties.setProperty(m_config + LOGIN, m_login);
+        properties.setProperty(m_config + DATABASE, m_database);
+        properties.setProperty(m_config + PASSWORD, m_password);
+    }
+    
+    private static void loadConfig(NewProperties properties) {
+        try {
+            InputStream inputStream = new FileInputStream(FILE_NAME);
+            properties.load(inputStream);
+        }
+        catch (FileNotFoundException e) {
+            Log.add(e.getMessage() + ": fileNotFoundExeception");
+            SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
+        }
+        catch (IOException | IllegalArgumentException ioe) {
+            Log.add(ioe.getMessage() + ": IOException | IllegalArgumentException");
+            SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
+        }
+
+        String errorMessage = "";
+        try {
+            m_url = properties.getProperty(m_config + URL);
+            errorMessage += "url load -> ";
+            m_login = properties.getProperty(m_config + LOGIN);
+            errorMessage += "login load -> ";
+            m_database = properties.getProperty(m_config + DATABASE);
+            errorMessage += "database load -> ";
+            m_password = properties.getProperty(m_config + PASSWORD);
+            errorMessage += "password load -> ";
+        }
+        catch (IllegalArgumentException e) {
+            Log.add(e.getMessage() + ": IllegalArgumentException :");
+            Log.add(errorMessage + "then throw exception");
+            SecureLoad(); 
+        }
+    }
+
+    private static void loadInfoConfig(NewProperties properties) {
+        try {
+            InputStream inputStream = new FileInputStream(FILE_NAME);
+            properties.load(inputStream);
+        }
+        catch (FileNotFoundException e) {
+            Log.add(e.getMessage() + ": fileNotFoundExeception");
+            SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
+        }
+        catch (IOException | IllegalArgumentException ioe) {
+            Log.add(ioe.getMessage() + ": IOException | IllegalArgumentException");
+            SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
+        }
+
+        String errorMessage = "";
+        try {
+            m_config = properties.getProperty(CONFIG);
+            errorMessage += "config load -> ";
+            m_xlxs = properties.getProperty(XLSX);
+            errorMessage += "xlxs load -> ";
+        }
+        catch (IllegalArgumentException e) {
+            Log.add(e.getMessage() + ": IllegalArgumentException :");
+            Log.add(errorMessage + "then throw exception");
+            System.err.println("CONIFG FILE IS CORRUPTED : check logs");
+        }
+    }
+    
     public static String getUrl() {
         return m_url;
     }
