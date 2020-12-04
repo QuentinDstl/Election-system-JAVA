@@ -38,7 +38,7 @@ public class Elector extends Person {
         m_candidate_name = m_elector_from_db.getNameCandidateOfElectorIntoTable(num_case);
         m_voteDone = m_elector_from_db.getTestVoteElector(num_case);
         if((m_voteDone == true && m_candidate_name.equals("NoOne")) || (m_voteDone == false && (!m_candidate_name.equals("NoOne")))) {
-            throw new SQLException(": Corrumpted database (vote_done and candidate_name don't correspond");
+            throw new SQLException(": Base de donnée corrompue (le nom du candidat et la verification du vote ne correspondent pas");
         }
     }
     
@@ -102,7 +102,7 @@ public class Elector extends Person {
     }
 
     /* Setters */
-    /*public void isVoting(Candidate candidate) {
+    public void Votes(Candidate candidate) {
         boolean exist_candidate = false;
         for(int i=0; i<m_election_access.getCandidates().size(); ++i) {
             if(candidate.getId() == m_election_access.getCandidates().get(i).getId())
@@ -113,6 +113,5 @@ public class Elector extends Person {
         if(exist_candidate == false) {
             throw new IllegalArgumentException("choosen candidate doesn't exist");
         }
-            
-    }*/
+    }
 }

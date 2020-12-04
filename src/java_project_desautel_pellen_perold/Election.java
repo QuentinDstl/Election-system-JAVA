@@ -87,7 +87,7 @@ public class Election {
             }
         }
         catch(SQLException sql_except) {
-            Log.add(sql_except.getMessage() + "Arret du chargement");
+            Log.add(sql_except.getMessage() + " Arret du chargement");
         }
         return electors;
     }
