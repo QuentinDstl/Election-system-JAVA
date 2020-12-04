@@ -33,6 +33,7 @@ public class GraphicOfficials extends JFrame
     private final JButton buttonShowState;
     private final JButton buttonShowWinner;
     private final JButton buttonCancel;
+    private final JButton buttonStartPause;
     
     public GraphicOfficials(Official m_user_official)
     {
@@ -54,6 +55,8 @@ public class GraphicOfficials extends JFrame
         buttonShowWinner.addActionListener(new PlayButtonShowWinner());
         buttonCancel = new JButton("Back to identification");
         buttonCancel.addActionListener(new PlayButtonCancel());
+        buttonStartPause = new JButton("Start, pause, end vote");
+        buttonStartPause.addActionListener(new PlayButtonStartPause());
     }
     
     public void startOfficials()
@@ -90,6 +93,8 @@ public class GraphicOfficials extends JFrame
         panelButtonShowState.add(buttonShowState);
         JPanel panelButtonShowWinner = new JPanel();
         panelButtonShowWinner.add(buttonShowWinner);
+        JPanel panelButtonStartPause = new JPanel();
+        panelButtonStartPause.add(buttonStartPause);
         //JPanel panelButtonCancel = new JPanel();
         //panelButtonCancel.add(buttonCancel);
    
@@ -103,7 +108,7 @@ public class GraphicOfficials extends JFrame
         add(panelButtonDelCandidate);
         add(panelButtonShowState);
         add(panelButtonDelElector);
-        add(panelVoid2);
+        add(panelButtonStartPause);
         add(panelButtonShowWinner);
         
         setVisible(true);
@@ -175,6 +180,15 @@ public class GraphicOfficials extends JFrame
         {
             setVisible(false);
             checkOfficials = 7;
+        }
+    }
+    private class PlayButtonStartPause implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            setVisible(false);
+            checkOfficials = 8;
         }
     }
     private class PlayButtonCancel implements ActionListener

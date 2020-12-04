@@ -26,37 +26,36 @@ public class Controller {
     
     private final Election access_to_election = new Election();
     
-    
     /* Constantes */
     public final int CANDIDATE = 1;
     public final int OFFICIAL = 2;
     public final int ELECTOR = 3;
     
     
-    public Controller() throws SQLException {}
+    public Controller() throws SQLException {
+    }
     
     public void startGraphiqueAccueil() throws SQLException
     {
         GraphicIdentification myIdentification = new GraphicIdentification();
         myIdentification.startIdentification();
-        boolean checkIdentification = false;
+        int checkIdentificationOut = 0;
         
+        System.out.print("NIV1");
         /* Blindage */ 
-        while (checkIdentification == false) {            
-            checkIdentification = myIdentification.getCheck();
+        while (checkIdentificationOut == 0) {            
+            checkIdentificationOut = myIdentification.getCheckIdentification();
             System.out.print("");
         }
-        
-        /* 1ER NIVEAU DE CONNEXION */
+        System.out.print(" NIV2");
         createUser(myIdentification.getLastName(), myIdentification.getFirstName(), myIdentification.getPassword());
         executeProgram();
     }
     
-    /* PROGRAMME TERMINE */
     public void startGraphiqueElectors()
     {
         GraphicElectors myElectors = new GraphicElectors(m_user_elector);
-        myElectors.startElectors();
+        myElectors.startElectors(access_to_election);
         int checkElectorsOut = 0;
         
         do {            
@@ -144,6 +143,7 @@ public class Controller {
         int checkOfficialsStatesOut = 0;
         int checkOfficialsStatesUniqueOut = 0;
         int checkOfficialsWinnersOut = 0;
+        int checkOfficialsStartPauseOut = 0;
         
         while (checkOfficialsOut != -1) 
         {   
@@ -256,6 +256,21 @@ public class Controller {
                 checkOfficialsOut = 0;
                 checkOfficialsStatesOut = 0;
             }
+            if(checkOfficialsOut == 8)// START PAUSE MENU
+            {
+                GraphicOfficialsStartPause myOfficialsStartPause = new GraphicOfficialsStartPause();
+                myOfficialsStartPause.startOfficialsStartPause();
+                
+                while(checkOfficialsStartPauseOut != -1)
+                {
+                    checkOfficialsStartPauseOut = myOfficialsStartPause.getCheckOfficialsStartPause();
+                    System.out.print("");
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsStartPauseOut = 0;
+            }
             
         }
         m_reset = 1;
@@ -274,10 +289,9 @@ public class Controller {
             startGraphiqueCandidats();
         }
         else if(m_type_user == OFFICIAL) {
-           //INTERFACE DE L'OFFICIAL
+            startGraphiqueOfficials();
         }
         else if(m_type_user == ELECTOR) {
-           /* 2EME NIVEAU DE CONNEXION */
            startGraphiqueElectors();
         }
     }

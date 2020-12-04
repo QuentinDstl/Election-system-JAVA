@@ -15,7 +15,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class GraphicIdentification extends JFrame
 {
-    private boolean check;
+    private int checkIdentification;
     private String m_lastName;
     private String m_firstName;
     private String m_password;
@@ -31,11 +31,10 @@ public class GraphicIdentification extends JFrame
     private final JLabel password;
     private final JTextField passwordEnter;
     private final JButton enter;
-    protected Controller theController = null;
 
     public GraphicIdentification()
     {
-        check = false;
+        checkIdentification = 0;
         photoIntroduction = new JLabel(new ImageIcon(file_name));
         messageIntroduction = new JLabel("Welcome to our voting system, "
                 + "please enter your lastname, firstname and Password");
@@ -90,9 +89,9 @@ public class GraphicIdentification extends JFrame
         setVisible(true);
     }
     
-    public boolean getCheck()
+    public int getCheckIdentification()
     {
-        return check;
+        return checkIdentification;
     }
     public String getLastName()
     {
@@ -129,11 +128,11 @@ public class GraphicIdentification extends JFrame
             }
             else
             {
-                //System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
+                System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
                 m_firstName = captureFirstName;
                 m_lastName = captureLastName;
                 m_password = capturePassword;
-                check = true;
+                checkIdentification = -1;
                 setVisible(false);
             }   
         }
