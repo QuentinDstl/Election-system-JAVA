@@ -75,13 +75,13 @@ public class CandidateDAOImpl implements DAO
     
     public void deleteCandidate(int id) throws SQLException {
         m_statement.executeUpdate(DELETE_CANDIDATE 
-                                + "WHERE `id` = " +id + ";");
+                                + " WHERE `id` = " +id + ";");
         System.out.println(DELETE_CANDIDATE);
         decrementeIdCandidates(id);
     }
     
     public void decrementeIdCandidates(int id) throws SQLException {
-        m_statement.executeUpdate(DECREMENT_ID_CANDIDATE + "WHERE id > " +id + ";");
+        m_statement.executeUpdate(DECREMENT_ID_CANDIDATE + " WHERE id > " +id + ";");
     } 
     
     
@@ -148,9 +148,9 @@ public class CandidateDAOImpl implements DAO
             
     public int getIdUserWithConstraintUniquePerson(String last_name, String first_name, String password) throws  SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE lastname = " +last_name 
-                                                                                       + " AND firstname = " +first_name
-                                                                                       + ",AND password = " + password + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `lastname` = '" +last_name 
+                                                                                       + "' AND `firstname` = '" +first_name
+                                                                                       + "' AND `password` = '" + password + "';");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
@@ -158,7 +158,7 @@ public class CandidateDAOImpl implements DAO
     
     public int getIdUserWithLastName(String last_name) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE lastname = " +last_name + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `lastname` = " +last_name + ";");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
@@ -166,7 +166,7 @@ public class CandidateDAOImpl implements DAO
     
     public int getIdUserWithFirstName(String first_name) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE firstname = " +first_name + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `firstname` = " +first_name + ";");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
@@ -174,7 +174,7 @@ public class CandidateDAOImpl implements DAO
     
     public int getIdUserWithPassword(String password) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE password = " +password + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `password` = " +password + ";");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);

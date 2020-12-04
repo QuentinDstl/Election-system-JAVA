@@ -287,7 +287,7 @@ public class Controller {
         if(checkUserName(last_name, first_name)) {
            
             if(access_to_candidate_table.checkUserCandidatePassword(last_name, first_name, password)) {
-                m_user_candidate = new Candidate(access_to_candidate_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password));
+                m_user_candidate = new Candidate(access_to_candidate_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_official = null;
                 m_user_elector = null;
                 m_type_user = CANDIDATE;

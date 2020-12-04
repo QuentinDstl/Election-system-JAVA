@@ -63,7 +63,7 @@ public class Election {
         ArrayList<Candidate> candidates = new ArrayList<>();
         int nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
         for(int case_index=0; case_index<nb_candidates; ++case_index) {
-            candidates.add(new Candidate(case_index + DAO.FIRST_ID_CANDIDATE));
+            candidates.add(new Candidate(case_index + DAO.FIRST_ID_CANDIDATE, this));
         }
         return candidates;
     }
@@ -95,7 +95,7 @@ public class Election {
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {
         //try {
-            m_electors.add( new Elector(last_name, first_name, state, this));
+            m_electors.add( new Elector(last_name, first_name, state, elector_from_db, this));
             elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
                                        m_electors.get(m_electors.size()-1).getFirstName(), 
                                        m_electors.get(m_electors.size()-1).getPassword(), 
@@ -119,7 +119,7 @@ public class Election {
     }
     
     public void addCandidate(String last_name, String first_name, String party) throws SQLException {
-        m_candidates.add( new Candidate(last_name, first_name, party));
+        m_candidates.add( new Candidate(last_name, first_name, party, this));
         candidate_from_db.addToTable(m_candidates.get(m_candidates.size()-1).getLastName(),
                                      m_candidates.get(m_candidates.size()-1).getFirstName(),
                                      m_candidates.get(m_candidates.size()-1).getPassword(),

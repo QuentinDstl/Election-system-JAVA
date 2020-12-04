@@ -15,14 +15,17 @@ public class Candidate extends Person {
     
     private final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
     
-    private final Election election_access = new Election();
+    private final Election m_election_access;
     
     
     /* Constructeur */
     /* De la DATABASE */
-    public Candidate(int num_case) throws SQLException {
+    public Candidate(int num_case, Election election_access) throws SQLException {
         
         super();
+        
+        m_election_access = election_access;
+        
         setLastNameFromDataBase(candidate_from_db.getLastNameCandidateIntoTable(num_case));
         setFirstNameFromDataBase(candidate_from_db.getFirstNameCandidateIntoTable(num_case));  
         setPasswordFromDataBase(candidate_from_db.getPasswordCandidateIntoTable(num_case));
@@ -33,16 +36,17 @@ public class Candidate extends Person {
     }
     
     /* De le saisie d'un officiel */
-    public Candidate(String last_name, String first_name, String party) throws SQLException {
+    public Candidate(String last_name, String first_name, String party, Election election_access) throws SQLException {
         
         super(last_name, first_name, "0000");
         m_party = party;
         m_nb_votes_total = 0;
+        m_election_access = election_access;
     }
     
     
     public void downLoadElectionDataBase() throws SQLException {
-        election_access.downloadDataBaseForCandidate();
+        m_election_access.downloadDataBaseForCandidate();
     }
     
     public String getParty() {

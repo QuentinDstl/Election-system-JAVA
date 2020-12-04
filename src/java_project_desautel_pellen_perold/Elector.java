@@ -10,10 +10,12 @@ public class Elector extends Person {
     
     /* Variables */
     private State m_state;
-    private Candidate m_candidate;
+    private String m_candidate_name;
     private boolean m_voteDone;
     
     private final Election m_election_access;
+    
+    private final ElectorDAOImpl m_elector_from_db;
     
     
     /* Constructeeur */
@@ -21,26 +23,36 @@ public class Elector extends Person {
     public Elector(int num_case, ArrayList<Candidate> candidates, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException {
         
         super();
-        setLastNameFromDataBase(elector_from_db.getLastNameElectorIntoTable(num_case));
-        setFirstNameFromDataBase(elector_from_db.getFirstNameElectorIntoTable(num_case));  
-        setPasswordFromDataBase(elector_from_db.getPasswordElectorIntoTable(num_case));
+        
+        m_elector_from_db = elector_from_db;
+        
+        setLastNameFromDataBase(m_elector_from_db.getLastNameElectorIntoTable(num_case));
+        setFirstNameFromDataBase(m_elector_from_db.getFirstNameElectorIntoTable(num_case));  
+        setPasswordFromDataBase(m_elector_from_db.getPasswordElectorIntoTable(num_case));
         setIdFromDataBase(num_case);
         
         m_election_access = election_access;
         
-        m_state = setStateFromDatabase(elector_from_db.getNameStateOfElectorIntoTable(num_case));
+        m_state = setStateFromDatabase(m_elector_from_db.getNameStateOfElectorIntoTable(num_case));
         
-        m_candidate = setCandidateFromDataBase(candidates);
+        m_candidate_name = m_elector_from_db.getNameCandidateOfElectorIntoTable(num_case);
+        m_voteDone = m_elector_from_db.getTestVoteElector(num_case);
+        if((m_voteDone == true && m_candidate_name.equals("NoOne")) || (m_voteDone == false && (!m_candidate_name.equals("NoOne")))) {
+            throw new SQLException(": Corrumpted database (vote_done and candidate_name don't correspond");
+        }
     }
     
     /* De la saisie d'un Official */
-    public Elector(String last_name, String first_name, State state, Election election_access) throws SQLException {
+    public Elector(String last_name, String first_name, State state, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException {
         
         super(last_name, first_name, "0000");
         
         m_election_access = election_access;
         
+        m_elector_from_db = elector_from_db;
+        
         m_state = state;
+        m_candidate_name = "NoOne";
         m_voteDone = false;
     }
 
@@ -58,7 +70,7 @@ public class Elector extends Person {
         return state;
     }
     
-    public final Candidate setCandidateFromDataBase(ArrayList<Candidate> candidates) throws SQLException {
+    /*public final Candidate setCandidateFromDataBase(ArrayList<Candidate> candidates) throws SQLException {
         Candidate candidate;
         int index_valid_database = 0;
         for(int i=0; i<candidates.size(); ++i) {
@@ -68,7 +80,7 @@ public class Elector extends Person {
         }
         candidate = candidates.get(index_valid_database);
         return candidate;
-    }
+    }*/
     
     
     public void downLoadElectionDataBase() throws SQLException {
@@ -81,8 +93,8 @@ public class Elector extends Person {
         return m_state;
     }
 
-    public Candidate getCandidate() {
-        return m_candidate;
+    public String getCandidate() {
+        return m_candidate_name;
     }
 
     public boolean isVoteDone() {
@@ -90,7 +102,17 @@ public class Elector extends Person {
     }
 
     /* Setters */
-    public void hadVoted() {
-        m_voteDone = true;
-    }
+    /*public void isVoting(Candidate candidate) {
+        boolean exist_candidate = false;
+        for(int i=0; i<m_election_access.getCandidates().size(); ++i) {
+            if(candidate.getId() == m_election_access.getCandidates().get(i).getId())
+                m_candidate_name = candidate.getLastName();
+                m_voteDone = true;
+                exist_candidate = true;
+        }
+        if(exist_candidate == false) {
+            throw new IllegalArgumentException("choosen candidate doesn't exist");
+        }
+            
+    }*/
 }

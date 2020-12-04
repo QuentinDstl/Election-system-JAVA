@@ -35,7 +35,7 @@ public class Official extends Person {
     }
     
     public void deleteElector(Elector choosen_elector) throws SQLException {
-        election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR +1);
+        election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR);
     }
     
     public void addElector(String last_name, String first_name, State state) throws SQLException {
@@ -47,7 +47,7 @@ public class Official extends Person {
     }
     
     public void deleteCandidate(Candidate choosen_candidate) throws SQLException {
-        election_access.deleteCandidate(choosen_candidate.getId() - DAO.FIRST_ID_CANDIDATE +1);
+        election_access.deleteCandidate(choosen_candidate.getId() - DAO.FIRST_ID_CANDIDATE);
     }
     
     public void addCandidate(String last_name, String first_name, String party) throws SQLException {

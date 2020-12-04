@@ -75,7 +75,7 @@ public class ElectorDAOImpl implements  DAO {
         }
         query += "'" + Integer.parseInt(args[5]) + "');";
         m_statement.executeUpdate(query);
-        System.out.println(ADD_ELECTOR);
+        //System.out.println(ADD_ELECTOR);
     }
     
     public void deleteElector(int id) throws SQLException {
@@ -87,6 +87,11 @@ public class ElectorDAOImpl implements  DAO {
     public void decrementeIdElectors(int id) throws SQLException {
         m_statement.executeUpdate(DECREMENT_ID_ELECTOR + " WHERE `id` > " +id + ";");
     }
+    
+    /*public void saveVoteElector(int id, String name_candidate) throws SQLException {
+        m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = '" + name_candidate
+                                + "', ")
+    }*/
     
     
     /* Méthodes de requêtes */
@@ -112,7 +117,7 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }
-        System.out.println("last name : " +m_resultLecture.getString(1));
+        //System.out.println("last name : " +m_resultLecture.getString(1));
         return m_resultLecture.getString(1);
     }
     
@@ -124,7 +129,7 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }  
-        System.out.println("first name : " +m_resultLecture.getString(2));
+        //System.out.println("first name : " +m_resultLecture.getString(2));
         return m_resultLecture.getString(2);
     }
     
@@ -136,7 +141,7 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }        
-        System.out.println("password : " +m_resultLecture.getString(3));
+        //System.out.println("password : " +m_resultLecture.getString(3));
         return m_resultLecture.getString(3);
     }
     
@@ -148,7 +153,7 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }        
-        System.out.println("name state : " +m_resultLecture.getString(4));
+        //System.out.println("name state : " +m_resultLecture.getString(4));
         return m_resultLecture.getString(4);
     }
     
@@ -162,6 +167,18 @@ public class ElectorDAOImpl implements  DAO {
         }     
         System.out.println("name candidate : " +m_resultLecture.getString(5));
         return m_resultLecture.getString(5);
+    }
+    
+    public boolean getTestVoteElector(int num_case) throws SQLException {
+        
+        if(num_case != m_previous_num_case)
+        {
+            m_resultLecture = getInformationsElectorIntoTable(num_case);
+            m_resultLecture.next();
+            m_previous_num_case = num_case;
+        }
+        System.out.println("has voted : " +m_resultLecture.getString(6));
+        return m_resultLecture.getBoolean(6);
     }
     
     
@@ -178,9 +195,9 @@ public class ElectorDAOImpl implements  DAO {
             
     public int getIdUserWithConstraintUniquePerson(String last_name, String first_name, String password) throws  SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE lastname = " +last_name 
-                                                                                       + " AND firstname = " +first_name
-                                                                                       + ",AND password = " +password + ";");
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE `lastname` = '" +last_name 
+                                                                                       + "' AND `firstname` = '" +first_name
+                                                                                       + "' AND `password` = '" +password + "';");
         resultLecture.next();
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);

@@ -2,14 +2,9 @@ package java_project_desautel_pellen_perold;
 
 import dao_package.*;
 import config_package.*;
-import java.io.IOException;
 import view_package.*;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.stream.FactoryConfigurationError;
-import javax.xml.stream.XMLStreamException;
 import static loader_package.Loader.loadXLSX;
 
 public class Java_project_desautel_pellen_perold {
@@ -90,5 +85,15 @@ public class Java_project_desautel_pellen_perold {
         System.out.println("\n\n");
         System.out.println("JE SUPPRIME UN CANDIDAT PARCE QU'IL EST MOCHE");
         official.deleteCandidate(election.getCandidates().get(0));
+        
+        System.out.println("\n\n");
+        System.out.println("JE SUIS UN CANDIDAT ET JE M'APPELLE BIDEN");
+        final CandidateDAOImpl access_to_candidate_table = new CandidateDAOImpl();
+        Candidate candidate = new Candidate(access_to_candidate_table.getIdUserWithConstraintUniquePerson("Trump", "Donald", "loser"), election);
+        
+        System.out.println("\n\n");
+        System.out.println("JE SUIS UN ELECTEUR ET JE M'APPELLE Kibo");
+        final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
+        Elector elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson("Kibo", "Rodriguez", "tempus-mauris"), election.getCandidates(), access_to_elector_table, election);
     }
 }
