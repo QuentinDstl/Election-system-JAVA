@@ -44,9 +44,9 @@ public class GraphicOfficialsDelCandidate extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        //METTRE TAILLE TAB TOTALE
         int heightTab = myElection.getCandidates().size();
         int heightFinal = heightTab/10 +1;
+        
         setLayout(new GridLayout(10, heightFinal));
         
         for(int i = 0; i< heightTab; i++)
@@ -56,14 +56,14 @@ public class GraphicOfficialsDelCandidate extends JFrame
                             + myElection.getCandidates().get(i).getLastName() + " "
                             + myElection.getCandidates().get(i).getParty() + " :" + i);
             button.addActionListener(new PlayButtonCandidate());
-            panelButton.add(button);
+            panelButton.add(button);    
             add(panelButton);
         }
-        
+         
         JPanel panelButtonCancel = new JPanel();
         panelButtonCancel.add(buttonCancel);
-        add(panelButtonCancel);
-        
+        add(panelButtonCancel); 
+ 
         setVisible(true);
     }
     

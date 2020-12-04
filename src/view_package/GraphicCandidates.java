@@ -26,7 +26,7 @@ public class GraphicCandidates extends JFrame
     public GraphicCandidates(Candidate m_user_candidate)
     {
         checkCandidates = 0;
-        messageEnter = new JLabel("You are the candidate DONALD TRUMP");
+        messageEnter = new JLabel("You are the candidate : " + m_user_candidate.getLastName() + " " + m_user_candidate.getFirstName());
         buttonNational = new  JButton("See my national score");
         buttonNational.addActionListener(new PlayButtonShowNational());
         buttonState = new  JButton("See my states score");

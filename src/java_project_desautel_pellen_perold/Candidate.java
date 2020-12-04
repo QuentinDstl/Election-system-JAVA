@@ -36,9 +36,9 @@ public class Candidate extends Person {
     }
     
     /* De le saisie d'un officiel */
-    public Candidate(String last_name, String first_name, String party, CandidateDAOImpl candidate_from_db, Election election_access) throws SQLException {
+    public Candidate(String last_name, String first_name, String password, String party, CandidateDAOImpl candidate_from_db, Election election_access) throws SQLException {
         
-        super(last_name, first_name, "0000");
+        super(last_name, first_name, password);
         m_election_access = election_access;
         m_candidate_from_db = candidate_from_db;
         m_party = party;

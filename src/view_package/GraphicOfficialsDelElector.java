@@ -23,8 +23,8 @@ public class GraphicOfficialsDelElector extends JFrame
 {
     private int checkOfficialsDelElector;
     private int m_intElector;
-    private final int WINDOW_WIDTH = 3240;
-    private final int WINDOW_HEIGHT = 2160;
+    private final int WINDOW_WIDTH = 1500;
+    private final int WINDOW_HEIGHT = 900;
 
     private final JButton buttonCancel;
     public GraphicOfficialsDelElector()
@@ -38,22 +38,31 @@ public class GraphicOfficialsDelElector extends JFrame
     public void startOfficialsDelElector(Election myElection)
     {
         /* Initialisation of the interface */
-        setTitle("Delete a candiate");
+        setTitle("Delete an elector");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        
+        
+        JPanel test = new JPanel();
+        test.setPreferredSize(new Dimension(WINDOW_WIDTH,20000));
+        
+        JScrollPane scrollFrame = new JScrollPane(test);
+        test.setAutoscrolls(true);
+        scrollFrame.setPreferredSize(new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
+        
         int heightTab = myElection.getElectors().size();
         if (heightTab > 100)
         {
-            int heightFinal = heightTab/100 +1;
-            setLayout(new GridLayout(100, heightFinal));
-            System.out.print(heightTab + " " + heightFinal);
+            int heightFinal = heightTab/2 +1;
+            test.setLayout(new GridLayout(heightFinal, 2));
         }
         else
         {
-            setLayout(new GridLayout(10, 1));
+            test.setLayout(new GridLayout(10, 1));
         }
+        
         
         for(int i = 0; i< heightTab; i++)
         {
@@ -63,13 +72,15 @@ public class GraphicOfficialsDelElector extends JFrame
                             + myElection.getElectors().get(i).getState().getName()+ " :" + i);
             button.addActionListener(new PlayButtonElector());
             panelButton.add(button);
-            add(panelButton);
+            test.add(panelButton);
         }
         
         JPanel panelButtonCancel = new JPanel();
+        buttonCancel.setBackground(Color.RED);
         panelButtonCancel.add(buttonCancel);
-        add(panelButtonCancel);
+        test.add(panelButtonCancel);
         
+        add(scrollFrame);
         setVisible(true);
     }
     

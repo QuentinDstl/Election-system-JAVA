@@ -198,7 +198,7 @@ public class Controller {
                     System.out.print("");
                 }
                 if(checkOfficialsAddCandidatesOut == 1)
-                    m_user_official.addCandidate(myOfficialsAddCandidate.getLastName(), myOfficialsAddCandidate.getFirstName(),myOfficialsAddCandidate.getParty());
+                    m_user_official.addCandidate(myOfficialsAddCandidate.getLastName(), myOfficialsAddCandidate.getFirstName(), myOfficialsAddCandidate.getPassword(), myOfficialsAddCandidate.getParty());
                 
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
@@ -235,8 +235,7 @@ public class Controller {
                 }
                 if (checkOfficialsAddElectorsOut ==1)
                 {
-                    m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), m_access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
-                    System.out.print("j'aoute quelqu'un");
+                    m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), myOfficialsAddElector.getPassword(), m_access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
                 }
                    
                 myOfficials = new GraphicOfficials(m_user_official);

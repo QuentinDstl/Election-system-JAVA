@@ -37,7 +37,7 @@ public class GraphicIdentification extends JFrame
         checkIdentification = 0;
         photoIntroduction = new JLabel(new ImageIcon(file_name));
         messageIntroduction = new JLabel("Welcome to our voting system, "
-                + "please enter your lastname, firstname and Password");
+                + "please enter your lastname, firstname and password");
         lastName = new JLabel("My lastname : ");
         firstName = new JLabel("My firstname : ");
         password = new JLabel("My Password : ");

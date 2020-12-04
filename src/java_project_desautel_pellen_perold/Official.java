@@ -39,8 +39,8 @@ public class Official extends Person {
         m_election_access.deleteElector(choosen_elector.getId() - DAO.FIRST_ID_ELECTOR);
     }
     
-    public void addElector(String last_name, String first_name, State state) throws SQLException {
-        m_election_access.addElector(last_name, first_name, state);
+    public void addElector(String last_name, String first_name,String password, State state) throws SQLException {
+        m_election_access.addElector(last_name, first_name,password, state);
     }
     
     public ArrayList<Candidate> getCandidates() {
@@ -51,8 +51,8 @@ public class Official extends Person {
         m_election_access.deleteCandidate(choosen_candidate.getId() - DAO.FIRST_ID_CANDIDATE);
     }
     
-    public void addCandidate(String last_name, String first_name, String party) throws SQLException {
-        m_election_access.addCandidate(last_name, first_name, party);
+    public void addCandidate(String last_name, String first_name, String password, String party) throws SQLException {
+        m_election_access.addCandidate(last_name, first_name,password, party);
     }
     
     public void openVote() {
