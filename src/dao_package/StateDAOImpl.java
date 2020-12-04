@@ -53,7 +53,7 @@ public class StateDAOImpl implements DAO {
      * @throws java.sql.SQLException
     */
     @Override
-    public void addToTable(String... args) throws SQLException, IllegalArgumentException {
+    public void addToTable(String... args) throws SQLException {
         String query = ADD_STATE + "(`nameState`, `nbrMaxElectors`, `allWin`, `pause`)" + "Values (" ;
         query += "'" + args[0] + "', '" + Integer.parseInt(args[1]) + "', '" + Integer.parseInt(args[2]) + "', '" + Integer.parseInt(args[3]) + "');";
         m_statement.executeUpdate(query);
@@ -65,7 +65,7 @@ public class StateDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        //System.out.println("name state : " +resultLecture.getString(1));
+        System.out.println("name state : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -74,7 +74,7 @@ public class StateDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `nbrMaxElectors` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        //System.out.println("number max of electors : " +resultLecture.getInt(1));
+        System.out.println("number max of electors : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
@@ -82,7 +82,7 @@ public class StateDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `allWin` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        //System.out.println("all win : " +resultLecture.getBoolean(1));
+        System.out.println("all win : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);
     }
     
@@ -90,7 +90,7 @@ public class StateDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `pause` FROM `state` WHERE `numState` = " +num_case + ";");
         resultLecture.next();
-        //System.out.println("pause : " +resultLecture.getBoolean(1));
+        System.out.println("pause : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);
     }
 }

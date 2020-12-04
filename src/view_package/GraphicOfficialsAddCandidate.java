@@ -25,6 +25,7 @@ public class GraphicOfficialsAddCandidate extends JFrame
     private String m_lastName;
     private String m_firstName;
     private String m_password;
+    private String m_party;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JLabel lastName;
@@ -33,6 +34,8 @@ public class GraphicOfficialsAddCandidate extends JFrame
     private final JTextField firstNameEnter;
     private final JLabel password;
     private final JTextField passwordEnter;
+    private final JLabel party;
+    private final JTextField partyEnter;
     private final JButton buttonEnter;
     private final JButton buttonCancel;
     
@@ -42,9 +45,11 @@ public class GraphicOfficialsAddCandidate extends JFrame
         lastName = new JLabel("Enter a new lastname : ");
         firstName = new JLabel("Enter a new firstname : ");
         password = new JLabel("Enter a new password : ");
+        party = new JLabel("Enter a party");
         lastNameEnter = new JTextField(10);
         firstNameEnter = new JTextField(10);
         passwordEnter = new JTextField(10);
+        partyEnter = new JTextField(10);
         buttonEnter = new JButton("Add a candidate");
         buttonEnter.addActionListener(new PlayButtonAdd());
         buttonCancel = new JButton("Back to menu officials");
@@ -74,6 +79,10 @@ public class GraphicOfficialsAddCandidate extends JFrame
         panelMessagePassword.add(password);
         panelMessagePassword.add(passwordEnter);
         
+        JPanel panelState = new JPanel();
+        panelState.add(party);
+        panelState.add(partyEnter);
+        
         JPanel panelButtonEnter = new JPanel();
         panelButtonEnter.add(buttonEnter);
         
@@ -83,6 +92,7 @@ public class GraphicOfficialsAddCandidate extends JFrame
         box.add(panelLastName);
         box.add(panelFirstName);
         box.add(panelMessagePassword);
+        box.add(panelState);
         box.add(panelButtonEnter);
         box.add(panelButtonCancel);
         
@@ -103,6 +113,14 @@ public class GraphicOfficialsAddCandidate extends JFrame
     {
         return m_firstName;
     }
+    public String getPassword()
+    {
+        return m_password;
+    }
+    public String getParty()
+    {
+        return m_party;
+    }
     
     private class PlayButtonAdd implements ActionListener
     {
@@ -112,6 +130,8 @@ public class GraphicOfficialsAddCandidate extends JFrame
             String captureLastName = lastNameEnter.getText();
             String captureFirstName = firstNameEnter.getText();
             String capturePassword = passwordEnter.getText();
+            String captureState = partyEnter.getText();
+            
             if (captureLastName.equals(""))
             {
                 System.out.println("You need to enter a lastname");
@@ -129,6 +149,7 @@ public class GraphicOfficialsAddCandidate extends JFrame
                 m_firstName = captureFirstName;
                 m_lastName = captureLastName;
                 m_password = capturePassword;
+                m_party = captureState;
                 checkOfficialsAddCandidate = -1;
                 setVisible(false);
             }   

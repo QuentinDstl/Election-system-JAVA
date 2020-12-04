@@ -185,12 +185,14 @@ public class ElectorDAOImpl implements  DAO {
     
     /* Méthodes de vérification des données de l'utilisateur */
     public boolean checkUserElectorName(String last_name, String first_name) throws SQLException {
-        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name));
+        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name) &&
+                getIdUserWithLastName(last_name) != NOT_IN_TABLE);
     }
     
     public boolean checkUserElectorPassword(String last_name, String first_name, String password) throws SQLException {
         return (getIdUserWithPassword(password) == getIdUserWithLastName(last_name) &&
-                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name));
+                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name) && 
+                getIdUserWithPassword(password) != NOT_IN_TABLE);
     }
             
             
@@ -199,31 +201,35 @@ public class ElectorDAOImpl implements  DAO {
         ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE `lastname` = '" +last_name 
                                                                                        + "' AND `firstname` = '" +first_name
                                                                                        + "' AND `password` = '" +password + "';");
-        resultLecture.next();
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
     public int getIdUserWithLastName(String last_name) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE lastname = " +last_name + ";");
-        resultLecture.next();
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE lastname = '" +last_name + "';");
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
     public int getIdUserWithFirstName(String first_name) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE firstname = " +first_name + ";");
-        resultLecture.next();
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE firstname = '" +first_name + "';");
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
     public int getIdUserWithPassword(String password) throws SQLException {
         
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE password = " +password + ";");
-        resultLecture.next();
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE password = '" +password + "';");
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }

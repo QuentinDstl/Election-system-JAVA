@@ -31,6 +31,7 @@ public class Java_project_desautel_pellen_perold {
         
         
         /*THEController.startGraphiqueAccueil();
+        THEController.startGraphiqueAccueil();
         int resetOut = 0;
         
         do 

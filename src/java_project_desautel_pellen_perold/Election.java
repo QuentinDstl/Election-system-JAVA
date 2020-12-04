@@ -19,10 +19,10 @@ public class Election {
     private ArrayList<Official> m_officials;
     private ArrayList<Elector> m_electors;
     
-    private final ElectionDAOImpl election_from_db = new ElectionDAOImpl();
-    private final StateDAOImpl state_from_db = new StateDAOImpl();
-    private final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
-    private final OfficialDAOImpl official_from_db = new OfficialDAOImpl();
+    public final ElectionDAOImpl election_from_db = new ElectionDAOImpl();
+    public final StateDAOImpl state_from_db = new StateDAOImpl();
+    public final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
+    public final OfficialDAOImpl official_from_db = new OfficialDAOImpl();
     public final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
 
     
