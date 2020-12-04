@@ -82,16 +82,19 @@ public class ElectorDAOImpl implements  DAO {
         m_statement.executeUpdate(DELETE_ELECTOR + " WHERE `id` = " +id + ";");
         System.out.println(DELETE_ELECTOR);
         decrementeIdElectors(id);
+        m_connection.close();
     }
     
     public void decrementeIdElectors(int id) throws SQLException {
         m_statement.executeUpdate(DECREMENT_ID_ELECTOR + " WHERE `id` > " +id + ";");
     }
     
-    /*public void saveVoteElector(int id, String name_candidate) throws SQLException {
-        m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = '" + name_candidate
-                                + "', ")
-    }*/
+    public void saveVoteElector(int id, String name_candidate) throws SQLException {
+        System.out.println(name_candidate +" " +id);
+        m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = '" +name_candidate 
+                                + "', `vote` = 1" 
+                                + " WHERE `id` = " + id + ";");
+    }
     
     
     /* Méthodes de requêtes */
@@ -184,15 +187,12 @@ public class ElectorDAOImpl implements  DAO {
     
     /* Méthodes de vérification des données de l'utilisateur */
     public boolean checkUserElectorName(String last_name, String first_name) throws SQLException {
-        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name) &&
-                getIdUserWithLastName(last_name) == NOT_IN_TABLE);
+        return (getIdUserWIthConstrainLastNameFirstName(last_name, first_name) !=  NOT_IN_TABLE);
     }
     
     public boolean checkUserElectorPassword(String last_name, String first_name, String password) throws SQLException {
-        return (getIdUserWithPassword(password) == getIdUserWithLastName(last_name) &&
-                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name) && 
-                getIdUserWithPassword(password) != NOT_IN_TABLE);
-    }
+        return (getIdUserWithConstraintUniquePerson(last_name, first_name, password)!= NOT_IN_TABLE);
+    }   
             
             
     public int getIdUserWithConstraintUniquePerson(String last_name, String first_name, String password) throws  SQLException {
@@ -202,31 +202,13 @@ public class ElectorDAOImpl implements  DAO {
                                                                                        + "' AND `password` = '" +password + "';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
+        System.out.println("id ONE : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
-    public int getIdUserWithLastName(String last_name) throws SQLException {
-        
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE lastname = '" +last_name + "';");
-        if(resultLecture.next() == false)
-            return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
-        return resultLecture.getInt(1);
-    }
-    
-    public int getIdUserWithFirstName(String first_name) throws SQLException {
-        
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE firstname = '" +first_name + "';");
-        if(resultLecture.next() == false)
-            return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
-        return resultLecture.getInt(1);
-    }
-    
-    public int getIdUserWithPassword(String password) throws SQLException {
-        
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE password = '" +password + "';");
+    public int getIdUserWIthConstrainLastNameFirstName(String last_name, String first_name) throws SQLException{
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `elector` WHERE `lastname` = '" +last_name 
+                                                                                       + "' AND `firstname` = '" +first_name+"';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));

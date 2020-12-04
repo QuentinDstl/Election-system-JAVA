@@ -22,6 +22,7 @@ import org.jfree.data.general.*;
 public class GraphicCandidatesStates extends JFrame
 {
     protected int checkCandidatesStates = 0;
+    private int m_intState;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JButton buttonBack;
@@ -33,7 +34,7 @@ public class GraphicCandidatesStates extends JFrame
         buttonBack.addActionListener(new PlayButtonBack());
     }
 
-    public void startCandidatesStates(Candidate m_user_candidate)
+    public void startCandidatesStates(Election myElection)
     {
         /* Copy to display states*/
         //m_candidate = m_user_candidate;
@@ -45,14 +46,14 @@ public class GraphicCandidatesStates extends JFrame
         setLocationRelativeTo(null);
         
         //METTRE TAILLE TAB TOTALE
-        int heightTab = 55;
+        int heightTab = myElection.getStates().size();
         int heightFinal = heightTab/10 +1;
         setLayout(new GridLayout(10, heightFinal));
         
         for(int i = 0; i< heightTab; i++)
         {
             JPanel panelButton = new JPanel();
-            JButton button = new JButton("Ceci est un état");
+            JButton button = new JButton(myElection.getStates().get(i).getName() + " :" + i);
             button.addActionListener(new PlayButtonState());
             panelButton.add(button);
             add(panelButton);
@@ -82,7 +83,9 @@ public class GraphicCandidatesStates extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            String nameState = e.getActionCommand();
+            String source = e.getActionCommand();
+            String[] parts = source.split(":");
+            m_intState = Integer.parseInt(parts[1]);
             checkCandidatesStates = 1;    
         }
     }

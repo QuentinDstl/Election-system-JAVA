@@ -12,17 +12,19 @@ public class State {
     private int m_nbr_max_electors;
    
     
-    private final StateDAOImpl state_from_db = new StateDAOImpl();
+    private final StateDAOImpl m_state_from_db;
     
     
     /* Constructeur */
     /* De la Database */
-    public State(int num_case) throws SQLException {
+    public State(int num_case, StateDAOImpl state_from_db) throws SQLException {
+       
+        m_state_from_db = state_from_db;
         
-        m_name = state_from_db.getNameStateIntoTable(num_case);
-        m_nbr_max_electors = state_from_db.getNumberMaxOfElectorsInStateIntoTable(num_case);
-        m_all_Win = state_from_db.getConditionAllWinIntoTable(num_case);
-        m_pause = state_from_db.getConditionPauseIntoTable(num_case);
+        m_name = m_state_from_db.getNameStateIntoTable(num_case);
+        m_nbr_max_electors = m_state_from_db.getNumberMaxOfElectorsInStateIntoTable(num_case);
+        m_all_Win = m_state_from_db.getConditionAllWinIntoTable(num_case);
+        m_pause = m_state_from_db.getConditionPauseIntoTable(num_case);
     }
     
     

@@ -116,15 +116,15 @@ public class GraphicIdentification extends JFrame
             String capturePassword = passwordEnter.getText();
             if (captureLastName.equals(""))
             {
-                System.out.println("You need to enter a lastname");
+                JOptionPane.showMessageDialog(null,"You need to enter a lastname");
             }
             else if (captureFirstName.equals(""))
             {
-                System.out.println("You need to enter a firstname");
+                JOptionPane.showMessageDialog(null,"You need to enter a firstname");
             }
             else if (capturePassword.equals(""))
             {
-                System.out.println("You need to enter a Password");
+                JOptionPane.showMessageDialog(null,"You need to enter a password");
             }
             else
             {

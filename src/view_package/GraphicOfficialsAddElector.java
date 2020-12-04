@@ -22,11 +22,12 @@ import org.jfree.data.general.*;
 public class GraphicOfficialsAddElector extends JFrame
 {
     private int checkOfficialsAddElector;
+    private int m_intState;
     private String m_lastName;
     private String m_firstName;
     private String m_password;
     private final int WINDOW_WIDTH = 1500;
-    private final int WINDOW_HEIGHT = 900;
+    private final int WINDOW_HEIGHT = 1300;
     private final JLabel lastName;
     private final JTextField lastNameEnter;
     private final JLabel firstName;
@@ -51,13 +52,25 @@ public class GraphicOfficialsAddElector extends JFrame
         buttonCancel.addActionListener(new PlayButtonCancel());
     }
     
-    public void startOfficialsAddElector()
+    public void startOfficialsAddElector(Election myElection)
     {
         /* Initialisation of the interface */
-        setTitle("Add a candiate");
+        setTitle("Add a elector");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        int heightTab = myElection.getStates().size();
+        if (heightTab > 10)
+        {
+            int heightFinal = heightTab/10 +1;
+            setLayout(new GridLayout(10, heightFinal));
+            System.out.print(heightTab + " " + heightFinal);
+        }
+        else
+        {
+            setLayout(new GridLayout(10, 1));
+        }
         
         JPanel box = new JPanel();
         box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
@@ -74,19 +87,24 @@ public class GraphicOfficialsAddElector extends JFrame
         panelMessagePassword.add(password);
         panelMessagePassword.add(passwordEnter);
         
-        JPanel panelButtonEnter = new JPanel();
-        panelButtonEnter.add(buttonEnter);
-        
         JPanel panelButtonCancel = new JPanel();
         panelButtonCancel.add(buttonCancel);
         
         box.add(panelLastName);
         box.add(panelFirstName);
         box.add(panelMessagePassword);
-        box.add(panelButtonEnter);
         box.add(panelButtonCancel);
         
         add(box);
+        
+        for(int i = 0; i< myElection.getStates().size() ; i++)
+        {
+            JPanel panelButton = new JPanel();
+            JButton button = new JButton(myElection.getStates().get(i).getName() + " :" + i);
+            button.addActionListener(new PlayButtonAdd());
+            panelButton.add(button);
+            add(panelButton);
+        }
         
         setVisible(true);
     }
@@ -103,6 +121,14 @@ public class GraphicOfficialsAddElector extends JFrame
     {
         return m_firstName;
     }
+    public String getPassword()
+    {
+        return m_password;
+    }
+    public int getIntState()
+    {
+        return m_intState;
+    }
     
     private class PlayButtonAdd implements ActionListener
     {
@@ -112,6 +138,9 @@ public class GraphicOfficialsAddElector extends JFrame
             String captureLastName = lastNameEnter.getText();
             String captureFirstName = firstNameEnter.getText();
             String capturePassword = passwordEnter.getText();
+            String source = e.getActionCommand();
+            String[] parts = source.split(":");
+            
             if (captureLastName.equals(""))
             {
                 System.out.println("You need to enter a lastname");
@@ -129,7 +158,8 @@ public class GraphicOfficialsAddElector extends JFrame
                 m_firstName = captureFirstName;
                 m_lastName = captureLastName;
                 m_password = capturePassword;
-                checkOfficialsAddElector = -1;
+                checkOfficialsAddElector = 1;
+                m_intState = Integer.parseInt(parts[1]);
                 setVisible(false);
             }   
         }

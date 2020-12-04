@@ -3,39 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/workbook.xml</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/LoaderInterface.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Elector.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Official.java</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/theme/theme1.xml</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/worksheets/sheet2.xml</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/dao_package/OfficialDAOImpl.java</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/styles.xml</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Election.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/config_package/ConfigInterface.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/view_package/GraphicCandidates.java</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/worksheets/sheet1.xml</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/worksheets/sheet5.xml</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/dao_package/StateDAOImpl.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/Loader.java</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/sharedStrings.xml</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/%5BContent_Types%5D.xml</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/config_package/Config.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/dao_package/ElectionDAOImpl.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/config_package/Start.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Java_project_desautel_pellen_perold.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/dao_package/ElectorDAOImpl.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/dao_package/DAO.java</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/worksheets/sheet4.xml</file>
-            <file>jar:file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/loader_package/pre_load.xlsx!/xl/worksheets/sheet3.xml</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/config_package/NewProperties.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/nbproject/build-impl.xml</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/dao_package/CandidateDAOImpl.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/State.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/config_package/Log.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/view_package/Controller.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Person.java</file>
-            <file>file:/D:/Ecole/ING3/Informatique/Projet/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Candidate.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectorDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/OfficialDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Candidate.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/view_package/Controller.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Elector.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/loader_package/Loader.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/StateDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Person.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Java_project_desautel_pellen_perold.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Election.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/CandidateDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/State.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/DAO.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Official.java</file>
         </group>
     </open-files>
 </project-private>
