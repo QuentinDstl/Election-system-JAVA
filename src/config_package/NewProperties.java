@@ -2,6 +2,7 @@ package config_package;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 public class NewProperties {
@@ -21,5 +22,13 @@ public class NewProperties {
           throw new IllegalArgumentException("properties value do not exist in file");
       }
       return value;
+   }
+   
+   public void store(OutputStream out) throws IOException {
+       m_properties.store(out, "Don't touch this file, except if you know how to do it");
+   }
+   
+   public void setProperty(String key, String value) {
+       m_properties.setProperty(key, value);
    }
 }

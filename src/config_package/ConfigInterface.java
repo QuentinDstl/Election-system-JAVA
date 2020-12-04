@@ -4,8 +4,13 @@ public interface ConfigInterface {
     
     static final String FILE_NAME = "project.config";
 
+    static final String XLSX = "save.xlsx";
+    static final String CONFIG = "save.config";
+   
     static final String URL = ".url";
     static final String LOGIN = ".login";
     static final String PASSWORD = ".password";
     static final String DATABASE = ".database";
+    
+    static final String HAVE_XLSX = "2";
 }
