@@ -137,12 +137,14 @@ public class CandidateDAOImpl implements DAO
     
     /* Méthodes de vérification des données de l'utilisateur */
     public boolean checkUserCandidateName(String last_name, String first_name) throws SQLException {
-        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name));
+        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name) &&
+                getIdUserWithLastName(last_name) != NOT_IN_TABLE);
     }
     
     public boolean checkUserCandidatePassword(String last_name, String first_name, String password) throws SQLException {
         return (getIdUserWithPassword(password) == getIdUserWithLastName(last_name) &&
-                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name));
+                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name) &&
+                getIdUserWithPassword(password) != NOT_IN_TABLE);
     }
             
             
@@ -151,7 +153,8 @@ public class CandidateDAOImpl implements DAO
         ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `lastname` = '" +last_name 
                                                                                        + "' AND `firstname` = '" +first_name
                                                                                        + "' AND `password` = '" + password + "';");
-        resultLecture.next();
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
@@ -159,8 +162,8 @@ public class CandidateDAOImpl implements DAO
     public int getIdUserWithLastName(String last_name) throws SQLException {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `lastname` = '" +last_name + "';");
-        resultLecture.next();
-        //System.out.println("id : " +resultLecture.next());
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
@@ -168,7 +171,8 @@ public class CandidateDAOImpl implements DAO
     public int getIdUserWithFirstName(String first_name) throws SQLException {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `firstname` = '" +first_name + "';");
-        resultLecture.next();
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
@@ -176,7 +180,8 @@ public class CandidateDAOImpl implements DAO
     public int getIdUserWithPassword(String password) throws SQLException {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `candidate` WHERE `password` = '" +password + "';");
-        resultLecture.next();
+        if(resultLecture.next() == false)
+            return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }

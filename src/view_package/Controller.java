@@ -1,3 +1,4 @@
+//https://softwareengineering.stackexchange.com/questions/405038/result-object-vs-throwing-exceptions
 package view_package;
 
 import dao_package.CandidateDAOImpl;
@@ -307,21 +308,21 @@ public class Controller {
         
         if(checkUserName(last_name, first_name)) {
            
-            /*if(access_to_candidate_table.checkUserCandidatePassword(last_name, first_name, password)) {
+            if(access_to_candidate_table.checkUserCandidatePassword(last_name, first_name, password)) {
                 m_user_candidate = new Candidate(access_to_candidate_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_official = null;
                 m_user_elector = null;
                 m_type_user = CANDIDATE;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
             }
-            if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
+            else if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
                 m_user_official = new Official(access_to_official_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_candidate = null;
                 m_user_elector = null;
                 m_type_user = OFFICIAL;
                 ///POUR CHARLES : RAJOUTER CE QUE TU VEUX QUE TON INTERFACE FASSE QUAND L'UTILISATEUR EST CREE
-            }*/
-            if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
+            }
+            else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
                 m_user_elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election.getCandidates(), access_to_election.elector_from_db, access_to_election);
                 m_user_candidate = null;
                 m_user_official = null;
@@ -339,8 +340,8 @@ public class Controller {
     }
     
     private boolean checkUserName(String last_name, String first_name) throws SQLException {
-        return  /*access_to_candidate_table.checkUserCandidateName(last_name, first_name) ||
-                access_to_official_table.checkUserOfficialName(last_name, first_name)||*/
+        return  access_to_candidate_table.checkUserCandidateName(last_name, first_name) ||
+                access_to_official_table.checkUserOfficialName(last_name, first_name)||
                 access_to_elector_table.checkUserElectorName(last_name, first_name);
     }
 }
