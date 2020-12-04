@@ -102,14 +102,11 @@ public class OfficialDAOImpl implements DAO {
     
     /* Méthodes de vérification des données de l'utilisateur */
     public boolean checkUserOfficialName(String last_name, String first_name) throws SQLException {
-        return (getIdUserWithLastName(last_name) == getIdUserWithFirstName(first_name) &&
-                getIdUserWithLastName(last_name) != NOT_IN_TABLE);
+        return (getIdUserWIthConstrainLastNameFirstName(last_name, first_name) != NOT_IN_TABLE);
     }
     
     public boolean checkUserOfficialPassword(String last_name, String first_name, String password) throws SQLException {
-        return (getIdUserWithPassword(password) == getIdUserWithLastName(last_name) &&
-                getIdUserWithPassword(password) == getIdUserWithFirstName(first_name) &&
-                getIdUserWithPassword(password) != NOT_IN_TABLE);
+        return (getIdUserWithConstraintUniquePerson(last_name, first_name, password)!= NOT_IN_TABLE);
     }
             
             
@@ -124,27 +121,9 @@ public class OfficialDAOImpl implements DAO {
         return resultLecture.getInt(1);
     }
     
-    public int getIdUserWithLastName(String last_name) throws SQLException {
-        
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE lastname = '" +last_name + "';");
-        if(resultLecture.next() == false)
-            return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
-        return resultLecture.getInt(1);
-    }
-    
-    public int getIdUserWithFirstName(String first_name) throws SQLException {
-        
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE firstname = '" +first_name + "';");
-        if(resultLecture.next() == false)
-            return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
-        return resultLecture.getInt(1);
-    }
-    
-    public int getIdUserWithPassword(String password) throws SQLException {
-        
-        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE password = '" +password + "';");
+    public int getIdUserWIthConstrainLastNameFirstName(String last_name, String first_name) throws SQLException{
+        ResultSet resultLecture = m_statement.executeQuery("SELECT `id` FROM `official` WHERE `lastname` = '" +last_name 
+                                                                                       + "' AND `firstname` = '" +first_name+"';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
         System.out.println("id : " +resultLecture.getInt(1));

@@ -46,7 +46,7 @@ public class GraphicCandidatesStates extends JFrame
         setLocationRelativeTo(null);
         
         //METTRE TAILLE TAB TOTALE
-        int heightTab = 55;
+        int heightTab = myElection.getStates().size();
         int heightFinal = heightTab/10 +1;
         setLayout(new GridLayout(10, heightFinal));
         

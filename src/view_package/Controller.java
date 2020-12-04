@@ -274,7 +274,7 @@ public class Controller {
             if(checkOfficialsOut == 6)// DISPLAY STATES
             {
                 GraphicOfficialsStates myOfficialsStates = new GraphicOfficialsStates();
-                myOfficialsStates.startOfficialsStates(m_user_official);
+                myOfficialsStates.startOfficialsStates(access_to_election);
                 
                 while(checkOfficialsStatesOut != -1)
                 {
@@ -292,7 +292,7 @@ public class Controller {
                             System.out.print("");
                         }
                         myOfficialsStates = new GraphicOfficialsStates();
-                        myOfficialsStates.startOfficialsStates(m_user_official);
+                        myOfficialsStates.startOfficialsStates(access_to_election);
                         checkOfficialsStatesOut = 0;
                         checkOfficialsStatesUniqueOut = 0;
                     }
@@ -349,11 +349,13 @@ public class Controller {
         
         if(checkUserName(last_name, first_name)) {
            
+            System.out.println("NIV O ENTREE");
             if(access_to_candidate_table.checkUserCandidatePassword(last_name, first_name, password)) {
                 m_user_candidate = new Candidate(access_to_candidate_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), access_to_election);
                 m_user_official = null;
                 m_user_elector = null;
                 m_type_user = CANDIDATE;
+                System.out.println("NIV 1 ENTREE CANDIDATE");
                 return -1;
             }
             else if(access_to_official_table.checkUserOfficialPassword(last_name, first_name, password)) {
@@ -361,6 +363,7 @@ public class Controller {
                 m_user_candidate = null;
                 m_user_elector = null;
                 m_type_user = OFFICIAL;
+                System.out.println("NIV 1 ENTREE OFFICIAL");
                 return -1;
             }
             else if(access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
@@ -368,12 +371,12 @@ public class Controller {
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;
+                System.out.println("NIV 1 ENTREE ELECTOR");
                 return -1;
             } 
            else {
                 return 2;
             }
-            
         }
         else {
             return 1;

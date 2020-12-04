@@ -33,7 +33,7 @@ public class GraphicOfficialsStates extends JFrame
         buttonBack.addActionListener(new PlayButtonBack());
     }
 
-    public void startOfficialsStates(Official m_user_official)
+    public void startOfficialsStates(Election myElection)
     {
         /* Copy to display states*/
         //m_candidate = m_user_candidate;
@@ -44,15 +44,14 @@ public class GraphicOfficialsStates extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        //METTRE TAILLE TAB TOTALE
-        int heightTab = 55;
+        int heightTab = myElection.getStates().size();
         int heightFinal = heightTab/10 +1;
         setLayout(new GridLayout(10, heightFinal));
         
         for(int i = 0; i< heightTab; i++)
         {
             JPanel panelButton = new JPanel();
-            JButton button = new JButton("Ceci est un état");
+            JButton button = new JButton(myElection.getStates().get(i).getName() + " :" + i);
             button.addActionListener(new PlayButtonState());
             panelButton.add(button);
             add(panelButton);

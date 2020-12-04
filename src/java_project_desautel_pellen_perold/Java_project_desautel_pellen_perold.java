@@ -15,7 +15,7 @@ public class Java_project_desautel_pellen_perold {
 
         Log log = new Log();
         Config.initConfig("charles");
-        loadXLSX("src\\loader_package\\pre_load.xlsx");
+        loadXLSX("src\\loader_package\\big_pre_load.xlsx");
 
         //yo.createTableElector();
         //yo.addCandidate("Dého", "qd", "puceauLand");
@@ -28,9 +28,6 @@ public class Java_project_desautel_pellen_perold {
         //THEController.startGraphiqueCandidats();
         //THEController.startGraphiqueOfficials();
         
-        
-        
-        /*THEController.startGraphiqueAccueil();
         THEController.startGraphiqueAccueil();
         int resetOut = 0;
         
@@ -45,15 +42,15 @@ public class Java_project_desautel_pellen_perold {
                 resetOut =0;
             }
         } while (resetOut == 0);
-        System.exit(0);*/
+        System.exit(0);
         
-        Election election = new Election();
+        /*Election election = new Election();
         election.downLoadDataBaseForElector();
         
         final ElectorDAOImpl access_to_elector_table = new ElectorDAOImpl();
         Elector elector = new Elector(access_to_elector_table.getIdUserWithConstraintUniquePerson("Rayan", "Parrot", "haoh"), election.getCandidates(), access_to_elector_table, election);
         
         elector.Votes(election.getCandidates().get(1));
-        System.out.println("\n\n" + elector.getCandidate() + elector.isVoteDone());
+        System.out.println("\n\n" + elector.getCandidate() + elector.isVoteDone());*/
     }
 }
