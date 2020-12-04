@@ -281,17 +281,20 @@ public class Controller {
         return m_reset;
     }
     
-    public void executeProgram() {
+    public void executeProgram() throws  SQLException{
         ///interface acheminant les infos de la personne qui se connecte
         //createUser(last_name, first_name, password);
         
         if(m_type_user == CANDIDATE) {
+            access_to_election.downloadDataBaseForCandidate();
             startGraphiqueCandidats();
         }
         else if(m_type_user == OFFICIAL) {
+            access_to_election.downloadDataBaseForOfficial();
             startGraphiqueOfficials();
         }
         else if(m_type_user == ELECTOR) {
+            access_to_election.downLoadDataBaseForElector();
            startGraphiqueElectors();
         }
     }
