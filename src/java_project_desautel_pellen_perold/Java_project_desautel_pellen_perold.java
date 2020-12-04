@@ -32,10 +32,13 @@ public class Java_project_desautel_pellen_perold {
         //THEController.startGraphiqueElectors();
         //THEController.startGraphiqueCandidats();
         //THEController.startGraphiqueOfficials();
-        //THEController.startGraphiqueAccueil();
+        
+        
+        
+        THEController.startGraphiqueAccueil();
         int resetOut = 0;
         
-        /*do 
+        do 
         {
             System.out.print("");
             resetOut = THEController.getReset();
@@ -46,9 +49,9 @@ public class Java_project_desautel_pellen_perold {
                 resetOut =0;
             }
         } while (resetOut == 0);
-        System.exit(0);*/
+        System.exit(0);
         
-        Election election = new Election();
+        /*Election election = new Election();
         election.downloadDataBaseForOfficial();
         
         System.out.println("\n\n");
@@ -87,8 +90,8 @@ public class Java_project_desautel_pellen_perold {
         System.out.println("J'AJOUTE UN CANDIDAT K's TU VAS FAIRE ?");
         official.addCandidate("West", "Kanye", "Isolated_party");
         
-        System.out.println("\n\n");
-        System.out.println("JE SUPPRIME UN CANDIDAT PARCE QU'IL EST MOCHE");
-        official.deleteCandidate(election.getCandidates().get(0));
+        //System.out.println("\n\n");
+        //System.out.println("JE SUPPRIME UN CANDIDAT PARCE QU'IL EST MOCHE");
+        //official.deleteCandidate(election.getCandidates().get(0));*/
     }
 }
