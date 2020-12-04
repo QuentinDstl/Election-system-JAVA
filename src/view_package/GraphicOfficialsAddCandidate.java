@@ -59,7 +59,7 @@ public class GraphicOfficialsAddCandidate extends JFrame
     public void startOfficialsAddCandidate()
     {
         /* Initialisation of the interface */
-        setTitle("Add a candiate");
+        setTitle("Add a candidate");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -150,7 +150,7 @@ public class GraphicOfficialsAddCandidate extends JFrame
                 m_lastName = captureLastName;
                 m_password = capturePassword;
                 m_party = captureParty;
-                checkOfficialsAddCandidate = -1;
+                checkOfficialsAddCandidate = 1;
                 setVisible(false);
             }   
         }
