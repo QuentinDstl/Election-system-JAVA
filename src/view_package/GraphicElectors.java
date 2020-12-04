@@ -89,7 +89,7 @@ public class GraphicElectors extends GraphicIdentification
     
     public void startElectors(Election myElection)
     {
-        int taille = myElection.getCandidates().size()+1;
+        int taille = myElection.getCandidates().size();
         setLayout(new GridLayout(1, taille+1));
         
         JPanel panelCancel = new JPanel();
@@ -100,30 +100,61 @@ public class GraphicElectors extends GraphicIdentification
         panelCancel.add(messageIntro5);
         panelCancel.add(messageIntro6);
         panelCancel.add(buttonCancel);
-        JPanel panelBiden= new JPanel();
-        panelBiden.add(buttonBiden);
-        panelBiden.add(messageBiden);
-        JPanel panelTrump = new JPanel();
-        panelTrump.add(buttonTrump);
-        panelTrump.add(messageTrump);
-        JPanel panelJorgensen= new JPanel();
-        panelJorgensen.add(buttonJorgensen);
-        panelJorgensen.add(messageJorgensen);
-        JPanel panelHawkins= new JPanel();
-        panelHawkins.add(buttonHawkins);
-        panelHawkins.add(messageHawkins);
-        JPanel panelWest= new JPanel();
-        panelWest.add(buttonWest);
-        panelWest.add(messageWest);
-        
         add(panelCancel);
-        add(panelBiden);
-        add(panelTrump);
-        add(panelHawkins);
-        add(panelJorgensen);
-        add(panelWest);
         
-        System.out.println("Hey de niv0" + myElection.getCandidates().size() + " " + taille);
+        for (int a = 0; a < taille; a++)
+        {
+            if (myElection.getCandidates().get(a).getLastName().equals("Trump")) 
+            {
+                JPanel panelTrump = new JPanel();
+                panelTrump.add(buttonTrump);
+                panelTrump.add(messageTrump);
+                add(panelTrump);
+            }
+            else if (myElection.getCandidates().get(a).getLastName().equals("Biden")) 
+            {
+                JPanel panelBiden= new JPanel();
+                panelBiden.add(buttonBiden);
+                panelBiden.add(messageBiden);
+                add(panelBiden);
+            }
+            else if (myElection.getCandidates().get(a).getLastName().equals("West")) 
+            {
+                JPanel panelWest= new JPanel();
+                panelWest.add(buttonWest);
+                panelWest.add(messageWest);
+                add(panelWest);
+            }
+            else if (myElection.getCandidates().get(a).getLastName().equals("Jorgensen")) 
+            {
+                JPanel panelJorgensen= new JPanel();
+                panelJorgensen.add(buttonJorgensen);
+                panelJorgensen.add(messageJorgensen);
+                add(panelJorgensen);
+            }
+            else if (myElection.getCandidates().get(a).getLastName().equals("Hawkins")) 
+            {
+                JPanel panelHawkins= new JPanel();
+                panelHawkins.add(buttonHawkins);
+                panelHawkins.add(messageHawkins);
+                add(panelHawkins);
+            }
+            else
+            {
+                JButton buttonNew = new JButton(new ImageIcon(imageNew));
+                JLabel messageNew = new JLabel(myElection.getCandidates().get(a).getFirstName() 
+                        + " " + myElection.getCandidates().get(a).getLastName()
+                        + " , " + myElection.getCandidates().get(a).getParty());
+                buttonNew.addActionListener(new PlayButtonNew());
+                JPanel panelNew = new JPanel();
+                panelNew.add(buttonNew);
+                panelNew.add(messageNew);
+                add(panelNew);
+            }
+        }
+
+        
+        /*System.out.println("Hey de niv0" + myElection.getCandidates().size() + " " + taille);
         
         if (myElection.getCandidates().size() > 4)
         {
@@ -139,7 +170,7 @@ public class GraphicElectors extends GraphicIdentification
                 panelNew.add(messageNew);
                 add(panelNew);
             }
-        }
+        }*/
         
         setVisible(true);
     }

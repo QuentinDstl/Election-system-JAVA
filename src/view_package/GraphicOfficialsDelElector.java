@@ -42,8 +42,7 @@ public class GraphicOfficialsDelElector extends JFrame
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        //METTRE TAILLE TAB TOTALE
+
         int heightTab = myElection.getElectors().size();
         int heightFinal = heightTab/10 +1;
         setLayout(new GridLayout(10, heightFinal));
@@ -61,6 +60,7 @@ public class GraphicOfficialsDelElector extends JFrame
         
         JPanel panelButtonCancel = new JPanel();
         panelButtonCancel.add(buttonCancel);
+        add(panelButtonCancel);
         
         setVisible(true);
     }

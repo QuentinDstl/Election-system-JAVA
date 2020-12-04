@@ -130,7 +130,7 @@ public class GraphicOfficialsAddCandidate extends JFrame
             String captureLastName = lastNameEnter.getText();
             String captureFirstName = firstNameEnter.getText();
             String capturePassword = passwordEnter.getText();
-            String captureState = partyEnter.getText();
+            String captureParty = partyEnter.getText();
             
             if (captureLastName.equals(""))
             {
@@ -149,7 +149,7 @@ public class GraphicOfficialsAddCandidate extends JFrame
                 m_firstName = captureFirstName;
                 m_lastName = captureLastName;
                 m_password = capturePassword;
-                m_party = captureState;
+                m_party = captureParty;
                 checkOfficialsAddCandidate = -1;
                 setVisible(false);
             }   
