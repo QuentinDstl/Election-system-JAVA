@@ -44,8 +44,16 @@ public class GraphicOfficialsDelElector extends JFrame
         setLocationRelativeTo(null);
 
         int heightTab = myElection.getElectors().size();
-        int heightFinal = heightTab/10 +1;
-        setLayout(new GridLayout(10, heightFinal));
+        if (heightTab > 10)
+        {
+            int heightFinal = heightTab/10 +1;
+            setLayout(new GridLayout(10, heightFinal));
+            System.out.print(heightTab + " " + heightFinal);
+        }
+        else
+        {
+            setLayout(new GridLayout(10, 1));
+        }
         
         for(int i = 0; i< heightTab; i++)
         {
@@ -82,7 +90,7 @@ public class GraphicOfficialsDelElector extends JFrame
             String source = e.getActionCommand();
             String[] parts = source.split(":");
             m_intElector = Integer.parseInt(parts[1]);          
-            checkOfficialsDelElector = -1;
+            checkOfficialsDelElector = 1;
             setVisible(false);   
         }
     }

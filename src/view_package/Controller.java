@@ -189,12 +189,14 @@ public class Controller {
                 GraphicOfficialsAddCandidate myOfficialsAddCandidate = new GraphicOfficialsAddCandidate();
                 myOfficialsAddCandidate.startOfficialsAddCandidate();
                 
-                while(checkOfficialsAddCandidatesOut != -1)
+                while((checkOfficialsAddCandidatesOut != -1)&&(checkOfficialsAddCandidatesOut != 1))
                 {
                     checkOfficialsAddCandidatesOut = myOfficialsAddCandidate.getCheckOfficialsAddCandidate();
                     System.out.print("");
                 }
-                m_user_official.addCandidate(myOfficialsAddCandidate.getLastName(), myOfficialsAddCandidate.getFirstName(),myOfficialsAddCandidate.getParty());
+                if(checkOfficialsAddCandidatesOut == 1)
+                    m_user_official.addCandidate(myOfficialsAddCandidate.getLastName(), myOfficialsAddCandidate.getFirstName(),myOfficialsAddCandidate.getParty());
+                
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -205,12 +207,13 @@ public class Controller {
                 GraphicOfficialsDelCandidate myOfficialsDelCandidate = new GraphicOfficialsDelCandidate();
                 myOfficialsDelCandidate.startOfficialsDelCandidate(access_to_election);
                 
-                while(checkOfficialsDelCandidatesOut != -1)
+                while((checkOfficialsDelCandidatesOut != -1)&&(checkOfficialsDelCandidatesOut !=1))
                 {
                     checkOfficialsDelCandidatesOut = myOfficialsDelCandidate.getCheckOfficialsDelCandidate();
                     System.out.print("");
                 }
-                m_user_official.deleteCandidate(access_to_election.getCandidates().get(myOfficialsDelCandidate.getIntCandidate()));
+                if (checkOfficialsDelCandidatesOut ==1)
+                    m_user_official.deleteCandidate(access_to_election.getCandidates().get(myOfficialsDelCandidate.getIntCandidate()));
                 
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
@@ -222,12 +225,14 @@ public class Controller {
                 GraphicOfficialsAddElector myOfficialsAddElector = new GraphicOfficialsAddElector();
                 myOfficialsAddElector.startOfficialsAddElector(access_to_election);
                 
-                while(checkOfficialsAddElectorsOut != -1)
+                while((checkOfficialsAddElectorsOut != -1)&&(checkOfficialsAddElectorsOut != 1))
                 {
                     checkOfficialsAddElectorsOut = myOfficialsAddElector.getCheckOfficialsAddElector();
                     System.out.print("");
                 }
-                m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
+                if (checkOfficialsAddElectorsOut ==1)
+                    m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
+                
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -238,12 +243,13 @@ public class Controller {
                 GraphicOfficialsDelElector myOfficialsDelElector = new GraphicOfficialsDelElector();
                 myOfficialsDelElector.startOfficialsDelElector(access_to_election);
                 
-                while(checkOfficialsDelElectorsOut != -1)
+                while((checkOfficialsDelElectorsOut != -1)&&(checkOfficialsDelElectorsOut != 1))
                 {
                     checkOfficialsDelElectorsOut = myOfficialsDelElector.getCheckOfficialsDelElector();
                     System.out.print("");
                 }
-                m_user_official.deleteElector(access_to_election.getElectors().get(myOfficialsDelElector.getIntElector()));
+                if (checkOfficialsDelElectorsOut == 1)
+                    m_user_official.deleteElector(access_to_election.getElectors().get(myOfficialsDelElector.getIntElector()));
                 
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
