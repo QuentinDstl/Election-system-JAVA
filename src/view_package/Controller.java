@@ -45,13 +45,11 @@ public class Controller {
         myIdentification.startIdentification();
         int checkIdentificationOut = 0;
         
-        System.out.print("NIV1");
         /* Blindage */ 
         while (checkIdentificationOut == 0) {            
             checkIdentificationOut = myIdentification.getCheckIdentification();
             System.out.print("");
         }
-        System.out.print(" NIV2");
         createUser(myIdentification.getLastName(), myIdentification.getFirstName(), myIdentification.getPassword());
         executeProgram();
     }
@@ -173,13 +171,15 @@ public class Controller {
             if(checkOfficialsOut == 2)// DELETE CANDIDATE
             {
                 GraphicOfficialsDelCandidate myOfficialsDelCandidate = new GraphicOfficialsDelCandidate();
-                myOfficialsDelCandidate.startOfficialsDelCandidate();
+                myOfficialsDelCandidate.startOfficialsDelCandidate(access_to_election);
                 
                 while(checkOfficialsDelCandidatesOut != -1)
                 {
                     checkOfficialsDelCandidatesOut = myOfficialsDelCandidate.getCheckOfficialsDelCandidate();
                     System.out.print("");
                 }
+                m_user_official.deleteCandidate(access_to_election.getCandidates().get(myOfficialsDelCandidate.getIntCandidate()));
+                
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -195,6 +195,7 @@ public class Controller {
                     checkOfficialsAddElectorsOut = myOfficialsAddElector.getCheckOfficialsAddElector();
                     System.out.print("");
                 }
+                m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), null);
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -203,13 +204,15 @@ public class Controller {
             if(checkOfficialsOut == 4)// DELETE ELECTOR
             {
                 GraphicOfficialsDelElector myOfficialsDelElector = new GraphicOfficialsDelElector();
-                myOfficialsDelElector.startOfficialsDelElector();
+                myOfficialsDelElector.startOfficialsDelElector(access_to_election);
                 
                 while(checkOfficialsDelElectorsOut != -1)
                 {
                     checkOfficialsDelElectorsOut = myOfficialsDelElector.getCheckOfficialsDelElector();
                     System.out.print("");
                 }
+                m_user_official.deleteElector(access_to_election.getElectors().get(myOfficialsDelElector.getIntElector()));
+                
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;

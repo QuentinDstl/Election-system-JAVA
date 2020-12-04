@@ -22,36 +22,20 @@ import org.jfree.data.general.*;
 public class GraphicOfficialsDelElector extends JFrame
 {
     private int checkOfficialsDelElector;
-    private String m_lastName;
-    private String m_firstName;
-    private String m_password;
+    private int m_intElector;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
-    private final JLabel lastName;
-    private final JTextField lastNameEnter;
-    private final JLabel firstName;
-    private final JTextField firstNameEnter;
-    private final JLabel password;
-    private final JTextField passwordEnter;
-    private final JButton buttonEnter;
+
     private final JButton buttonCancel;
-    
     public GraphicOfficialsDelElector()
     {
         checkOfficialsDelElector = 0;
-        lastName = new JLabel("Enter a lastname for delete : ");
-        firstName = new JLabel("Enter a firstname for delete : ");
-        password = new JLabel("Enter a password for delete : ");
-        lastNameEnter = new JTextField(10);
-        firstNameEnter = new JTextField(10);
-        passwordEnter = new JTextField(10);
-        buttonEnter = new JButton("Delete an elector");
-        buttonEnter.addActionListener(new PlayButtonDel());
+
         buttonCancel = new JButton("Back to menu officials");
         buttonCancel.addActionListener(new PlayButtonCancel());
     }
     
-    public void startOfficialsDelElector()
+    public void startOfficialsDelElector(Election myElection)
     {
         /* Initialisation of the interface */
         setTitle("Delete a candiate");
@@ -59,34 +43,24 @@ public class GraphicOfficialsDelElector extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        JPanel box = new JPanel();
-        box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
+        //METTRE TAILLE TAB TOTALE
+        int heightTab = myElection.getElectors().size();
+        int heightFinal = heightTab/10 +1;
+        setLayout(new GridLayout(10, heightFinal));
         
-        JPanel panelLastName = new JPanel();
-        panelLastName.add(lastName);
-        panelLastName.add(lastNameEnter);
-        
-        JPanel panelFirstName = new JPanel();
-        panelFirstName.add(firstName);
-        panelFirstName.add(firstNameEnter);
-        
-        JPanel panelMessagePassword = new JPanel();
-        panelMessagePassword.add(password);
-        panelMessagePassword.add(passwordEnter);
-        
-        JPanel panelButtonEnter = new JPanel();
-        panelButtonEnter.add(buttonEnter);
+        for(int i = 0; i< heightTab; i++)
+        {
+            JPanel panelButton = new JPanel();
+            JButton button = new JButton(myElection.getElectors().get(i).getFirstName() + " "
+                            + myElection.getElectors().get(i).getLastName() + " "
+                            + myElection.getElectors().get(i).getState().getName()+ " :" + i);
+            button.addActionListener(new PlayButtonElector());
+            panelButton.add(button);
+            add(panelButton);
+        }
         
         JPanel panelButtonCancel = new JPanel();
         panelButtonCancel.add(buttonCancel);
-        
-        box.add(panelLastName);
-        box.add(panelFirstName);
-        box.add(panelMessagePassword);
-        box.add(panelButtonEnter);
-        box.add(panelButtonCancel);
-        
-        add(box);
         
         setVisible(true);
     }
@@ -95,43 +69,21 @@ public class GraphicOfficialsDelElector extends JFrame
     {
         return checkOfficialsDelElector;
     }
-    public String getLastName()
+    public int getIntElector()
     {
-        return m_lastName;
+        return m_intElector;
     }
-    public String getFirstName()
-    {
-        return m_firstName;
-    }
-    
-    private class PlayButtonDel implements ActionListener
+   
+    private class PlayButtonElector implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            String captureLastName = lastNameEnter.getText();
-            String captureFirstName = firstNameEnter.getText();
-            String capturePassword = passwordEnter.getText();
-            if (captureLastName.equals(""))
-            {
-                System.out.println("You need to enter a lastname");
-            }
-            else if (captureFirstName.equals(""))
-            {
-                System.out.println("You need to enter a firstname");
-            }
-            else if (capturePassword.equals(""))
-            {
-                System.out.println("You need to enter a Password");
-            }
-            else
-            {
-                m_firstName = captureFirstName;
-                m_lastName = captureLastName;
-                m_password = capturePassword;
-                checkOfficialsDelElector = -1;
-                setVisible(false);
-            }   
+            String source = e.getActionCommand();
+            String[] parts = source.split(":");
+            m_intElector = Integer.parseInt(parts[1]);          
+            checkOfficialsDelElector = -1;
+            setVisible(false);   
         }
     }
     private class PlayButtonCancel implements ActionListener
