@@ -220,14 +220,14 @@ public class Controller {
             if(checkOfficialsOut == 3)// ADD ELECTOR
             {
                 GraphicOfficialsAddElector myOfficialsAddElector = new GraphicOfficialsAddElector();
-                myOfficialsAddElector.startOfficialsAddElector();
+                myOfficialsAddElector.startOfficialsAddElector(access_to_election);
                 
                 while(checkOfficialsAddElectorsOut != -1)
                 {
                     checkOfficialsAddElectorsOut = myOfficialsAddElector.getCheckOfficialsAddElector();
                     System.out.print("");
                 }
-                m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), null);
+                m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
