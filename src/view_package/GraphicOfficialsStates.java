@@ -22,6 +22,7 @@ import org.jfree.data.general.*;
 public class GraphicOfficialsStates extends JFrame
 {
     protected int checkOfficialsStates = 0;
+    private int m_intState;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
     private final JButton buttonBack;
@@ -48,7 +49,11 @@ public class GraphicOfficialsStates extends JFrame
         for(int i = 0; i< heightTab; i++)
         {
             JPanel panelButton = new JPanel();
-            JButton button = new JButton(myElection.getStates().get(i).getName() + " :" + i);
+            JButton button;
+            if (myElection.getStates().get(i).isAllWin() == true)
+                button = new JButton(myElection.getStates().get(i).getName() + " AllWin" + " :" + i);
+            else
+                button = new JButton(myElection.getStates().get(i).getName() + " NoAllWin" + " :" + i);
             button.addActionListener(new PlayButtonState());
             panelButton.add(button);
             add(panelButton);
@@ -61,6 +66,10 @@ public class GraphicOfficialsStates extends JFrame
     public int getCheckOfficialsStates()
     {
         return checkOfficialsStates;
+    }
+    public int getIntState()
+    {
+        return m_intState;
     }
     
     private class PlayButtonBack implements ActionListener
@@ -78,7 +87,9 @@ public class GraphicOfficialsStates extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            String nameState = e.getActionCommand();
+            String source = e.getActionCommand();
+            String[] parts = source.split(":");
+            m_intState = Integer.parseInt(parts[1]);
             checkOfficialsStates = 1;    
         }
     }

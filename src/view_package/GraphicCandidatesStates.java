@@ -49,7 +49,11 @@ public class GraphicCandidatesStates extends JFrame
         for(int i = 0; i< heightTab; i++)
         {
             JPanel panelButton = new JPanel();
-            JButton button = new JButton(myElection.getStates().get(i).getName() + " :" + i);
+            JButton button;
+            if (myElection.getStates().get(i).isAllWin() == true)
+                button = new JButton(myElection.getStates().get(i).getName() + " AllWin" + " :" + i);
+            else
+                button = new JButton(myElection.getStates().get(i).getName() + " NoAllWin" + " :" + i);
             button.addActionListener(new PlayButtonState());
             panelButton.add(button);
             add(panelButton);
@@ -62,6 +66,10 @@ public class GraphicCandidatesStates extends JFrame
     public int getCheckCandidatesStates()
     {
         return checkCandidatesStates;
+    }
+    public int getIntState()
+    {
+        return m_intState;
     }
     
     private class PlayButtonBack implements ActionListener

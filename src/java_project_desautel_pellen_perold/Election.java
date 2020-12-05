@@ -25,6 +25,10 @@ public class Election {
     public final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
     public final OfficialDAOImpl official_from_db = new OfficialDAOImpl();
     public final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
+    
+    public static boolean COMPLETE_ELECTOR_PERSON = true;
+    public static boolean SIMPLE_ELECTOR_VOTER = false;
+    
 
     
     /* Constructeeur */
@@ -50,11 +54,12 @@ public class Election {
     
     public void downloadDataBaseForCandidate() throws SQLException {
         m_candidates = downLoadCandidatesListFromTable();
+        m_electors = downLoadElectorsListFromTable(SIMPLE_ELECTOR_VOTER);
     }
     
     public void downloadDataBaseForOfficial() throws  SQLException {
         m_candidates = downLoadCandidatesListFromTable();
-        m_electors = downLoadElectorsListFromTable();
+        m_electors = downLoadElectorsListFromTable(COMPLETE_ELECTOR_PERSON);
     }
     
     public void downLoadDataBaseForElector() throws  SQLException {
@@ -89,12 +94,13 @@ public class Election {
         return officials;
     }
     
-    public final ArrayList<Elector> downLoadElectorsListFromTable() throws SQLException { 
+    public final ArrayList<Elector> downLoadElectorsListFromTable(boolean complete_electors) throws SQLException { 
         ArrayList<Elector> electors = new ArrayList<>();
         int nb_electors = elector_from_db.getNumberOfElectorsIntoTable();
         try {
             for(int case_index=0; case_index<nb_electors; ++case_index) {
-                electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR, m_candidates, elector_from_db, this));
+                electors.add(new Elector(case_index + DAO.FIRST_ID_ELECTOR, m_candidates, elector_from_db, this, complete_electors));
+                electors.get(electors.size()-1).addElectorToState();
             }
         }
         catch(SQLException sql_except) {
@@ -116,6 +122,7 @@ public class Election {
     public void addElector(String last_name, String first_name, String password, State state) throws SQLException {
         //try {
             m_electors.add( new Elector(last_name, first_name, password, state, elector_from_db, this));
+            m_electors.get(m_electors.size()-1).addElectorToState();
             elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
                                        m_electors.get(m_electors.size()-1).getFirstName(), 
                                        m_electors.get(m_electors.size()-1).getPassword(), 

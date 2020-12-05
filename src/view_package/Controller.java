@@ -103,7 +103,7 @@ public class Controller {
         m_reset = 1;
     }
     
-    public void startGraphiqueCandidats()
+    public void startGraphiqueCandidats() throws SQLException
     {
         GraphicCandidates myCandidates = new GraphicCandidates(m_user_candidate);
         myCandidates.startCandidates();
@@ -111,9 +111,10 @@ public class Controller {
         int checkCandidatesNationalOut = 0;
         int checkCandidatesStatesOut = 0;
         int checkCandidatesStatesUniqueOut = 0;
+        int IntStateOut = 0;
         
         while (checkCandidatesOut != -1) 
-        {   
+        {  
             checkCandidatesOut = myCandidates.getCheckCandidates();
             System.out.print("");
             
@@ -136,16 +137,19 @@ public class Controller {
             {
                 GraphicCandidatesStates myCandidatesStates = new GraphicCandidatesStates();
                 myCandidatesStates.startCandidatesStates(m_access_to_election);
+               
                 
                 while(checkCandidatesStatesOut != -1)
                 {
                     checkCandidatesStatesOut = myCandidatesStates.getCheckCandidatesStates();
                     System.out.print("");
+                   
                     
                     if (checkCandidatesStatesOut == 1)
                     {
+                        IntStateOut = myCandidatesStates.getIntState();
                         GraphicCandidatesStatesUnique myUniqueState = new GraphicCandidatesStatesUnique();
-                        myUniqueState.startCandidatesStatesUnique(m_user_candidate);
+                        myUniqueState.startCandidatesStatesUnique(m_access_to_election, IntStateOut);
                         
                         while(checkCandidatesStatesUniqueOut != -1)
                         {
@@ -154,6 +158,7 @@ public class Controller {
                         }
                         myCandidatesStates = new GraphicCandidatesStates();
                         myCandidatesStates.startCandidatesStates(m_access_to_election);
+                        IntStateOut = 0;
                         checkCandidatesStatesOut = 0;
                         checkCandidatesStatesUniqueOut = 0;
                     }
@@ -181,6 +186,7 @@ public class Controller {
         int checkOfficialsStatesUniqueOut = 0;
         int checkOfficialsWinnersOut = 0;
         int checkOfficialsStartPauseOut = 0;
+        int IntStateOut = 0;
         
         while (checkOfficialsOut != -1) 
         {   
@@ -288,8 +294,10 @@ public class Controller {
                     
                     if (checkOfficialsStatesOut == 1)
                     {
+
+                        IntStateOut = myOfficialsStates.getIntState();
                         GraphicOfficialsStatesUnique myUniqueState = new GraphicOfficialsStatesUnique();
-                        myUniqueState.startOfficialsStatesUnique(m_user_official);
+                        myUniqueState.startOfficialsStatesUnique(m_access_to_election,IntStateOut);
                         
                         while(checkOfficialsStatesUniqueOut != -1)
                         {
@@ -372,7 +380,7 @@ public class Controller {
                 return -1;
             }
             else if(m_access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
-                m_user_elector = new Elector(m_access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), m_access_to_election.getCandidates(), m_access_to_election.elector_from_db, m_access_to_election);
+                m_user_elector = new Elector(m_access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), m_access_to_election.getCandidates(), m_access_to_election.elector_from_db, m_access_to_election, m_access_to_election.COMPLETE_ELECTOR_PERSON);
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;
