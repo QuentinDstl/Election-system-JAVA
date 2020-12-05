@@ -17,7 +17,7 @@ public class Java_project_desautel_pellen_perold {
         /* start("name_config") -> to load with your config but chose the file to open */
         /* start("name_config","file_path") -> to load with yout config and the file */
         /* start() -> the program will ask you everything and save it in the config file */
-        start("clement","src\\loader_package\\big_pre_load.xlsx");              // une fois que vous avez utilise ca vous pouvez juste utiliser start() ce sera sauvegarde
+        start("charles","src\\loader_package\\big_pre_load.xlsx");              // une fois que vous avez utilise ca vous pouvez juste utiliser start() ce sera sauvegarde
 
         
         //yo.createTableElector();

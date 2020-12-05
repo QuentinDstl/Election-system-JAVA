@@ -63,6 +63,10 @@ public class GraphicCandidatesStates extends JFrame
     {
         return checkCandidatesStates;
     }
+    public int getIntState()
+    {
+        return m_intState;
+    }
     
     private class PlayButtonBack implements ActionListener
     {

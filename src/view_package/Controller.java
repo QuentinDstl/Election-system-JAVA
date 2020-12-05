@@ -103,7 +103,7 @@ public class Controller {
         m_reset = 1;
     }
     
-    public void startGraphiqueCandidats()
+    public void startGraphiqueCandidats() throws SQLException
     {
         GraphicCandidates myCandidates = new GraphicCandidates(m_user_candidate);
         myCandidates.startCandidates();
@@ -111,6 +111,7 @@ public class Controller {
         int checkCandidatesNationalOut = 0;
         int checkCandidatesStatesOut = 0;
         int checkCandidatesStatesUniqueOut = 0;
+        int IntStateOut = 0;
         
         while (checkCandidatesOut != -1) 
         {   
@@ -144,8 +145,9 @@ public class Controller {
                     
                     if (checkCandidatesStatesOut == 1)
                     {
+                        IntStateOut = myCandidatesStates.getIntState();
                         GraphicCandidatesStatesUnique myUniqueState = new GraphicCandidatesStatesUnique();
-                        myUniqueState.startCandidatesStatesUnique(m_user_candidate);
+                        myUniqueState.startCandidatesStatesUnique(m_access_to_election, IntStateOut);
                         
                         while(checkCandidatesStatesUniqueOut != -1)
                         {
@@ -154,6 +156,7 @@ public class Controller {
                         }
                         myCandidatesStates = new GraphicCandidatesStates();
                         myCandidatesStates.startCandidatesStates(m_access_to_election);
+                        IntStateOut = 0;
                         checkCandidatesStatesOut = 0;
                         checkCandidatesStatesUniqueOut = 0;
                     }
@@ -181,6 +184,7 @@ public class Controller {
         int checkOfficialsStatesUniqueOut = 0;
         int checkOfficialsWinnersOut = 0;
         int checkOfficialsStartPauseOut = 0;
+        int IntStateOut = 0;
         
         while (checkOfficialsOut != -1) 
         {   
@@ -288,8 +292,9 @@ public class Controller {
                     
                     if (checkOfficialsStatesOut == 1)
                     {
+                        IntStateOut = myOfficialsStates.getIntState();
                         GraphicOfficialsStatesUnique myUniqueState = new GraphicOfficialsStatesUnique();
-                        myUniqueState.startOfficialsStatesUnique(m_user_official);
+                        myUniqueState.startOfficialsStatesUnique(m_access_to_election,IntStateOut);
                         
                         while(checkOfficialsStatesUniqueOut != -1)
                         {

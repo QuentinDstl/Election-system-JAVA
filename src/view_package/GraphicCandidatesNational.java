@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import java.lang.Object;
 import java.awt.event.*;  
+import java.sql.SQLException;
 import org.jfree.chart.*; 
 import org.jfree.chart.plot.*; 
 import org.jfree.data.general.*;
@@ -35,9 +36,8 @@ public class GraphicCandidatesNational extends JFrame
         buttonBack.addActionListener(new PlayButtonBack());
     }
     
-    public void startCandidatesNational(Election myElection)
+    public void startCandidatesNational(Election myElection) throws SQLException
     {
-        /* Initialisation of the interface */
         setTitle("Score NATIONAL");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,9 +54,9 @@ public class GraphicCandidatesNational extends JFrame
             nbrVoteTotal = nbrVoteTotal + myElection.getCandidates().get(i).getNbVotesTotal();
         }
         
-        /*nbrNoVoted = new Integer(myElection.getElectors().size()) 
+        nbrNoVoted = new Integer(myElection.elector_from_db.getNumberOfElectorsIntoTable()) 
                 - nbrVoteTotal;
-        pieDataset.setValue(" No vote", new Integer(nbrNoVoted)); */
+        pieDataset.setValue(" No vote", new Integer(nbrNoVoted)); 
 
         JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween other candidates", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 

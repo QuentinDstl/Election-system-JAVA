@@ -35,19 +35,21 @@ public class GraphicOfficialsStatesUnique extends JFrame
         buttonBack.addActionListener(new PlayButtonBack());
     }
     
-    public void startOfficialsStatesUnique(Official m_user_official)
+    public void startOfficialsStatesUnique(Election myElection, int IntState)
     {   
-       /* Initialisation of the interface */
         setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
         
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
-        pieDataset.setValue("You ", new Integer(27)); 
-        pieDataset.setValue("Valeur2", new Integer(10)); 
-        pieDataset.setValue("Valeur3", new Integer(50)); 
-        pieDataset.setValue("Valeur4", new Integer(5)); 
+        
+        System.out.println(" Le nom de l'état" + myElection.getStates().get(IntState).getName());
+        for (int i = 0; i < myElection.getCandidates().size(); i++)
+        {
+            pieDataset.setValue(myElection.getCandidates().get(i).getLastName() + " " + myElection.getCandidates().get(i).getFirstName()
+                    , new Integer(myElection.getStates().get(IntState).getNbVotesCandidateInState(      myElection.getCandidates().get(i).getLastName()))    ); 
+        }
 
         JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween other candidates", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
