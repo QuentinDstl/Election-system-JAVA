@@ -37,6 +37,7 @@ public class GraphicCandidatesStatesUnique extends JFrame
     
     public void startCandidatesStatesUnique(Election myElection, int IntState)
     {   
+        JFreeChart pieChart;
         
         System.out.println(" Mon id State est : " + IntState);
         setTitle("Score STATES");
@@ -48,10 +49,15 @@ public class GraphicCandidatesStatesUnique extends JFrame
         for (int i = 0; i < myElection.getCandidates().size(); i++)
         {
             pieDataset.setValue(myElection.getCandidates().get(i).getLastName() + " " + myElection.getCandidates().get(i).getFirstName()
-                    , new Integer(myElection.getStates().get(IntState).getNbVotesCandidateInState(      myElection.getCandidates().get(i).getLastName()))    ); 
+                    , myElection.getStates().get(IntState).getNbVotesCandidateInState(myElection.getCandidates().get(i).getLastName())); 
         }
 
-        JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween other candidates", pieDataset, true, true, true); 
+        if (myElection.getStates().get(IntState).isAllWin() == true)
+            pieChart = ChartFactory.createPieChart("State : " + myElection.getStates().get(IntState).getName() + " is AllWin : " +  
+                +  myElection.getStates().get(IntState).getNbrElector() + " great voters", pieDataset, true, true, true); 
+        else 
+            pieChart = ChartFactory.createPieChart("State : " + myElection.getStates().get(IntState).getName() + " is NoAllWin : " +   
+                +  myElection.getStates().get(IntState).getNbrElector() + " great voters", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
         panelCamembert.add(cPanel); 
         

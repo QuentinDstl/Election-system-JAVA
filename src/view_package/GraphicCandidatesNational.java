@@ -50,7 +50,7 @@ public class GraphicCandidatesNational extends JFrame
         for (int i = 0; i < myElection.getCandidates().size(); i++)
         {
             pieDataset.setValue(myElection.getCandidates().get(i).getLastName() + " " + myElection.getCandidates().get(i).getFirstName()
-                    , new Integer(myElection.getCandidates().get(i).getNbVotesTotal())); 
+                    , myElection.getCandidates().get(i).getNbVotesTotal()); 
             nbrVoteTotal = nbrVoteTotal + myElection.getCandidates().get(i).getNbVotesTotal();
         }
         
@@ -58,7 +58,7 @@ public class GraphicCandidatesNational extends JFrame
                 - nbrVoteTotal;
         pieDataset.setValue(" No vote", new Integer(nbrNoVoted)); 
 
-        JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween other candidates", pieDataset, true, true, true); 
+        JFreeChart pieChart = ChartFactory.createPieChart("Score National : " + myElection.elector_from_db.getNumberOfElectorsIntoTable() + " electors , " + nbrVoteTotal + " voted", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
         panelCamembert.add(cPanel); 
         
