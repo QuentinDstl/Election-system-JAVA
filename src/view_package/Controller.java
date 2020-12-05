@@ -120,7 +120,7 @@ public class Controller {
             if(checkCandidatesOut == 1)// DISPLAY NATIONAL
             {
                 GraphicCandidatesNational myCandidatesNational = new GraphicCandidatesNational();
-                myCandidatesNational.startCandidatesNational(m_user_candidate);
+                myCandidatesNational.startCandidatesNational(m_access_to_election);
                 
                 while(checkCandidatesNationalOut != -1)
                 {
@@ -264,7 +264,7 @@ public class Controller {
             if(checkOfficialsOut == 5)// SHOW NATIONAL
             {
                 GraphicOfficialsNational myOfficialsNational = new GraphicOfficialsNational();
-                myOfficialsNational.startOfficialsNational(m_user_official);
+                myOfficialsNational.startOfficialsNational(m_access_to_election);
                 
                 while(checkOfficialsNationalOut != -1)
                 {
