@@ -35,7 +35,7 @@ public class GraphicOfficialsNational extends JFrame
         buttonBack.addActionListener(new PlayButtonBack());
     }
     
-    public void startOfficialsNational(Official m_user_candidate)
+    public void startOfficialsNational(Election myElection)
     {
         /* Initialisation of the interface */
         setTitle("Score NATIONAL");
@@ -43,12 +43,20 @@ public class GraphicOfficialsNational extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
         
+        int nbrVoteTotal = 0;
+        int nbrNoVoted = 0;
+        
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
-        pieDataset.setValue("Valeur 1 ", new Integer(27)); 
-        pieDataset.setValue("Valeur2", new Integer(10)); 
-        pieDataset.setValue("Valeur3", new Integer(50)); 
-        pieDataset.setValue("Valeur4", new Integer(5)); 
-
+        for (int i = 0; i < myElection.getCandidates().size(); i++)
+        {
+            pieDataset.setValue(myElection.getCandidates().get(i).getLastName() + " " + myElection.getCandidates().get(i).getFirstName()
+                    , new Integer(myElection.getCandidates().get(i).getNbVotesTotal())); 
+            nbrVoteTotal = nbrVoteTotal + myElection.getCandidates().get(i).getNbVotesTotal();
+        }
+        nbrNoVoted = new Integer(myElection.getElectors().size()) 
+                - nbrVoteTotal;
+        pieDataset.setValue(" No vote", new Integer(nbrNoVoted));
+                
         JFreeChart pieChart = ChartFactory.createPieChart("See scores beetween all candidates", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
         panelCamembert.add(cPanel); 

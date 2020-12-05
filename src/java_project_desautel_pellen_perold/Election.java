@@ -109,14 +109,14 @@ public class Election {
         elector_from_db.deleteElector(num_case + DAO.FIRST_ID_ELECTOR);
     }
     
-    public void addElector(String last_name, String first_name, State state) throws SQLException {
+    public void addElector(String last_name, String first_name, String password, State state) throws SQLException {
         //try {
-            m_electors.add( new Elector(last_name, first_name, state, elector_from_db, this));
+            m_electors.add( new Elector(last_name, first_name, password, state, elector_from_db, this));
             elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
                                        m_electors.get(m_electors.size()-1).getFirstName(), 
                                        m_electors.get(m_electors.size()-1).getPassword(), 
                                        m_electors.get(m_electors.size()-1).getState().getName(),
-                                       null, "0");
+                                       "NoOne", "0");
             //if(m_electors.size()-1 + DAO.FIRST_ID_ELECTOR < 100) {
                 //throw IllegalArgumentException();
             //}
@@ -134,8 +134,8 @@ public class Election {
         candidate_from_db.deleteCandidate(num_case + DAO.FIRST_ID_CANDIDATE);
     }
     
-    public void addCandidate(String last_name, String first_name, String party) throws SQLException {
-        m_candidates.add( new Candidate(last_name, first_name, party, candidate_from_db, this));
+    public void addCandidate(String last_name, String first_name, String password, String party) throws SQLException {
+        m_candidates.add( new Candidate(last_name, first_name,password, party, candidate_from_db, this));
         candidate_from_db.addToTable(m_candidates.get(m_candidates.size()-1).getLastName(),
                                      m_candidates.get(m_candidates.size()-1).getFirstName(),
                                      m_candidates.get(m_candidates.size()-1).getPassword(),

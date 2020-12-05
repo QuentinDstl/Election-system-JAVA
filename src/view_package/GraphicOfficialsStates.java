@@ -35,9 +35,6 @@ public class GraphicOfficialsStates extends JFrame
 
     public void startOfficialsStates(Election myElection)
     {
-        /* Copy to display states*/
-        //m_candidate = m_user_candidate;
-        
         /* Initialisation of the interface */
         setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);

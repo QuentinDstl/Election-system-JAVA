@@ -18,7 +18,9 @@ public class GraphicCandidates extends JFrame
     protected int checkCandidates = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
-    private final JLabel messageEnter;
+    private final JLabel messageEnter1;
+    private final JLabel messageEnter2;
+    private final JLabel messageEnter3;
     private final JButton buttonNational;
     private final JButton buttonState;
     private final JButton buttonCancel;
@@ -26,7 +28,11 @@ public class GraphicCandidates extends JFrame
     public GraphicCandidates(Candidate m_user_candidate)
     {
         checkCandidates = 0;
-        messageEnter = new JLabel("You are the candidate DONALD TRUMP");
+        messageEnter1 = new JLabel("You are the candidate : ");
+        messageEnter2 = new JLabel(m_user_candidate.getLastName() + " ");
+        messageEnter2.setForeground(Color.BLUE);
+        messageEnter3 = new JLabel(m_user_candidate.getFirstName() + " ");
+        messageEnter3.setForeground(Color.RED);
         buttonNational = new  JButton("See my national score");
         buttonNational.addActionListener(new PlayButtonShowNational());
         buttonState = new  JButton("See my states score");
@@ -46,7 +52,9 @@ public class GraphicCandidates extends JFrame
         setLayout(new GridLayout(4,1));
         
         JPanel panelMessageEnter = new JPanel();
-        panelMessageEnter.add(messageEnter);
+        panelMessageEnter.add(messageEnter1);
+        panelMessageEnter.add(messageEnter2);
+        panelMessageEnter.add(messageEnter3);
         
         add(panelMessageEnter);
         add(buttonNational);

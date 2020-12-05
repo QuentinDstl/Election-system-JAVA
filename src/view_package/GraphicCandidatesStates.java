@@ -35,17 +35,13 @@ public class GraphicCandidatesStates extends JFrame
     }
 
     public void startCandidatesStates(Election myElection)
-    {
-        /* Copy to display states*/
-        //m_candidate = m_user_candidate;
-        
+    {       
         /* Initialisation of the interface */
         setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        //METTRE TAILLE TAB TOTALE
         int heightTab = myElection.getStates().size();
         int heightFinal = heightTab/10 +1;
         setLayout(new GridLayout(10, heightFinal));

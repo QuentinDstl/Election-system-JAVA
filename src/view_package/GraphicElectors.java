@@ -18,7 +18,7 @@ public class GraphicElectors extends GraphicIdentification
 {
     private int checkElectors = 0;
     private int m_intCandidate;
-    private final int WINDOW_WIDTH = 2000;
+    private final int WINDOW_WIDTH = 3200;
     private final int WINDOW_HEIGHT = 1000;
     private final String imageBiden = "pictures\\" + "\\biden.jpg";
     private final String imageTrump = "pictures\\" + "\\trump.jpg";
@@ -137,14 +137,12 @@ public class GraphicElectors extends GraphicIdentification
             }
             else
             {
-                JButton buttonNew = new JButton(new ImageIcon(imageNew));
-                JLabel messageNew = new JLabel(myElection.getCandidates().get(a).getFirstName() 
+                JButton buttonNew = new JButton(myElection.getCandidates().get(a).getFirstName() 
                         + " " + myElection.getCandidates().get(a).getLastName()
-                        + " , " + myElection.getCandidates().get(a).getParty() + " : " + a);
+                        + " , " + myElection.getCandidates().get(a).getParty() + " :" + a,new ImageIcon(imageNew));
                 buttonNew.addActionListener(new PlayButtonVote());
                 JPanel panelNew = new JPanel();
                 panelNew.add(buttonNew);
-                panelNew.add(messageNew);
                 add(panelNew);
             }
         }
@@ -185,6 +183,7 @@ public class GraphicElectors extends GraphicIdentification
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            setVisible(false);
             String source = e.getActionCommand();
             System.out.println(source);
             String[] parts = source.split(":");

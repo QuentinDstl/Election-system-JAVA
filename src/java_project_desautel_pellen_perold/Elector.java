@@ -43,9 +43,9 @@ public class Elector extends Person {
     }
     
     /* De la saisie d'un Official */
-    public Elector(String last_name, String first_name, State state, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException {
+    public Elector(String last_name, String first_name,String password, State state, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException {
         
-        super(last_name, first_name, "0000");
+        super(last_name, first_name, password);
         
         m_election_access = election_access;
         

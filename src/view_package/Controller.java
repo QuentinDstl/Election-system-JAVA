@@ -120,7 +120,7 @@ public class Controller {
             if(checkCandidatesOut == 1)// DISPLAY NATIONAL
             {
                 GraphicCandidatesNational myCandidatesNational = new GraphicCandidatesNational();
-                myCandidatesNational.startCandidatesNational(m_user_candidate);
+                myCandidatesNational.startCandidatesNational(m_access_to_election);
                 
                 while(checkCandidatesNationalOut != -1)
                 {
@@ -198,7 +198,7 @@ public class Controller {
                     System.out.print("");
                 }
                 if(checkOfficialsAddCandidatesOut == 1)
-                    m_user_official.addCandidate(myOfficialsAddCandidate.getLastName(), myOfficialsAddCandidate.getFirstName(),myOfficialsAddCandidate.getParty());
+                    m_user_official.addCandidate(myOfficialsAddCandidate.getLastName(), myOfficialsAddCandidate.getFirstName(), myOfficialsAddCandidate.getPassword(), myOfficialsAddCandidate.getParty());
                 
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
@@ -234,8 +234,10 @@ public class Controller {
                     System.out.print("");
                 }
                 if (checkOfficialsAddElectorsOut ==1)
-                    m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), m_access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
-                
+                {
+                    m_user_official.addElector(myOfficialsAddElector.getLastName(), myOfficialsAddElector.getFirstName(), myOfficialsAddElector.getPassword(), m_access_to_election.getStates().get(myOfficialsAddElector.getIntState()));
+                }
+                   
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
                 checkOfficialsOut = 0;
@@ -262,7 +264,7 @@ public class Controller {
             if(checkOfficialsOut == 5)// SHOW NATIONAL
             {
                 GraphicOfficialsNational myOfficialsNational = new GraphicOfficialsNational();
-                myOfficialsNational.startOfficialsNational(m_user_official);
+                myOfficialsNational.startOfficialsNational(m_access_to_election);
                 
                 while(checkOfficialsNationalOut != -1)
                 {
