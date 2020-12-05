@@ -114,7 +114,7 @@ public class Controller {
         int IntStateOut = 0;
         
         while (checkCandidatesOut != -1) 
-        {   
+        {  
             checkCandidatesOut = myCandidates.getCheckCandidates();
             System.out.print("");
             
@@ -137,11 +137,13 @@ public class Controller {
             {
                 GraphicCandidatesStates myCandidatesStates = new GraphicCandidatesStates();
                 myCandidatesStates.startCandidatesStates(m_access_to_election);
+               
                 
                 while(checkCandidatesStatesOut != -1)
                 {
                     checkCandidatesStatesOut = myCandidatesStates.getCheckCandidatesStates();
                     System.out.print("");
+                   
                     
                     if (checkCandidatesStatesOut == 1)
                     {
@@ -292,6 +294,7 @@ public class Controller {
                     
                     if (checkOfficialsStatesOut == 1)
                     {
+
                         IntStateOut = myOfficialsStates.getIntState();
                         GraphicOfficialsStatesUnique myUniqueState = new GraphicOfficialsStatesUnique();
                         myUniqueState.startOfficialsStatesUnique(m_access_to_election,IntStateOut);
@@ -377,7 +380,7 @@ public class Controller {
                 return -1;
             }
             else if(m_access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
-                m_user_elector = new Elector(m_access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), m_access_to_election.getCandidates(), m_access_to_election.elector_from_db, m_access_to_election);
+                m_user_elector = new Elector(m_access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), m_access_to_election.getCandidates(), m_access_to_election.elector_from_db, m_access_to_election, m_access_to_election.COMPLETE_ELECTOR_PERSON);
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;

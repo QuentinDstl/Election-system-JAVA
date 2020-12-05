@@ -47,20 +47,15 @@ public class State {
     }*/
     
     public void addElectorToList(Elector elector) throws IllegalArgumentException {
-        System.out.println("Je suis rentre dans le sous-prog");
         if(m_list_electors != null) {
-            System.out.println("Je suis rentre dans le 1er if");
             if(m_list_electors.size() == m_nbr_max_electors) {
-                System.out.println("Je suis rentre dans le 2ème if");
                 throw new IllegalArgumentException(": trop d'électeurs pour cet état");
             }
             else {
-                System.out.println("Je suis rentre dans le 2eme else");
                m_list_electors.add(elector); 
             }
         }
         else {
-            System.out.println("Je suis rentre dans le 1er else");
             m_list_electors.add(elector);
         }
     }

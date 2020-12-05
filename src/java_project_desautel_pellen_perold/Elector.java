@@ -17,29 +17,46 @@ public class Elector extends Person {
     
     private final ElectorDAOImpl m_elector_from_db;
     
+ 
     
     /* Constructeeur */
     /* De la DATABASE */
-    public Elector(int num_case, ArrayList<Candidate> candidates, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException, IllegalArgumentException {
+    public Elector(int num_case, ArrayList<Candidate> candidates, ElectorDAOImpl elector_from_db, Election election_access, boolean complete_elector) throws SQLException, IllegalArgumentException {
         
         super();
         
-        m_elector_from_db = elector_from_db;
-        
-        setLastNameFromDataBase(m_elector_from_db.getLastNameElectorIntoTable(num_case));
-        setFirstNameFromDataBase(m_elector_from_db.getFirstNameElectorIntoTable(num_case));  
-        setPasswordFromDataBase(m_elector_from_db.getPasswordElectorIntoTable(num_case));
-        setIdFromDataBase(num_case);
-        
-        m_election_access = election_access;
-        
-        m_state = setStateFromDatabase(m_elector_from_db.getNameStateOfElectorIntoTable(num_case));
-        m_state.addElectorToList(this);
-        
-        m_candidate_name = m_elector_from_db.getNameCandidateOfElectorIntoTable(num_case);
-        m_voteDone = m_elector_from_db.getTestVoteElector(num_case);
-        if((m_voteDone == true && m_candidate_name.equals("NoOne")) || (m_voteDone == false && (!m_candidate_name.equals("NoOne")))) {
-            throw new SQLException(": Base de donnée corrompue (le nom du candidat et la verification du vote ne correspondent pas)");
+        if(complete_elector == true) {
+            m_elector_from_db = elector_from_db;
+
+            setLastNameFromDataBase(m_elector_from_db.getLastNameElectorIntoTable(num_case));
+            setFirstNameFromDataBase(m_elector_from_db.getFirstNameElectorIntoTable(num_case));  
+            setPasswordFromDataBase(m_elector_from_db.getPasswordElectorIntoTable(num_case));
+            setIdFromDataBase(num_case);
+
+            m_election_access = election_access;
+
+            m_state = setStateFromDatabase(m_elector_from_db.getNameStateOfElectorIntoTable(num_case));
+
+            m_candidate_name = m_elector_from_db.getNameCandidateOfElectorIntoTable(num_case);
+            m_voteDone = m_elector_from_db.getTestVoteElector(num_case);
+            if((m_voteDone == true && m_candidate_name.equals("NoOne")) || (m_voteDone == false && (!m_candidate_name.equals("NoOne")))) {
+                throw new SQLException(": Base de donnée corrompue (le nom du candidat et la verification du vote ne correspondent pas)");
+            }
+        }
+        else {
+            m_elector_from_db = elector_from_db;
+            
+            setIdFromDataBase(num_case);
+
+            m_election_access = election_access;
+
+            m_state = setStateFromDatabase(m_elector_from_db.getNameStateOfElectorIntoTable(num_case));
+
+            m_candidate_name = m_elector_from_db.getNameCandidateOfElectorIntoTable(num_case);
+            m_voteDone = m_elector_from_db.getTestVoteElector(num_case);
+            if((m_voteDone == true && m_candidate_name.equals("NoOne")) || (m_voteDone == false && (!m_candidate_name.equals("NoOne")))) {
+                throw new SQLException(": Base de donnée corrompue (le nom du candidat et la verification du vote ne correspondent pas)");
+            }
         }
     }
     
@@ -63,7 +80,7 @@ public class Elector extends Person {
         State state;
         int index_valid_database = 0;
         for(int i=0; i<m_election_access.getStates().size(); ++i) {
-            if(m_election_access.getStates().get(i).getName().equals(name_state_into_table)) {
+            if(name_state_into_table.equals(m_election_access.getStates().get(i).getName())) {
                 index_valid_database = i;
             }
         }
@@ -71,17 +88,9 @@ public class Elector extends Person {
         return state;
     }
     
-    /*public final Candidate setCandidateFromDataBase(ArrayList<Candidate> candidates) throws SQLException {
-        Candidate candidate;
-        int index_valid_database = 0;
-        for(int i=0; i<candidates.size(); ++i) {
-            if(candidates.get(i).getId() == i + DAO.FIRST_ID_CANDIDATE) {
-                index_valid_database = i;
-            }
-        }
-        candidate = candidates.get(index_valid_database);
-        return candidate;
-    }*/
+    public final void addElectorToState() {
+        m_state.addElectorToList(this);
+    }
     
     
     public void downLoadElectionDataBase() throws SQLException {

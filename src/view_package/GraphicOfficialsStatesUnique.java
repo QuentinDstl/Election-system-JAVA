@@ -44,7 +44,6 @@ public class GraphicOfficialsStatesUnique extends JFrame
         
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
         
-        System.out.println(" Le nom de l'état" + myElection.getStates().get(IntState).getName());
         for (int i = 0; i < myElection.getCandidates().size(); i++)
         {
             pieDataset.setValue(myElection.getCandidates().get(i).getLastName() + " " + myElection.getCandidates().get(i).getFirstName()
