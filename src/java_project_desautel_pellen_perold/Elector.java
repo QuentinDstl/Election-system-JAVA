@@ -20,7 +20,7 @@ public class Elector extends Person {
     
     /* Constructeeur */
     /* De la DATABASE */
-    public Elector(int num_case, ArrayList<Candidate> candidates, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException {
+    public Elector(int num_case, ArrayList<Candidate> candidates, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException, IllegalArgumentException {
         
         super();
         
@@ -34,6 +34,7 @@ public class Elector extends Person {
         m_election_access = election_access;
         
         m_state = setStateFromDatabase(m_elector_from_db.getNameStateOfElectorIntoTable(num_case));
+        m_state.addElectorToList(this);
         
         m_candidate_name = m_elector_from_db.getNameCandidateOfElectorIntoTable(num_case);
         m_voteDone = m_elector_from_db.getTestVoteElector(num_case);

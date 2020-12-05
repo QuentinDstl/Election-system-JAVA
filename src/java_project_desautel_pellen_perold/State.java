@@ -3,6 +3,7 @@ package java_project_desautel_pellen_perold;
 
 import dao_package.StateDAOImpl;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class State {
@@ -11,6 +12,7 @@ public class State {
     private String m_name;
     private int m_nbr_max_electors;
    
+    private ArrayList<Elector> m_list_electors; 
     
     private final StateDAOImpl m_state_from_db;
     
@@ -25,6 +27,8 @@ public class State {
         m_nbr_max_electors = m_state_from_db.getNumberMaxOfElectorsInStateIntoTable(num_case);
         m_all_Win = m_state_from_db.getConditionAllWinIntoTable(num_case);
         m_pause = m_state_from_db.getConditionPauseIntoTable(num_case);
+        
+        m_list_electors = new ArrayList<Elector>();
     }
     
     
@@ -41,6 +45,30 @@ public class State {
         else
             m_nbrElector = nbrElector;
     }*/
+    
+    public void addElectorToList(Elector elector) throws IllegalArgumentException {
+        if(m_list_electors != null) {
+            if(m_list_electors.size() == m_nbr_max_electors) {
+                throw new IllegalArgumentException(": trop d'électeurs pour cet état");
+            }
+            else {
+               m_list_electors.add(elector); 
+            }
+        }
+        else {
+            m_list_electors.add(elector);
+        }
+    }
+    
+    public int getNbVotesCandidateInState(String name_candidate) {
+        int nb_votes_candidate = 0;
+        for(int i=0; i<m_list_electors.size(); ++i) {
+            if(m_list_electors.get(i).getCandidate().equals(name_candidate)) {
+                nb_votes_candidate++;
+            }
+        }
+        return nb_votes_candidate;
+    }
 
     /* Getters */
     public boolean isPause() {
@@ -57,6 +85,10 @@ public class State {
     
     public int getNbrElector() {
         return m_nbr_max_electors;
+    }
+    
+    public ArrayList<Elector> getListElector() {
+        return m_list_electors;
     }
     
     /* Setters */
