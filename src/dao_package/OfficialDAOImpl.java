@@ -1,6 +1,7 @@
 package dao_package;
 
 import config_package.Config;
+import config_package.Log;
 import java.sql.*;
 
 public class OfficialDAOImpl implements DAO {
@@ -39,13 +40,13 @@ public class OfficialDAOImpl implements DAO {
     public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_OFFICIAL);
         m_statement.executeUpdate("ALTER TABLE `official` AUTO_INCREMENT = " +FIRST_ID_OFFICIAL +";");
-        System.out.println(CREATION_TABLE_OFFICIAL);
+        Log.add(CREATION_TABLE_OFFICIAL);
     }
     
     @Override
     public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_OFFICIAL);
-        System.out.println(DROP_TABLE_OFFICIAL);
+        Log.add(DROP_TABLE_OFFICIAL);
     }
     
     /**
@@ -62,7 +63,7 @@ public class OfficialDAOImpl implements DAO {
         query = query.substring(0, query.length() - 2);
         query += ");";
         m_statement.executeUpdate(query);
-        System.out.println(ADD_OFFICIAL);
+       //Log.add(ADD_OFFICIAL);
     }
     
     /* Méthodes de requêtes */

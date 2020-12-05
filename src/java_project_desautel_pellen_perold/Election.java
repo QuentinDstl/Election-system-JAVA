@@ -9,6 +9,7 @@ import dao_package.OfficialDAOImpl;
 import dao_package.StateDAOImpl;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import loader_package.LoadingInfo;
 
 
 public class Election {
@@ -40,7 +41,7 @@ public class Election {
     /* Méthodes de chargement de la DataBase */
     public final ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
-        int nb_states = DAO.NUMBER_OF_STATES;
+        int nb_states = LoadingInfo.getStateNumber();
         for(int case_index=0; case_index<nb_states; ++case_index) {
             states.add(new State(case_index+1, state_from_db));
         }

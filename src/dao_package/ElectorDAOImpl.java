@@ -1,6 +1,7 @@
 package dao_package;
 
 import config_package.Config;
+import config_package.Log;
 import java.sql.*;
 
 public class ElectorDAOImpl implements  DAO {
@@ -52,13 +53,13 @@ public class ElectorDAOImpl implements  DAO {
     public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_ELECTOR);
         m_statement.executeUpdate("ALTER TABLE `elector` AUTO_INCREMENT = " +FIRST_ID_ELECTOR +";");
-        System.out.println(CREATION_TABLE_ELECTOR);
+        Log.add(CREATION_TABLE_ELECTOR);
     }
     
     @Override
     public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_ELECTOR);
-        System.out.println(DROP_TABLE_ELECTOR);
+        Log.add(DROP_TABLE_ELECTOR);
     }
     
     
@@ -75,7 +76,7 @@ public class ElectorDAOImpl implements  DAO {
         }
         query += "'" + Integer.parseInt(args[5]) + "');";
         m_statement.executeUpdate(query);
-        //System.out.println(ADD_ELECTOR);
+        //Log.add(ADD_ELECTOR);
     }
     
     public void deleteElector(int id) throws SQLException {

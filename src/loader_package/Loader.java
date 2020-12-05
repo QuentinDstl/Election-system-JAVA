@@ -42,8 +42,8 @@ public class Loader implements LoaderInterface {
         }
     }
     
-    private static <T extends DAO> void addToDataBase(int sheetType, String[] data,T t) {
-        
+    private static <T extends DAO> void addToDataBase(int sheetType, String[] data, LoadingInfo loadingInfo, T t) {
+
         try {
             switch (sheetType) {
                 case ELECTOR_SHEET:
@@ -68,6 +68,7 @@ public class Loader implements LoaderInterface {
         catch (SQLException | ArrayIndexOutOfBoundsException e) {
             Log.add("error SQL in addToDataBase in the Loader : " + e.getMessage());
         }
+        loadingInfo.addLoadInfo(sheetType);
     }
     
     private static ArrayList<InputStream> getSheetsXML(ZipFile zipFile) throws IOException  {
@@ -122,7 +123,7 @@ public class Loader implements LoaderInterface {
         return stringList;
     }
 
-    private static <T extends DAO> void loadSheet(InputStream input, List<String> sharedStrings, int sheetType, T t)
+    private static <T extends DAO> void loadSheet(InputStream input, List<String> sharedStrings, int sheetType, LoadingInfo loadingInfo, T t)
             throws XMLStreamException, FactoryConfigurationError, IOException, IllegalArgumentException {
 
         int sizeOfCells = getSizeofSheet(sheetType);
@@ -165,7 +166,7 @@ public class Loader implements LoaderInterface {
                 }
             }
             if(!saved) {
-                addToDataBase(sheetType, cellValues, t);
+                addToDataBase(sheetType, cellValues, loadingInfo, t);
                 saved = true;
             }
         }
@@ -174,38 +175,42 @@ public class Loader implements LoaderInterface {
     public static void loadXLSX(String filename) {
         
         Log.add("start laodXLSX");
+        LoadingInfo loadingInfo = new LoadingInfo();
         
         try (ZipFile zipFile = new ZipFile(filename)) {
             ArrayList<InputStream> list = getSheetsXML(zipFile);
             List<String> input = getSharedStrings(zipFile);
+
+            loadingInfo.printLoadInfo(filename,ELECTION_SHEET);
             
             final ElectorDAOImpl electorDAOImpl = new ElectorDAOImpl();
-            initInTable(ELECTOR_SHEET, input, list, electorDAOImpl);
+            initInTable(ELECTOR_SHEET, input, list, loadingInfo, electorDAOImpl);
             
             final CandidateDAOImpl candidateDAOImpl = new CandidateDAOImpl();
-            initInTable(CANDIDAT_SHEET, input, list, candidateDAOImpl);
+            initInTable(CANDIDAT_SHEET, input, list, loadingInfo, candidateDAOImpl);
             
             final StateDAOImpl stateDAOImpl = new StateDAOImpl();
-            initInTable(STATE_SHEET, input, list, stateDAOImpl);
+            initInTable(STATE_SHEET, input, list, loadingInfo, stateDAOImpl);
             
             final OfficialDAOImpl officialDAOImpl = new OfficialDAOImpl();
-            initInTable(OFFICIAL_SHEET, input, list, officialDAOImpl);
+            initInTable(OFFICIAL_SHEET, input, list, loadingInfo, officialDAOImpl);
             
             final ElectionDAOImpl electionDAOImpl = new ElectionDAOImpl();
-            initInTable(ELECTION_SHEET, input, list, electionDAOImpl);
+            initInTable(ELECTION_SHEET, input, list, loadingInfo, electionDAOImpl);
         }
         catch (IOException | XMLStreamException | FactoryConfigurationError e) {
             Log.add("The loadding of the xlsx file have problem : " + e.getMessage());
         } catch (SQLException ex) {
             Logger.getLogger(Loader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("");
         Log.add("end laodXLSX");
     }
     
-    private static <T extends DAO> void initInTable(int sheetType, List<String> input, ArrayList<InputStream> list, T t)
+    private static <T extends DAO> void initInTable(int sheetType, List<String> input, ArrayList<InputStream> list, LoadingInfo loadingInfo, T t)
             throws FactoryConfigurationError, IOException, SQLException, XMLStreamException {
         t.dropTable();
         t.createTable();
-        loadSheet(list.get(sheetType), input, sheetType, t);
+        loadSheet(list.get(sheetType), input, sheetType, loadingInfo, t);
     }
 }

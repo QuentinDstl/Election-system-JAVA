@@ -1,6 +1,7 @@
 package dao_package;
 
 import config_package.Config;
+import config_package.Log;
 import java.sql.*;
 
 public class ElectionDAOImpl implements DAO {
@@ -33,13 +34,13 @@ public class ElectionDAOImpl implements DAO {
     @Override
     public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_ELECTION);
-        System.out.println(CREATION_TABLE_ELECTION);
+        Log.add(CREATION_TABLE_ELECTION);
     }
     
     @Override
     public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_ELECTION);
-        System.out.println(DROP_TABLE_ELECTION);
+        Log.add(DROP_TABLE_ELECTION);
     }
     
     /**
@@ -55,7 +56,7 @@ public class ElectionDAOImpl implements DAO {
         query += "'" + Integer.parseInt(args[0]) + "');";
 
         m_statement.executeUpdate(query);
-        System.out.println(ADD_ELECTION);
+        Log.add(ADD_ELECTION);
     }
 
     /* Méthodes de requêtes */
@@ -63,7 +64,7 @@ public class ElectionDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `openVote` FROM `election`;");
         resultLecture.next();
-        System.out.println("open vote : " +resultLecture.getBoolean(1));
+        //System.out.println("open vote : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);
     }
 }

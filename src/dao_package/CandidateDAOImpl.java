@@ -1,6 +1,7 @@
 package dao_package;
 
 import config_package.Config;
+import config_package.Log;
 import java.sql.*;
 
 public class CandidateDAOImpl implements DAO
@@ -48,13 +49,13 @@ public class CandidateDAOImpl implements DAO
     @Override
     public void createTable() throws SQLException {   
         m_statement.executeUpdate(CREATION_TABLE_CANDIDATE);
-        System.out.println(CREATION_TABLE_CANDIDATE);
+        Log.add(CREATION_TABLE_CANDIDATE);
     }
     
     @Override
     public void dropTable() throws SQLException {
         m_statement.executeUpdate(DROP_TABLE_CANDIDATE);
-        System.out.println(DROP_TABLE_CANDIDATE);
+        Log.add(DROP_TABLE_CANDIDATE);
     }    
     
     /**
@@ -70,13 +71,13 @@ public class CandidateDAOImpl implements DAO
         }
         query +=  "'" + Integer.parseInt(args[4]) + "');";
         m_statement.executeUpdate(query);
-        System.out.println(ADD_CANDIDATE);
+        //Log.add(ADD_CANDIDATE);
     }
     
     public void deleteCandidate(int id) throws SQLException {
         m_statement.executeUpdate(DELETE_CANDIDATE 
                                 + " WHERE `id` = " +id + ";");
-        System.out.println(DELETE_CANDIDATE);
+        Log.add(DELETE_CANDIDATE);
         decrementeIdCandidates(id);
     }
     
