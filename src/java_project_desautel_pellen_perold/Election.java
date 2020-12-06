@@ -11,26 +11,23 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import loader_package.LoadingInfo;
 
-
 public class Election {
     private boolean m_openVote;
     private ArrayList<State> m_states;
-    
+
     private ArrayList<Candidate> m_candidates;
     private ArrayList<Official> m_officials;
     private ArrayList<Elector> m_electors;
-    
+
     public final ElectionDAOImpl election_from_db = new ElectionDAOImpl();
     public final StateDAOImpl state_from_db = new StateDAOImpl();
     public final CandidateDAOImpl candidate_from_db = new CandidateDAOImpl();
     public final OfficialDAOImpl official_from_db = new OfficialDAOImpl();
     public final ElectorDAOImpl elector_from_db = new ElectorDAOImpl();
-    
+
     public static boolean COMPLETE_ELECTOR_PERSON = true;
     public static boolean SIMPLE_ELECTOR_VOTER = false;
-    
 
-    
     /* Constructeeur */
     /* De la DATABASE */
     public Election() throws SQLException {
@@ -41,7 +38,7 @@ public class Election {
         m_officials = null;
         m_electors = null;
     }
-    
+
     /* Méthodes de chargement de la DataBase */
     public final ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
@@ -51,21 +48,21 @@ public class Election {
         }
         return states;
     }
-    
+
     public void downloadDataBaseForCandidate() throws SQLException {
         m_candidates = downLoadCandidatesListFromTable();
         m_electors = downLoadElectorsListFromTable(SIMPLE_ELECTOR_VOTER);
     }
-    
+
     public void downloadDataBaseForOfficial() throws  SQLException {
         m_candidates = downLoadCandidatesListFromTable();
         m_electors = downLoadElectorsListFromTable(COMPLETE_ELECTOR_PERSON);
     }
-    
+
     public void downLoadDataBaseForElector() throws  SQLException {
         m_candidates = downLoadCandidatesListFromTable();
     }
-    
+
     public final ArrayList<Candidate> downLoadCandidatesListFromTable() throws SQLException { 
         ArrayList<Candidate> candidates = new ArrayList<>();
         int nb_candidates = candidate_from_db.getNumberOfCandidatesIntoTable();
@@ -79,7 +76,7 @@ public class Election {
         }
         return candidates;
     }
-    
+
     public final ArrayList<Official> downLoadOfficialsListFromTable() throws SQLException { 
         ArrayList<Official> officials = new ArrayList<>();
         int nb_officials = official_from_db.getNumberOfOfficialsIntoTable();
@@ -93,7 +90,7 @@ public class Election {
         }
         return officials;
     }
-    
+
     public final ArrayList<Elector> downLoadElectorsListFromTable(boolean complete_electors) throws SQLException { 
         ArrayList<Elector> electors = new ArrayList<>();
         int nb_electors = elector_from_db.getNumberOfElectorsIntoTable();
@@ -111,8 +108,7 @@ public class Election {
         }
         return electors;
     }
-   
-    
+
     /* Méthodes de modification des listes */
     public void deleteElector(int num_case) throws SQLException {
         m_electors.remove(num_case);
@@ -154,17 +150,32 @@ public class Election {
                                      "0");
         m_candidates.get(m_candidates.size()-1).setId(m_candidates.size()-1 + DAO.FIRST_ID_CANDIDATE);
     }
-    
-    
+
+     public void pauseState(String nameState) throws SQLException {
+        State state = this.getState(nameState);
+        if(state != null) {
+            boolean pause = state.isPause();
+            state.setPause(!pause);                                   // we reverse the  pause value
+            state_from_db.savePause(nameState, !pause);
+        }
+    }
+     
+    public void pauseAllStates(boolean pause) throws SQLException {
+        for(State state : m_states) {
+            state.setPause(pause);
+        }
+       state_from_db.saveAllPause(pause);
+    }
+
     /* Getters */
     public boolean getOpenVote() {
         return m_openVote;
     }
-    
+
     public ArrayList<State> getStates() {
         return  m_states;
     }
-    
+
     public State getState(String nameState) {
         for(State state: m_states){
             if(nameState.equals(state.getName()))
@@ -172,39 +183,29 @@ public class Election {
         }
         return null;
     }
-    
+
     public ArrayList<Candidate> getCandidates() {
         return  this.m_candidates;
     }
-    
+
     public ArrayList<Official> getOfficials() {
         return m_officials;
     }
-    
+
     public ArrayList<Elector> getElectors() {
         return  m_electors;
     }
-    
-    
+
     /* Setters */
     public void setOpenVote(boolean openVote) {
         m_openVote = openVote;
     }
-    
-    public void addState(State state) throws NullPointerException {
-        if(state == null) {
-            throw new NullPointerException("addState in the class Election : the state value given to the method is null");
-        }  
-        else
-            m_states.add(state);
-    }
-    
+
     public void showVoteNational() {
         // Appeler Vue
     }
-    
+
     public void showWinner() {
         // Appeler Vue
     }
-    
 }

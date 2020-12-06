@@ -72,6 +72,15 @@ public class StateDAOImpl implements DAO {
         }
     }
     
+    public void saveAllPause(boolean pause) throws SQLException {
+        if(pause == true) {
+            m_statement.executeUpdate("UPDATE `state` SET `pause` = 1;");
+        }
+        else {
+            m_statement.executeUpdate("UPDATE `state` SET `pause` = 0;");
+        }
+    }
+    
     /* Méthodes de requêtes */
     public String getNameStateIntoTable(int num_case) throws SQLException {
         
