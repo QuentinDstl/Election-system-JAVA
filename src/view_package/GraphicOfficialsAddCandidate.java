@@ -97,7 +97,6 @@ public class GraphicOfficialsAddCandidate extends JFrame
         box.add(panelButtonCancel);
         
         add(box);
-        
         setVisible(true);
     }
     
