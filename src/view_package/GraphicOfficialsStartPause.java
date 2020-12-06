@@ -11,69 +11,79 @@ import java_project_desautel_pellen_perold.*;
 import javax.swing.*; // Needed for Swing classes
 import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
-import java.util.ArrayList;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import java.lang.Object;
-import java.awt.event.*;  
-import org.jfree.chart.*; 
-import org.jfree.chart.plot.*; 
-import org.jfree.data.general.*;
 
 public class GraphicOfficialsStartPause extends JFrame
 {
     protected int checkOfficialsStartPause = 0;
+    protected String m_nameState;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
-    private final JButton buttonStart;
-    private final JButton buttonPause;
-    private final JButton buttonEnd;
     private final JButton buttonBack;
+    private final JButton buttonStartEndNational;
+    private final JButton buttonPauseNational;
+    
     
     public GraphicOfficialsStartPause()
     {
         checkOfficialsStartPause = 0;
         buttonBack = new JButton("Back to menu official");
         buttonBack.addActionListener(new PlayButtonBack());
-        buttonStart = new JButton("Start vote");
-        buttonStart.addActionListener(new PlayButtonStart());
-        buttonPause = new JButton("Pause vote");
-        buttonPause.addActionListener(new PlayButtonPause());
-        buttonEnd = new JButton("End vote");
-        buttonEnd.addActionListener(new PlayButtonEnd());
+        buttonStartEndNational = new JButton("Start / End vote");
+        buttonStartEndNational.addActionListener(new PlayButtonStartEndNational());
+        buttonPauseNational = new JButton("Pause / Unpause vote");
+        buttonPauseNational.addActionListener(new PlayButtonPauseNational());
     }
     
-    public void startOfficialsStartPause()
+    public void startOfficialsStartPause(Election myElection)
     {
-        /* Initialisation of the interface */
         setTitle("Vote menu");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(2, 3));
         
-        JLabel textVoid1 = new JLabel("");
-        JPanel panelVoid1 = new JPanel();
-        panelVoid1.add(textVoid1);
+        int heightTab = myElection.getStates().size();
+        int heightFinal = heightTab/10 +1;
+        setLayout(new GridLayout(10, heightFinal));
         
-        JLabel messageStatus = new JLabel("Le vote est actuellment en pause");
-        JPanel panelMessageStatus = new JPanel();
-        panelMessageStatus.add(messageStatus);
+        if (myElection.getOpenVote() == true)
+            buttonStartEndNational.setBackground(Color.GREEN);
+        else if (myElection.getOpenVote() == false)
+            buttonStartEndNational.setBackground(Color.RED);
+        JPanel panelButtonStartEndNational = new JPanel();
+        panelButtonStartEndNational.add(buttonStartEndNational);
         
-        JPanel panelButtonStart = new JPanel();
-        panelButtonStart.add(buttonStart);
-        JPanel panelButtonPause = new JPanel();
-        panelButtonPause.add(buttonPause);
-        JPanel panelButtonEnd = new JPanel();
-        panelButtonEnd.add(buttonEnd);
+        if (myElection.getStates().get(0).isPause() == true)
+            buttonPauseNational.setBackground(Color.RED);
+        else if (myElection.getStates().get(0).isPause() == false)
+            buttonPauseNational.setBackground(Color.GREEN);
+        JPanel panelButtonPauseNational = new JPanel();
+        panelButtonPauseNational.add(buttonPauseNational);
+        
         JPanel panelButtonBack = new JPanel();
         panelButtonBack.add(buttonBack);
         
-        add(panelVoid1);
-        add(panelMessageStatus);
         add(panelButtonBack);
-        add(panelButtonStart);
-        add(panelButtonPause);
-        add(panelButtonEnd);
+        add(panelButtonStartEndNational);
+        add(panelButtonPauseNational);
+        
+        for(int i = 0; i< myElection.getStates().size(); i++)
+        {
+            JPanel panelButton = new JPanel();
+            JButton button;
+            if (myElection.getStates().get(i).isPause() == true)
+            {
+                button = new JButton(myElection.getStates().get(i).getName());
+                button.setBackground(Color.RED);
+            }
+            else
+            {
+                button = new JButton(myElection.getStates().get(i).getName());
+                button.setBackground(Color.GREEN);
+            }    
+            button.addActionListener(new PlayButtonState());
+            panelButton.add(button);
+            add(panelButton);
+        }
         
         setVisible(true);
     }
@@ -83,36 +93,38 @@ public class GraphicOfficialsStartPause extends JFrame
     {
         return checkOfficialsStartPause;
     }
+    public String getNameState()
+    {
+        return m_nameState;
+    }
     
-    private class PlayButtonStart implements ActionListener
+    private class PlayButtonStartEndNational implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-
-            
-            System.out.println("Je commence le vote");
+            checkOfficialsStartPause = 1;
         }
     }
-    private class PlayButtonPause implements ActionListener
+    private class PlayButtonPauseNational implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            
-            System.out.println("Je mets le vote en pause");
+            checkOfficialsStartPause = 2;
         }
     }
-    private class PlayButtonEnd implements ActionListener
+    private class PlayButtonState implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
             setVisible(false);
-            
-            System.out.println("Je stop le vote");
+            String source = e.getActionCommand();
+            m_nameState = source;
+            checkOfficialsStartPause = 3;    
         }
     }
     private class PlayButtonBack implements ActionListener

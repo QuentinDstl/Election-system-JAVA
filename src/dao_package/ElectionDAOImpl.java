@@ -43,6 +43,16 @@ public class ElectionDAOImpl implements DAO {
         Log.add(DROP_TABLE_ELECTION);
     }
     
+    public void closeVote() throws SQLException {
+        m_statement.executeUpdate("UPDATE `election` SET `openVote` = 0;");
+        Log.add("UPDATE `election` SET `openVote` = 0;");
+    }
+    
+    public void startVote() throws SQLException {
+        m_statement.executeUpdate("UPDATE `election` SET `openVote` = 1;");
+        Log.add("UPDATE `election` SET `openVote` = 1;");
+    }
+    
     /**
      * @param args
      * String (boolean) openVote

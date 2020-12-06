@@ -24,7 +24,6 @@ public class Java_project_desautel_pellen_perold {
 
         /* PARTIE GRAPHIQUE EN TEST */
         Election access_to_election = new Election();
-        
         Controller THEController = new Controller(access_to_election);
         
         //THEController.startGraphiqueElectors();
