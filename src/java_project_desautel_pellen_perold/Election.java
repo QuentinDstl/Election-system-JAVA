@@ -165,6 +165,14 @@ public class Election {
         return  m_states;
     }
     
+    public State getState(String nameState) {
+        for(State state: m_states){
+            if(nameState.equals(state.getName()))
+		return state;
+        }
+        return null;
+    }
+    
     public ArrayList<Candidate> getCandidates() {
         return  this.m_candidates;
     }

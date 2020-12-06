@@ -59,7 +59,7 @@ public class Elector extends Person {
             }
         }
     }
-    
+
     /* De la saisie d'un Official */
     public Elector(String last_name, String first_name,String password, State state, ElectorDAOImpl elector_from_db, Election election_access) throws SQLException {
         
@@ -74,7 +74,6 @@ public class Elector extends Person {
         m_voteDone = false;
     }
 
-    
     /* méthodes de chargement */
     public final State setStateFromDatabase(String name_state_into_table) throws SQLException {
         State state;
@@ -87,7 +86,7 @@ public class Elector extends Person {
         state = m_election_access.getStates().get(index_valid_database);
         return state;
     }
-    
+
     public final void addElectorToState() {
         m_state.addElectorToList(this);
     }
@@ -96,7 +95,6 @@ public class Elector extends Person {
     public void downLoadElectionDataBase() throws SQLException {
         m_election_access.downLoadDataBaseForElector();
     }
-    
     
     /* Getters */
     public State getState() {

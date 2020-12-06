@@ -5,6 +5,7 @@ import dao_package.CandidateDAOImpl;
 import dao_package.ElectorDAOImpl;
 import dao_package.OfficialDAOImpl;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.*;
 import java_project_desautel_pellen_perold.*;
 
@@ -101,6 +102,13 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "You have already voted");
         }
         m_reset = 1;
+    }
+    
+    public void pauseState(String nameState) {
+        State state = m_access_to_election.getState(nameState);
+        if(state != null) {
+            state.setPause(!state.isPause());                                   // we reverse the  pause value
+        }
     }
     
     public void startGraphiqueCandidats() throws SQLException
