@@ -417,23 +417,5 @@ public class Controller {
                 m_access_to_elector_table.checkUserElectorName(last_name, first_name);
     }
     
-    private String getWinnerOfState(State state) {
-        String name_winner = "";
-        int nb_votes_winner = 0;
-        for(int i=0; i<m_access_to_election.getCandidates().size(); ++i) {
-            if(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName()) > nb_votes_winner) {
-                nb_votes_winner = state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName());
-                name_winner = m_access_to_election.getCandidates().get(i).getLastName();
-            }
-        }
-        return name_winner;
-    }
     
-    private ArrayList<Integer> getProportionnalityCandidatesOfState(State state) {
-        ArrayList<Integer> candidates_scores = new ArrayList<>();
-        for(int i=0; i<m_access_to_election.getCandidates().size(); ++i) {
-            candidates_scores.add(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName()) / m_access_to_election.getCandidates().size());
-        }
-        return candidates_scores;
-    }
 }

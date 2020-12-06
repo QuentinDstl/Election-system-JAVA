@@ -57,7 +57,7 @@ public class GraphicOfficialsNational extends JFrame
                 - nbrVoted;
         pieDataset.setValue(" No vote", new Integer(nbrNoVoted));
                 
-        JFreeChart pieChart = ChartFactory.createPieChart("Score National : " + myElection.elector_from_db.getNumberOfElectorsIntoTable() + " electors , " + nbrVoted + " voted", pieDataset, true, true, true); 
+        JFreeChart pieChart = ChartFactory.createPieChart("Score National : " + myElection.getElectors().size()+ " electors , " + nbrVoted + " voted", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
         panelCamembert.add(cPanel); 
         

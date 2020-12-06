@@ -106,9 +106,6 @@ public class Election {
         catch(SQLException sql_except) {
             Log.add(sql_except.getMessage() + " Arret du chargement");
         }
-        catch(IllegalArgumentException ill_arg_except) {
-            Log.add(ill_arg_except.getMessage() + " Arret du chargement");
-        }
         return electors;
     }
    
