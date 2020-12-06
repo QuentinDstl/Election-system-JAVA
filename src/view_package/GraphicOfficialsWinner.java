@@ -25,7 +25,14 @@ public class GraphicOfficialsWinner extends JFrame {
     private int checkOfficialsWinner = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
+    private final String imageBiden = "pictures\\" + "\\biden.jpg";
+    private final String imageTrump = "pictures\\" + "\\trump.jpg";
+    private final String imageJorgensen = "pictures\\" + "\\jorgensen.jpg";
+    private final String imageHawkins = "pictures\\" + "\\hawkins.jpg";
+    private final String imageWest = "pictures\\" + "\\west.jpg";
+    private final String imageNew = "pictures\\" + "\\default.png";
     private final JButton buttonBack;
+    private Election m_access_to_election;
     
     public GraphicOfficialsWinner()
     {
@@ -35,20 +42,25 @@ public class GraphicOfficialsWinner extends JFrame {
     
     public void startOfficialsWinner(Election myElection)
     {
+        m_access_to_election = myElection;
+        ArrayList<Integer> myTabScoreCandidates = new ArrayList<Integer>();
+        ArrayList<String> myTabNameCandidates = new ArrayList<String>();
+        String NameWinner ="";
+        int ScoreWinner = 0;
+        
         setTitle("See the potential winner");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
         
-        ArrayList<Integer> myTabScoreCandidates = new ArrayList<Integer>();
-        
         for (int a=0; a<myElection.getCandidates().size(); a++)
         {
             myTabScoreCandidates.add(0);
+            myTabNameCandidates.add(myElection.getCandidates().get(a).getLastName());
         }
         
         JPanel test = new JPanel();
-        test.setPreferredSize(new Dimension(WINDOW_WIDTH,2000));
+        test.setPreferredSize(new Dimension(WINDOW_WIDTH,2500));
         JScrollPane scrollFrame = new JScrollPane(test);
         test.setAutoscrolls(true);
         scrollFrame.setPreferredSize(new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
@@ -59,11 +71,72 @@ public class GraphicOfficialsWinner extends JFrame {
         for (int i=0; i<myElection.getStates().size(); i++)
         {
             JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " : " + myElection.getStates().get(i).getNbrElector() 
-                    + " is win by " );
+                    + " is win by " + getWinnerOfState(myElection.getStates().get(i)));
+            
+            for (int b=0; b<myTabNameCandidates.size(); b++)
+            { 
+                if (getWinnerOfState(myElection.getStates().get(i)).equals(myTabNameCandidates.get(b)))
+                {
+                    myTabScoreCandidates.set(b, myTabScoreCandidates.get(b) + myElection.getStates().get(i).getNbrElector());
+                }
+            }
             JPanel panelState = new JPanel();
             panelState.add(messageState);
             box.add(panelState);
         }
+        
+        JLabel textVoid1 = new JLabel("---------------------------------------------------------------------------");
+        JPanel panelVoid1 = new JPanel();
+        panelVoid1.add(textVoid1);
+        box.add(panelVoid1);
+        
+        for (int c=0; c<myTabNameCandidates.size(); c++)
+        { 
+            JLabel messageCandidate = new JLabel("Candidate : " + myTabNameCandidates.get(c) + " has " + myTabScoreCandidates.get(c) + " great electors");
+            if (ScoreWinner < myTabScoreCandidates.get(c)) 
+            {
+                ScoreWinner = myTabScoreCandidates.get(c);
+                NameWinner = myTabNameCandidates.get(c);
+            }
+            JPanel panelCandidate = new JPanel();
+            panelCandidate.add(messageCandidate);
+            box.add(panelCandidate);
+        }
+        
+        JLabel textVoid2 = new JLabel("---------------------------------------------------------------------------");
+        JPanel panelVoid2 = new JPanel();
+        panelVoid2.add(textVoid2);
+        box.add(panelVoid2);
+        
+        JLabel messageAnnonce1 = new JLabel("The futur president of the USA is : ");
+        JLabel messageAnnonce2 = new JLabel(NameWinner);
+        messageAnnonce2.setForeground(Color.BLUE);
+        JLabel messageAnnonce3 = new JLabel(" with a number of great electors  :");
+        JLabel messageAnnonce4 = new JLabel(" "+ ScoreWinner);
+        messageAnnonce4.setForeground(Color.RED);
+        JPanel panelMessageAnnonce = new JPanel();
+        panelMessageAnnonce.add(messageAnnonce1);
+        panelMessageAnnonce.add(messageAnnonce2);
+        panelMessageAnnonce.add(messageAnnonce3);
+        panelMessageAnnonce.add(messageAnnonce4);
+        box.add(panelMessageAnnonce);
+        
+        JLabel pictureFinal;
+        if(NameWinner.equals("Trump"))
+            pictureFinal = new JLabel(new ImageIcon(imageTrump));
+        else if(NameWinner.equals("Biden"))
+            pictureFinal = new JLabel(new ImageIcon(imageBiden));
+        else if(NameWinner.equals("Jorgensen"))
+            pictureFinal = new JLabel(new ImageIcon(imageJorgensen));
+        else if(NameWinner.equals("Hawkins"))
+            pictureFinal = new JLabel(new ImageIcon(imageHawkins));
+        else if(NameWinner.equals("West"))
+            pictureFinal = new JLabel(new ImageIcon(imageWest));
+        else
+            pictureFinal = new JLabel(new ImageIcon(imageNew));
+        JPanel panelPictureFinal = new JPanel();
+        panelPictureFinal.add(pictureFinal);
+        box.add(panelPictureFinal);
         
         JPanel panelButtonCancel = new JPanel();
         panelButtonCancel.add(buttonBack);
@@ -77,6 +150,25 @@ public class GraphicOfficialsWinner extends JFrame {
     public int getCheckOfficialsWinner ()
     {
         return checkOfficialsWinner;
+    }
+    private String getWinnerOfState(State state) {
+        String name_winner = "";
+        int nb_votes_winner = 0;
+        for(int i=0; i<m_access_to_election.getCandidates().size(); ++i) {
+            if(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName()) > nb_votes_winner) {
+                nb_votes_winner = state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName());
+                name_winner = m_access_to_election.getCandidates().get(i).getLastName();
+            }
+        }
+        return name_winner;
+    }
+    
+    private ArrayList<Integer> getProportionnalityCandidatesOfState(State state) {
+        ArrayList<Integer> candidates_scores = new ArrayList<>();
+        for(int i=0; i<m_access_to_election.getCandidates().size(); ++i) {
+            candidates_scores.add(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName()) / m_access_to_election.getCandidates().size());
+        }
+        return candidates_scores;
     }
     
     private class PlayButtonBack implements ActionListener
