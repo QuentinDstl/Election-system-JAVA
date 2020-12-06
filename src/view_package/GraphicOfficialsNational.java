@@ -73,7 +73,7 @@ public class GraphicOfficialsNational extends JFrame
         setVisible(true);
     }
     
-     public int getCheckOfficialsNational ()
+    public int getCheckOfficialsNational ()
     {
         return checkOfficialsNational;
     }
