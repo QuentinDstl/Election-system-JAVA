@@ -46,18 +46,8 @@ public class State {
             m_nbrElector = nbrElector;
     }*/
     
-    public void addElectorToList(Elector elector) throws IllegalArgumentException {
-        if(m_list_electors != null) {
-            if(m_list_electors.size() == m_nbr_max_electors) {
-                throw new IllegalArgumentException(": trop d'électeurs pour cet état");
-            }
-            else {
-               m_list_electors.add(elector); 
-            }
-        }
-        else {
-            m_list_electors.add(elector);
-        }
+    public void addElectorToList(Elector elector) {
+            m_list_electors.add(elector); 
     }
     
     public int getNbVotesCandidateInState(String name_candidate) {
