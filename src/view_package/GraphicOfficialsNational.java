@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import java.lang.Object;
 import java.awt.event.*;  
+import java.sql.SQLException;
 import org.jfree.chart.*; 
 import org.jfree.chart.plot.*; 
 import org.jfree.data.general.*;
@@ -35,15 +36,14 @@ public class GraphicOfficialsNational extends JFrame
         buttonBack.addActionListener(new PlayButtonBack());
     }
     
-    public void startOfficialsNational(Election myElection)
+    public void startOfficialsNational(Election myElection) throws SQLException
     {
-        /* Initialisation of the interface */
         setTitle("Score NATIONAL");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
         
-        int nbrVoteTotal = 0;
+        int nbrVoted = 0;
         int nbrNoVoted = 0;
         
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
@@ -51,13 +51,13 @@ public class GraphicOfficialsNational extends JFrame
         {
             pieDataset.setValue(myElection.getCandidates().get(i).getLastName() + " " + myElection.getCandidates().get(i).getFirstName()
                     , myElection.getCandidates().get(i).getNbVotesTotal()); 
-            nbrVoteTotal = nbrVoteTotal + myElection.getCandidates().get(i).getNbVotesTotal();
+            nbrVoted = nbrVoted + myElection.getCandidates().get(i).getNbVotesTotal();
         }
         nbrNoVoted = new Integer(myElection.getElectors().size()) 
-                - nbrVoteTotal;
+                - nbrVoted;
         pieDataset.setValue(" No vote", new Integer(nbrNoVoted));
                 
-        JFreeChart pieChart = ChartFactory.createPieChart("Score National : " + myElection.getElectors().size() + " electors , " + nbrVoteTotal + " voted", pieDataset, true, true, true); 
+        JFreeChart pieChart = ChartFactory.createPieChart("Score National : " + myElection.elector_from_db.getNumberOfElectorsIntoTable() + " electors , " + nbrVoted + " voted", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
         panelCamembert.add(cPanel); 
         

@@ -43,7 +43,7 @@ public class GraphicCandidatesNational extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
         
-        int nbrVoteTotal = 0;
+        int nbrVoted = 0;
         int nbrNoVoted = 0;
         
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
@@ -51,14 +51,14 @@ public class GraphicCandidatesNational extends JFrame
         {
             pieDataset.setValue(myElection.getCandidates().get(i).getLastName() + " " + myElection.getCandidates().get(i).getFirstName()
                     , myElection.getCandidates().get(i).getNbVotesTotal()); 
-            nbrVoteTotal = nbrVoteTotal + myElection.getCandidates().get(i).getNbVotesTotal();
+            nbrVoted = nbrVoted + myElection.getCandidates().get(i).getNbVotesTotal();
         }
         
         nbrNoVoted = new Integer(myElection.elector_from_db.getNumberOfElectorsIntoTable()) 
-                - nbrVoteTotal;
+                - nbrVoted;
         pieDataset.setValue(" No vote", new Integer(nbrNoVoted)); 
 
-        JFreeChart pieChart = ChartFactory.createPieChart("Score National : " + myElection.elector_from_db.getNumberOfElectorsIntoTable() + " electors , " + nbrVoteTotal + " voted", pieDataset, true, true, true); 
+        JFreeChart pieChart = ChartFactory.createPieChart("Score National : " + myElection.elector_from_db.getNumberOfElectorsIntoTable() + " electors , " + nbrVoted + " voted", pieDataset, true, true, true); 
         ChartPanel cPanel = new ChartPanel(pieChart); 
         panelCamembert.add(cPanel); 
         
