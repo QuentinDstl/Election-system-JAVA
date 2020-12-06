@@ -1,3 +1,4 @@
+//https://github.com/dita-ot/docs/issues/102
 package config_package;
 
 import java.io.FileInputStream;
@@ -41,13 +42,14 @@ public class Config implements ConfigInterface {
             {
                 askForXLSX();
                 m_config = "default";
-                createConfig(properties);
+                saveNewConfig(properties);
             }
             else
                 loadConfig(properties);
         }
+        System.out.println("->"+m_url);
         loadXLSX(m_xlxs);
-        saveConfig(properties);
+        saveInfoConfig(properties);
     }
 
     /* If on of the config value do not load properly we do a secure load for all data */
@@ -66,12 +68,12 @@ public class Config implements ConfigInterface {
     }
 
     private static void askForXLSX() {
-        System.out.println("What is the excel name in the src\\loader_package : ");
+        System.out.println("What is the name of the excel you want to load from the src\\loader_package : ");
         Scanner scanner = new Scanner(System.in);
         m_xlxs = "src\\loader_package\\" + scanner.nextLine() + ".xlsx";
     }
 
-    private static void saveConfig(NewProperties properties) {
+    private static void saveInfoConfig(NewProperties properties) {
         try (FileOutputStream outputStream = new FileOutputStream(FILE_NAME)) {
             properties.setProperty(CONFIG, m_config);
             properties.setProperty(XLSX, m_xlxs);
@@ -83,8 +85,9 @@ public class Config implements ConfigInterface {
         }
     }
 
-    private static void createConfig(NewProperties properties) {
+    private static void saveNewConfig(NewProperties properties) {
         SecureLoad();
+        m_url = m_url.replace("\\", "");                                        // when writing property is adding \\\ so we need to delete 2 of them
         properties.setProperty(m_config + URL, m_url);
         properties.setProperty(m_config + LOGIN, m_login);
         properties.setProperty(m_config + DATABASE, m_database);
