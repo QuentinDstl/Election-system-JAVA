@@ -316,6 +316,21 @@ public class Controller {
                 checkOfficialsOut = 0;
                 checkOfficialsStatesOut = 0;
             }
+            if (checkOfficialsOut == 7) // SHOW WINNER
+            {
+                GraphicOfficialsWinner myOfficialsWinner = new GraphicOfficialsWinner();
+                myOfficialsWinner.startOfficialsWinner(m_access_to_election);
+                
+                while(checkOfficialsWinnersOut != -1)
+                {
+                    checkOfficialsWinnersOut = myOfficialsWinner.getCheckOfficialsWinner();
+                    System.out.print("");
+                }
+                myOfficials = new GraphicOfficials(m_user_official);
+                myOfficials.startOfficials();
+                checkOfficialsOut = 0;
+                checkOfficialsWinnersOut = 0;
+            }
             if(checkOfficialsOut == 8)// START PAUSE MENU
             {
                 GraphicOfficialsStartPause myOfficialsStartPause = new GraphicOfficialsStartPause();
@@ -331,7 +346,6 @@ public class Controller {
                 checkOfficialsOut = 0;
                 checkOfficialsStartPauseOut = 0;
             }
-            
         }
         m_reset = 1;
     }
