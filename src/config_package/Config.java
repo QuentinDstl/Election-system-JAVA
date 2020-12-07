@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static loader_package.Loader.loadXLSX;
 
 public class Config implements ConfigInterface {
@@ -19,7 +21,6 @@ public class Config implements ConfigInterface {
     private static String m_url;
     private static String m_login;
     private static String m_password;
-    private static String m_database;
 
     /**
      * @param args
@@ -34,21 +35,35 @@ public class Config implements ConfigInterface {
             m_config = args[0];
             m_xlxs = args[1];
             if(m_xlxs.equals(""))
-                askForXLSX();
-            loadConfig(properties);
+                m_xlxs = askForXLSX();
+            if(m_config.equals("")) {
+                m_config = "default";
+                
+                /* we need to load config file anyway so other properties will not be erase when storing in the FileOutputStream */
+                try {
+                    InputStream inputStream = new FileInputStream(FILE_NAME);
+                    properties.load(inputStream);
+                } catch (FileNotFoundException  e) {
+                    Log.add(e.getMessage() + ": fileNotFoundExeception -> the previous config data was erase");
+                } catch (IOException ioe) {
+                    Log.add(ioe.getMessage() + ": IOException -> the previous config data was erase");
+                }
+                setNewConfig(properties);
+            }
+            else
+                loadConfig(properties);
         }
         else {
             loadInfoConfig(properties);
             if(m_config.equals("") && m_xlxs.equals(""))
             {
-                askForXLSX();
+                m_xlxs = askForXLSX();
                 m_config = "default";
-                saveNewConfig(properties);
+                setNewConfig(properties);
             }
             else
                 loadConfig(properties);
         }
-        System.out.println("->"+m_url);
         loadXLSX(m_xlxs);
         saveInfoConfig(properties);
     }
@@ -58,21 +73,19 @@ public class Config implements ConfigInterface {
         System.out.println("config_package.Config.SecureLoad()");
         Scanner scanner = new Scanner(System.in);
         
-        System.out.println("\tURL=");
+        System.out.println("\tDATABASE URL=");
         m_url = scanner.nextLine();
-        System.out.println("\tLOGIN=");
+        System.out.println("\tDATABASE LOGIN=");
         m_login = scanner.nextLine();
-        System.out.println("\tDATABASE=");
-        m_database = scanner.nextLine();
-        System.out.println("\tPASSWORD=");
+        System.out.println("\tDATABASE PASSWORD=");
         m_password = scanner.nextLine();
     }
 
-    private static void askForXLSX() {
-        System.out.println("What is the name of the excel you want to load from the src\\loader_package (dont add .xlsx):");
-        PrintFilesInFolder(new File("src\\loader_package"));
+    private static String askForXLSX() {
+        System.out.println("What is the name of the excel you want to load from the src\\loader_package\\xlsx (dont add .xlsx):");
+        PrintFilesInFolder(new File(XLSX_FOLDER));
         Scanner scanner = new Scanner(System.in);
-        m_xlxs = "src\\loader_package\\" + scanner.nextLine() + ".xlsx";
+        return XLSX_FOLDER + "\\" + scanner.nextLine() + ".xlsx";
     }
 
     private static void saveInfoConfig(NewProperties properties) {
@@ -87,12 +100,11 @@ public class Config implements ConfigInterface {
         }
     }
 
-    private static void saveNewConfig(NewProperties properties) {
+    private static void setNewConfig(NewProperties properties) {
         SecureLoad();
         m_url = m_url.replace("\\", "");                                        // when writing property is adding \\\ so we need to delete 2 of them
         properties.setProperty(m_config + URL, m_url);
         properties.setProperty(m_config + LOGIN, m_login);
-        properties.setProperty(m_config + DATABASE, m_database);
         properties.setProperty(m_config + PASSWORD, m_password);
     }
     
@@ -110,18 +122,17 @@ public class Config implements ConfigInterface {
             SecureLoad();                                                       // if we cant load normaly we do it the easy and secure way
         }
 
-        String errorMessage = "";
+        String errorMessage = "start load : ";
         try {
             m_url = properties.getProperty(m_config + URL);
             errorMessage += "url load -> ";
             m_login = properties.getProperty(m_config + LOGIN);
             errorMessage += "login load -> ";
-            m_database = properties.getProperty(m_config + DATABASE);
-            errorMessage += "database load -> ";
             m_password = properties.getProperty(m_config + PASSWORD);
             errorMessage += "password load -> ";
         }
         catch (IllegalArgumentException e) {
+            errorMessage += "then crash";
             Log.add(e.getMessage() + ": IllegalArgumentException :");
             Log.add(errorMessage + "then throw exception");
             SecureLoad(); 
@@ -159,7 +170,7 @@ public class Config implements ConfigInterface {
     public static void PrintFilesInFolder(final File folder) {
         for (File file : folder.listFiles()) {
             if (!file.isDirectory())
-                System.out.println("\t-" + file.getName());
+                System.out.println("\t- " + file.getName());
         }
     }
     
@@ -173,9 +184,5 @@ public class Config implements ConfigInterface {
 
     public static String getPassword() {
         return m_password;
-    }
-
-    public static String getDatabase() {
-        return m_database;
     }
 }

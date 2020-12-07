@@ -201,7 +201,7 @@ public class Loader implements LoaderInterface {
         catch (IOException | XMLStreamException | FactoryConfigurationError e) {
             Log.add("The loadding of the xlsx file have problem : " + e.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(Loader.class.getName()).log(Level.SEVERE, null, ex);
+            Log.add(ex.getMessage() +" :  Driver manager can't getConnection");
         }
         System.out.println("");
         Log.add("end laodXLSX");
