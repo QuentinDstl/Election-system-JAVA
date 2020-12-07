@@ -84,7 +84,7 @@ public class Controller {
     
     public void startGraphiqueElectors() throws SQLException
     {
-        if (m_user_elector.isVoteDone() == false || !m_user_elector.getState().isPause() || m_access_to_election.getOpenVote())
+        if ((m_user_elector.isVoteDone() == false) && (m_user_elector.getState().isPause() == false) && (m_access_to_election.getOpenVote() == true))
         {
             GraphicElectors myElectors = new GraphicElectors(m_user_elector);
             myElectors.startElectors(m_access_to_election);
@@ -97,10 +97,10 @@ public class Controller {
             if (checkElectorsOut ==1)
                 m_user_elector.Votes(m_access_to_election.getCandidates().get(myElectors.getIntCandidate()));
         }
-        else if(!m_access_to_election.getOpenVote())
-            JOptionPane.showMessageDialog(null, "An official have stop the election");
-        else if(m_user_elector.getState().isPause())
-            JOptionPane.showMessageDialog(null, "An official have pause the voting option in :" + m_user_elector.getState().getName());
+        else if(m_access_to_election.getOpenVote() == false)
+            JOptionPane.showMessageDialog(null, "An official has stopped the election");
+        else if(m_user_elector.getState().isPause() == true )
+            JOptionPane.showMessageDialog(null, "An official has paused the voting option in :" + m_user_elector.getState().getName());
         else
             JOptionPane.showMessageDialog(null, "You have already voted");
         m_reset = 1;
@@ -333,16 +333,29 @@ public class Controller {
             if(checkOfficialsOut == 8)// START PAUSE MENU
             {
                 GraphicOfficialsStartPause myOfficialsStartPause = new GraphicOfficialsStartPause();
-                myOfficialsStartPause.startOfficialsStartPause();
+                myOfficialsStartPause.startOfficialsStartPause(m_access_to_election);
                 
-                while(checkOfficialsStartPauseOut != -1)
+                while(checkOfficialsStartPauseOut == 0)
                 {
                     checkOfficialsStartPauseOut = myOfficialsStartPause.getCheckOfficialsStartPause();
                     System.out.print("");
                 }
+                checkOfficialsOut = 0;
+                if(checkOfficialsStartPauseOut == 1)
+                {
+                    m_access_to_election.setOpenVote();
+                    GraphicOfficialsWinner myOfficialsWinner = new GraphicOfficialsWinner();
+                }    
+                else if (checkOfficialsStartPauseOut == 2)
+                {
+                    m_access_to_election.pauseAllStates(m_access_to_election.getStates().get(0).isPause());
+                }
+                else if (checkOfficialsStartPauseOut == 3)
+                {
+                    m_access_to_election.pauseState(myOfficialsStartPause.getNameState());
+                }
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
-                checkOfficialsOut = 0;
                 checkOfficialsStartPauseOut = 0;
             }
         }

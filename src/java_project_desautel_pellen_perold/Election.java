@@ -159,12 +159,11 @@ public class Election {
      
     public void pauseAllStates(boolean pause) throws SQLException {
         for(State state : m_states) {
-            state.setPause(pause);
+            state.setPause(!pause);
         }
-       state_from_db.saveAllPause(pause);
+       state_from_db.saveAllPause(!pause);
     }
 
-    /* Getters */
     public boolean getOpenVote() {
         return m_openVote;
     }
@@ -194,8 +193,19 @@ public class Election {
     }
 
     /* Setters */
-    public void setOpenVote(boolean openVote) {
-        m_openVote = openVote;
+    public void setOpenVote() throws SQLException
+    {
+        if (m_openVote == true)
+        {
+            m_openVote = false;
+            election_from_db.closeVote();
+        } 
+        else if (m_openVote == false)
+        {
+            m_openVote = true;
+            election_from_db.startVote();
+        }
+            
     }
 
     public void showVoteNational() {
