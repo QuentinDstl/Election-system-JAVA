@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view_package;
 
-import dao_package.*;
 import java_project_desautel_pellen_perold.*;
 
 import javax.swing.*; // Needed for Swing classes

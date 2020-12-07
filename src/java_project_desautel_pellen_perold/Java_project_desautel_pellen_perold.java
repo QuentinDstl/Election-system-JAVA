@@ -1,6 +1,5 @@
 package java_project_desautel_pellen_perold;
 
-import config_package.Config;
 import config_package.Log;
 import static config_package.Start.start;
 import view_package.*;
@@ -12,19 +11,13 @@ public class Java_project_desautel_pellen_perold {
     public static void main(String[] args) throws SQLException
     {
         initialization();
-        //Log log = new Log();
-        //start();
 
         /* PARTIE GRAPHIQUE EN TEST */
         Election access_to_election = new Election();
         Controller THEController = new Controller(access_to_election);
         
-        //THEController.startGraphiqueElectors();
-        //THEController.startGraphiqueCandidats();
-        //THEController.startGraphiqueOfficials();
-        
         THEController.startGraphiqueAccueil();
-        int resetOut = 0;
+        int resetOut;
         
         do 
         {
@@ -32,7 +25,6 @@ public class Java_project_desautel_pellen_perold {
             resetOut = THEController.getReset();
             if (resetOut == 1)
             {
-                access_to_election = null;
                 access_to_election = new Election();
                 THEController = new Controller(access_to_election);
                 THEController.startGraphiqueAccueil();

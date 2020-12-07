@@ -28,7 +28,7 @@ public class State {
         m_all_Win = m_state_from_db.getConditionAllWinIntoTable(num_case);
         m_pause = m_state_from_db.getConditionPauseIntoTable(num_case);
         
-        m_list_electors = new ArrayList<Elector>();
+        m_list_electors = new ArrayList<>();
     }
     
     

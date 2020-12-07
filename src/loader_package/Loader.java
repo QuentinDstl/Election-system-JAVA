@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -75,12 +73,10 @@ public class Loader implements LoaderInterface {
 
         Enumeration<? extends ZipEntry> enumeration = zipFile.entries();
         ArrayList<InputStream> sheets = new ArrayList<>();
-        ZipEntry zipEntry = null;
+        ZipEntry zipEntry;
 
         while(enumeration.hasMoreElements()){
-
             zipEntry = enumeration.nextElement();
-
             if(zipEntry.getName().contains("sheet")){
                 sheets.add(zipFile.getInputStream((zipEntry)));
             }
@@ -92,14 +88,11 @@ public class Loader implements LoaderInterface {
 
         Enumeration<? extends ZipEntry> enumeration = zipFile.entries();
         InputStream strings = null;
-        ZipEntry zipEntry = null;
+        ZipEntry zipEntry;
 
         while(enumeration.hasMoreElements()){
-
-        zipEntry = enumeration.nextElement();
-
+            zipEntry = enumeration.nextElement();
             if(zipEntry.getName().contains("sharedStrings")){
-
                 strings = zipFile.getInputStream(zipEntry);
                 break;
             }

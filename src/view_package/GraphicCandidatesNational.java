@@ -5,19 +5,13 @@
  */
 package view_package;
 
-import dao_package.*;
 import java_project_desautel_pellen_perold.*;
 
 import javax.swing.*; // Needed for Swing classes
 import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
-import java.util.ArrayList;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import java.lang.Object;
-import java.awt.event.*;  
 import java.sql.SQLException;
 import org.jfree.chart.*; 
-import org.jfree.chart.plot.*; 
 import org.jfree.data.general.*;
 
 public class GraphicCandidatesNational extends JFrame
@@ -44,7 +38,7 @@ public class GraphicCandidatesNational extends JFrame
         setLocationRelativeTo(null); 
         
         int nbrVoted = 0;
-        int nbrNoVoted = 0;
+        int nbrNoVoted;
         
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
         for (int i = 0; i < myElection.getCandidates().size(); i++)
@@ -54,7 +48,7 @@ public class GraphicCandidatesNational extends JFrame
             nbrVoted = nbrVoted + myElection.getCandidates().get(i).getNbVotesTotal();
         }
         
-        nbrNoVoted = new Integer(myElection.elector_from_db.getNumberOfElectorsIntoTable()) 
+        nbrNoVoted = myElection.elector_from_db.getNumberOfElectorsIntoTable() 
                 - nbrVoted;
         pieDataset.setValue(" No vote", new Integer(nbrNoVoted)); 
 

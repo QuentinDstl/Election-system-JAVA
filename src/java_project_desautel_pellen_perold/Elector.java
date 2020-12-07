@@ -1,6 +1,5 @@
 package java_project_desautel_pellen_perold;
 
-import dao_package.DAO;
 import dao_package.ElectorDAOImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;

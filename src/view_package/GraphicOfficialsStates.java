@@ -5,19 +5,11 @@
  */
 package view_package;
 
-import dao_package.*;
 import java_project_desautel_pellen_perold.*;
 
 import javax.swing.*; // Needed for Swing classes
 import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
-import java.util.ArrayList;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import java.lang.Object;
-import java.awt.event.*;  
-import org.jfree.chart.*; 
-import org.jfree.chart.plot.*; 
-import org.jfree.data.general.*;
 
 public class GraphicOfficialsStates extends JFrame
 {

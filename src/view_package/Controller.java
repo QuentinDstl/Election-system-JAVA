@@ -5,7 +5,6 @@ import dao_package.CandidateDAOImpl;
 import dao_package.ElectorDAOImpl;
 import dao_package.OfficialDAOImpl;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.swing.*;
 import java_project_desautel_pellen_perold.*;
 
@@ -57,28 +56,25 @@ public class Controller {
             
             checkExistence = createUser(myIdentification.getLastName(), myIdentification.getFirstName(), myIdentification.getPassword());
             
-            if (checkExistence == 1) 
-            {
-                JOptionPane.showMessageDialog(null, "Your lastname or your firstname is incorrect");
-                myIdentification = null;
-                myIdentification = new GraphicIdentification();
-                myIdentification.startIdentification();
-                checkIdentificationOut = 0;
-                checkExistence =0;
+            switch (checkExistence) {
+                case 1:
+                    JOptionPane.showMessageDialog(null, "Your lastname or your firstname is incorrect");
+                    myIdentification = new GraphicIdentification();
+                    myIdentification.startIdentification();
+                    checkIdentificationOut = 0;
+                    checkExistence =0;
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "Your password is incorrect");
+                    myIdentification = new GraphicIdentification();
+                    myIdentification.startIdentification();
+                    checkIdentificationOut = 0;
+                    checkExistence =0;
+                    break;
+                default:
+                    executeProgram();
+                    break;
             }
-            else if (checkExistence == 2) 
-            {
-                JOptionPane.showMessageDialog(null, "Your password is incorrect");
-                myIdentification = null;
-                myIdentification = new GraphicIdentification();
-                myIdentification.startIdentification();
-                checkIdentificationOut = 0;
-                checkExistence =0;
-            }
-            else
-            {
-                executeProgram();
-            } 
         }
     }
     
@@ -114,7 +110,7 @@ public class Controller {
         int checkCandidatesNationalOut = 0;
         int checkCandidatesStatesOut = 0;
         int checkCandidatesStatesUniqueOut = 0;
-        int IntStateOut = 0;
+        int IntStateOut;
 
         while (checkCandidatesOut != -1) 
         {  
@@ -159,7 +155,6 @@ public class Controller {
                         }
                         myCandidatesStates = new GraphicCandidatesStates();
                         myCandidatesStates.startCandidatesStates(m_access_to_election);
-                        IntStateOut = 0;
                         checkCandidatesStatesOut = 0;
                         checkCandidatesStatesUniqueOut = 0;
                     }
@@ -187,7 +182,7 @@ public class Controller {
         int checkOfficialsStatesUniqueOut = 0;
         int checkOfficialsWinnersOut = 0;
         int checkOfficialsStartPauseOut = 0;
-        int IntStateOut = 0;
+        int IntStateOut;
 
         while (checkOfficialsOut != -1) 
         {   
@@ -341,18 +336,19 @@ public class Controller {
                     System.out.print("");
                 }
                 checkOfficialsOut = 0;
-                if(checkOfficialsStartPauseOut == 1)
-                {
-                    m_access_to_election.setOpenVote();
-                    GraphicOfficialsWinner myOfficialsWinner = new GraphicOfficialsWinner();
-                }    
-                else if (checkOfficialsStartPauseOut == 2)
-                {
-                    m_access_to_election.pauseAllStates(m_access_to_election.getStates().get(0).isPause());
-                }
-                else if (checkOfficialsStartPauseOut == 3)
-                {
-                    m_access_to_election.pauseState(myOfficialsStartPause.getNameState());
+                switch (checkOfficialsStartPauseOut) {
+                    case 1:
+                        m_access_to_election.setOpenVote();
+                        GraphicOfficialsWinner myOfficialsWinner = new GraphicOfficialsWinner();
+                        break;
+                    case 2:
+                        m_access_to_election.pauseAllStates(m_access_to_election.getStates().get(0).isPause());
+                        break;
+                    case 3:
+                        m_access_to_election.pauseState(myOfficialsStartPause.getNameState());
+                        break;
+                    default:
+                        break;
                 }
                 myOfficials = new GraphicOfficials(m_user_official);
                 myOfficials.startOfficials();
@@ -370,18 +366,21 @@ public class Controller {
     public void executeProgram() throws  SQLException{
         ///interface acheminant les infos de la personne qui se connecte
         //createUser(last_name, first_name, password);
-        
-        if(m_type_user == CANDIDATE) {
-            m_access_to_election.downloadDataBaseForCandidate();
-            startGraphiqueCandidats();
-        }
-        else if(m_type_user == OFFICIAL) {
-            m_access_to_election.downloadDataBaseForOfficial();
-            startGraphiqueOfficials();
-        }
-        else if(m_type_user == ELECTOR) {
-            m_access_to_election.downLoadDataBaseForElector();
-            startGraphiqueElectors();
+        switch (m_type_user) {
+            case CANDIDATE:
+                m_access_to_election.downloadDataBaseForCandidate();
+                startGraphiqueCandidats();
+                break;
+            case OFFICIAL:
+                m_access_to_election.downloadDataBaseForOfficial();
+                startGraphiqueOfficials();
+                break;
+            case ELECTOR:
+                m_access_to_election.downLoadDataBaseForElector();
+                startGraphiqueElectors();
+                break;
+            default:
+                break;
         }
     }
     
@@ -407,7 +406,7 @@ public class Controller {
                 return -1;
             }
             else if(m_access_to_elector_table.checkUserElectorPassword(last_name, first_name, password)) {
-                m_user_elector = new Elector(m_access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), m_access_to_election.getCandidates(), m_access_to_election.elector_from_db, m_access_to_election, m_access_to_election.COMPLETE_ELECTOR_PERSON);
+                m_user_elector = new Elector(m_access_to_elector_table.getIdUserWithConstraintUniquePerson(last_name, first_name, password), m_access_to_election.getCandidates(), m_access_to_election.elector_from_db, m_access_to_election, Election.COMPLETE_ELECTOR_PERSON);
                 m_user_candidate = null;
                 m_user_official = null;
                 m_type_user = ELECTOR;

@@ -5,13 +5,9 @@
  */
 package view_package;
 
-import dao_package.*;
 
 import javax.swing.*; // Needed for Swing classes
-import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
-import java.util.ArrayList;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class GraphicIdentification extends JFrame
 {
