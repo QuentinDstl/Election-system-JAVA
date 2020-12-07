@@ -1,6 +1,7 @@
 //https://github.com/dita-ot/docs/issues/102
 package config_package;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
@@ -68,7 +69,8 @@ public class Config implements ConfigInterface {
     }
 
     private static void askForXLSX() {
-        System.out.println("What is the name of the excel you want to load from the src\\loader_package : ");
+        System.out.println("What is the name of the excel you want to load from the src\\loader_package (dont add .xlsx):");
+        PrintFilesInFolder(new File("src\\loader_package"));
         Scanner scanner = new Scanner(System.in);
         m_xlxs = "src\\loader_package\\" + scanner.nextLine() + ".xlsx";
     }
@@ -151,6 +153,13 @@ public class Config implements ConfigInterface {
             Log.add(e.getMessage() + ": IllegalArgumentException :");
             Log.add(errorMessage + "then throw exception");
             System.err.println("CONIFG FILE IS CORRUPTED : check logs");
+        }
+    }
+    
+    public static void PrintFilesInFolder(final File folder) {
+        for (File file : folder.listFiles()) {
+            if (!file.isDirectory())
+                System.out.println("\t-" + file.getName());
         }
     }
     
