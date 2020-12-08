@@ -87,8 +87,6 @@ public class GraphicOfficials extends JFrame
         panelButtonShowWinner.add(buttonShowWinner);
         JPanel panelButtonStartPause = new JPanel();
         panelButtonStartPause.add(buttonStartPause);
-        //JPanel panelButtonCancel = new JPanel();
-        //panelButtonCancel.add(buttonCancel);
    
         
         add(panelMessageEnter);
