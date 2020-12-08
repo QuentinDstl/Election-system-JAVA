@@ -60,21 +60,42 @@ public class GraphicOfficialsWinner extends JFrame {
         JPanel box = new JPanel();
         box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
         
+        
         for (int i=0; i<myElection.getStates().size(); i++)
         {
-            JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " : " + myElection.getStates().get(i).getNbrElector() 
+            if (myElection.getStates().get(i).isAllWin() == true)
+            {
+                JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " : " + myElection.getStates().get(i).getNbrElector() 
                     + " is win by " + getWinnerOfState(myElection.getStates().get(i)));
             
-            for (int b=0; b<myTabNameCandidates.size(); b++)
-            { 
-                if (getWinnerOfState(myElection.getStates().get(i)).equals(myTabNameCandidates.get(b)))
-                {
-                    myTabScoreCandidates.set(b, myTabScoreCandidates.get(b) + myElection.getStates().get(i).getNbrElector());
+                for (int b=0; b<myTabNameCandidates.size(); b++)
+                { 
+                    if (getWinnerOfState(myElection.getStates().get(i)).equals(myTabNameCandidates.get(b)))
+                    {
+                        myTabScoreCandidates.set(b, myTabScoreCandidates.get(b) + myElection.getStates().get(i).getNbrElector());
+                    }
                 }
+                JPanel panelState = new JPanel();
+                panelState.add(messageState);
+                box.add(panelState);
             }
-            JPanel panelState = new JPanel();
-            panelState.add(messageState);
-            box.add(panelState);
+            
+            else if (myElection.getStates().get(i).isAllWin() == false)
+            {
+                System.out.println(" HEY CET ETAT EST PROPOR");
+                ArrayList<Integer> myTabPro = getProportionnalityCandidatesOfState(myElection.getStates().get(i));
+                JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " is noAllWin, there is : " + myElection.getStates().get(i).getNbrElector() + "great electors \n");
+                JPanel panelState = new JPanel();
+                panelState.add(messageState);
+                
+                for (int b=0; b<myTabNameCandidates.size(); b++)
+                {
+                    JLabel messageOneCandidate = new JLabel("-"+ myElection.getCandidates().get(b).getLastName() + " has " + myTabPro.get(b) + " great electors");
+                    panelState.add(messageOneCandidate);
+                    myTabScoreCandidates.set(b, myTabScoreCandidates.get(b) + myTabPro.get(b));
+                }
+                box.add(panelState);
+            }     
         }
         
         JLabel textVoid1 = new JLabel("---------------------------------------------------------------------------");
@@ -82,6 +103,7 @@ public class GraphicOfficialsWinner extends JFrame {
         panelVoid1.add(textVoid1);
         box.add(panelVoid1);
         
+        /* Calcul du candidat gagnant */
         for (int c=0; c<myTabNameCandidates.size(); c++)
         { 
             JLabel messageCandidate = new JLabel("Candidate : " + myTabNameCandidates.get(c) + " has " + myTabScoreCandidates.get(c) + " great electors");
@@ -158,7 +180,7 @@ public class GraphicOfficialsWinner extends JFrame {
     private ArrayList<Integer> getProportionnalityCandidatesOfState(State state) {
         ArrayList<Integer> candidates_scores = new ArrayList<>();
         for(int i=0; i<m_access_to_election.getCandidates().size(); ++i) {
-            candidates_scores.add(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName()) / m_access_to_election.getCandidates().size());
+            candidates_scores.add(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName())/ m_access_to_election.getCandidates().size());
         }
         return candidates_scores;
     }
