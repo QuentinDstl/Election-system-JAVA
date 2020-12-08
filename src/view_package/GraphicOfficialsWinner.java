@@ -84,13 +84,13 @@ public class GraphicOfficialsWinner extends JFrame {
             {
                 System.out.println(" HEY CET ETAT EST PROPOR");
                 ArrayList<Integer> myTabPro = getProportionnalityCandidatesOfState(myElection.getStates().get(i));
-                JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " is noAllWin, there is : " + myElection.getStates().get(i).getNbrElector() + "great electors \n");
+                JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " is noAllWin, there is : " + myElection.getStates().get(i).getNbrElector() + " great electors \n");
                 JPanel panelState = new JPanel();
                 panelState.add(messageState);
                 
                 for (int b=0; b<myTabNameCandidates.size(); b++)
                 {
-                    JLabel messageOneCandidate = new JLabel("-"+ myElection.getCandidates().get(b).getLastName() + " has " + myTabPro.get(b) + " great electors");
+                    JLabel messageOneCandidate = new JLabel("- "+ myElection.getCandidates().get(b).getLastName() + " has " + myTabPro.get(b));
                     panelState.add(messageOneCandidate);
                     myTabScoreCandidates.set(b, myTabScoreCandidates.get(b) + myTabPro.get(b));
                 }
