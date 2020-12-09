@@ -12,7 +12,8 @@ import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GraphicOfficialsWinner extends JFrame {
+public class GraphicOfficialsWinner extends JFrame 
+{
     
     private int checkOfficialsWinner = 0;
     private final int WINDOW_WIDTH = 1500;

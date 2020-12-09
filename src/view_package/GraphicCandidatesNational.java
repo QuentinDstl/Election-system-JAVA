@@ -68,7 +68,7 @@ public class GraphicCandidatesNational extends JFrame
         setVisible(true);
     }
     
-     public int getCheckCandidatesNational ()
+    public int getCheckCandidatesNational ()
     {
         return checkCandidatesNational;
     }

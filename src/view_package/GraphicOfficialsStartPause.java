@@ -16,7 +16,6 @@ public class GraphicOfficialsStartPause extends JFrame
     private final JButton buttonStartEndNational;
     private final JButton buttonPauseNational;
     
-    
     public GraphicOfficialsStartPause()
     {
         checkOfficialsStartPause = 0;
