@@ -161,8 +161,9 @@ public class Election {
         
         for(int i=0; i<m_candidates.size(); ++i) {
             double pourcentageOfElector = (state.getNbVotesCandidateInState(m_candidates.get(i).getLastName())/ (double) state.getNbVotesInState());
-            Log.add("pourcentage :" + i +":"+ pourcentageOfElector);
-            int numbreOfGreatVoterVoting = (int)(state.getNbrElector()*pourcentageOfElector + 0.5);
+            /* we round numbreOfGreatVoterVoting by adding 0.5 to the double value and casting it to int (it will floor it)*/
+            /* if the variable is over 0.5 : 0.5+0.5=1 it will be floor to the int++ and if not it stay the same */
+            int numbreOfGreatVoterVoting = (int)(state.getNbrElector()*pourcentageOfElector + 0.5); 
             candidates_scores.add(numbreOfGreatVoterVoting);
         }
         return candidates_scores;
