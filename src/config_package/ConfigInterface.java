@@ -13,4 +13,5 @@ public interface ConfigInterface {
     
     static final String HAVE_XLSX = "2";
     static final String XLSX_FOLDER = "src\\loader_package\\xlsx";
+    static final String DATABASE_LOADING_STRING = "database";
 }

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Scanner;
 import static loader_package.Loader.loadXLSX;
+import static loader_package.Loader.loadDataBase;
 
 public class Config implements ConfigInterface {
 
@@ -62,7 +63,10 @@ public class Config implements ConfigInterface {
             else
                 loadConfig(properties);
         }
-        loadXLSX(m_xlxs);
+        if(m_xlxs.equals(DATABASE_LOADING_STRING))
+            loadDataBase();
+        else
+            loadXLSX(m_xlxs);
         saveInfoConfig(properties);
     }
 
@@ -82,8 +86,12 @@ public class Config implements ConfigInterface {
     private static String askForXLSX() {
         System.out.println("What is the name of the excel you want to load from the src\\loader_package\\xlsx (dont add .xlsx):");
         PrintFilesInFolder(new File(XLSX_FOLDER));
+        System.out.println("\t- if you want to use actual database enter : " + DATABASE_LOADING_STRING);
         Scanner scanner = new Scanner(System.in);
-        return XLSX_FOLDER + "\\" + scanner.nextLine() + ".xlsx";
+        String buffer = scanner.nextLine();
+        if(buffer.equals(DATABASE_LOADING_STRING))
+            return DATABASE_LOADING_STRING;
+        return XLSX_FOLDER + "\\" + buffer + ".xlsx";
     }
 
     private static void saveInfoConfig(NewProperties properties) {
