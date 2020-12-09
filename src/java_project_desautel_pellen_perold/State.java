@@ -60,6 +60,15 @@ public class State {
         return nb_votes_candidate;
     }
 
+    public int getNbVotesInState() {
+        int nbVote = 0;
+        for(int i=0; i<m_list_electors.size(); ++i) {
+            if(!m_list_electors.get(i).getCandidate().equals("noOne"))
+                nbVote++;
+        }
+        return nbVote;
+    }
+
     /* Getters */
     public boolean isPause() {
         return m_pause;

@@ -144,6 +144,30 @@ public class Election {
         m_candidates.get(m_candidates.size()-1).setId(m_candidates.size()-1 + DAO.FIRST_ID_CANDIDATE);
     }
 
+    public String getWinnerOfState(State state) {
+        String name_winner = "";
+        int nb_votes_winner = 0;
+        for(int i=0; i<m_candidates.size(); ++i) {
+            if(state.getNbVotesCandidateInState(m_candidates.get(i).getLastName()) > nb_votes_winner) {
+                nb_votes_winner = state.getNbVotesCandidateInState(m_candidates.get(i).getLastName());
+                name_winner = m_candidates.get(i).getLastName();
+            }
+        }
+        return name_winner;
+    }
+    
+    public ArrayList<Integer> getProportionnalityCandidatesOfState(State state) {
+        ArrayList<Integer> candidates_scores = new ArrayList<>();
+        
+        for(int i=0; i<m_candidates.size(); ++i) {
+            double pourcentageOfElector = (state.getNbVotesCandidateInState(m_candidates.get(i).getLastName())/ (double) state.getNbVotesInState());
+            Log.add("pourcentage :" + i +":"+ pourcentageOfElector);
+            int numbreOfGreatVoterVoting = (int)(state.getNbrElector()*pourcentageOfElector + 0.5);
+            candidates_scores.add(numbreOfGreatVoterVoting);
+        }
+        return candidates_scores;
+    }
+
      public void pauseState(String nameState) throws SQLException {
         State state = this.getState(nameState);
         if(state != null) {

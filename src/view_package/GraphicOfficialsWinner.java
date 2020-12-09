@@ -66,11 +66,11 @@ public class GraphicOfficialsWinner extends JFrame
             if (myElection.getStates().get(i).isAllWin() == true)
             {
                 JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " : " + myElection.getStates().get(i).getNbrElector() 
-                    + " is win by " + getWinnerOfState(myElection.getStates().get(i)));
+                    + " is win by " + myElection.getWinnerOfState(myElection.getStates().get(i)));
             
                 for (int b=0; b<myTabNameCandidates.size(); b++)
                 { 
-                    if (getWinnerOfState(myElection.getStates().get(i)).equals(myTabNameCandidates.get(b)))
+                    if (myElection.getWinnerOfState(myElection.getStates().get(i)).equals(myTabNameCandidates.get(b)))
                     {
                         myTabScoreCandidates.set(b, myTabScoreCandidates.get(b) + myElection.getStates().get(i).getNbrElector());
                     }
@@ -82,7 +82,7 @@ public class GraphicOfficialsWinner extends JFrame
             
             else if (myElection.getStates().get(i).isAllWin() == false)
             {
-                ArrayList<Integer> myTabPro = getProportionnalityCandidatesOfState(myElection.getStates().get(i));
+                ArrayList<Integer> myTabPro = myElection.getProportionnalityCandidatesOfState(myElection.getStates().get(i));
                 JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " is noAllWin, there is : " + myElection.getStates().get(i).getNbrElector() + " great electors \n");
                 JPanel panelState = new JPanel();
                 panelState.add(messageState);
@@ -163,25 +163,6 @@ public class GraphicOfficialsWinner extends JFrame
     public int getCheckOfficialsWinner ()
     {
         return checkOfficialsWinner;
-    }
-    private String getWinnerOfState(State state) {
-        String name_winner = "";
-        int nb_votes_winner = 0;
-        for(int i=0; i<m_access_to_election.getCandidates().size(); ++i) {
-            if(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName()) > nb_votes_winner) {
-                nb_votes_winner = state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName());
-                name_winner = m_access_to_election.getCandidates().get(i).getLastName();
-            }
-        }
-        return name_winner;
-    }
-    
-    private ArrayList<Integer> getProportionnalityCandidatesOfState(State state) {
-        ArrayList<Integer> candidates_scores = new ArrayList<>();
-        for(int i=0; i<m_access_to_election.getCandidates().size(); ++i) {
-            candidates_scores.add(state.getNbVotesCandidateInState(m_access_to_election.getCandidates().get(i).getLastName())/ m_access_to_election.getCandidates().size());
-        }
-        return candidates_scores;
     }
     
     private class PlayButtonBack implements ActionListener
