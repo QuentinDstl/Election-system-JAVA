@@ -26,7 +26,7 @@ public class GraphicCandidatesStates extends JFrame
         setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         int heightTab = myElection.getStates().size();
         int heightFinal = heightTab/10 +1;

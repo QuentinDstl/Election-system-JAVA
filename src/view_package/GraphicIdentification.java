@@ -48,7 +48,7 @@ public class GraphicIdentification extends JFrame
         setTitle("Voting system by 'Go Percer.'");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         JPanel box = new JPanel();
         box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));

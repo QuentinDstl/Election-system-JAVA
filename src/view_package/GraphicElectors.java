@@ -41,7 +41,7 @@ public class GraphicElectors extends GraphicIdentification
         setTitle("Vote for YOUR FUTUR PRESIDENT");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         checkElectors = 0;
         messageIntro1 = new JLabel("                                       Your lastname :                                    ");

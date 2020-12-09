@@ -32,7 +32,7 @@ public class GraphicCandidatesStatesUnique extends JFrame
         setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); 
+        //setLocationRelativeTo(null); 
         
         DefaultPieDataset pieDataset = new DefaultPieDataset(); 
         for (int i = 0; i < myElection.getCandidates().size(); i++)

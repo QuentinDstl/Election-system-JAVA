@@ -207,12 +207,4 @@ public class Election {
         }
             
     }
-
-    public void showVoteNational() {
-        // Appeler Vue
-    }
-
-    public void showWinner() {
-        // Appeler Vue
-    }
 }

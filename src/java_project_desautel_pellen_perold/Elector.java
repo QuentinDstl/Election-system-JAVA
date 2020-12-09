@@ -16,8 +16,6 @@ public class Elector extends Person {
     
     private final ElectorDAOImpl m_elector_from_db;
     
- 
-    
     /* Constructeeur */
     /* De la DATABASE */
     public Elector(int num_case, ArrayList<Candidate> candidates, ElectorDAOImpl elector_from_db, Election election_access, boolean complete_elector) throws SQLException, IllegalArgumentException {

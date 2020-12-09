@@ -30,7 +30,7 @@ public class GraphicOfficialsNational extends JFrame
         setTitle("Score NATIONAL");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); 
+        //setLocationRelativeTo(null); 
         
         int nbrVoted = 0;
         int nbrNoVoted;

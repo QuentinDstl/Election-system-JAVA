@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class GraphicOfficialsWinner extends JFrame 
 {
-    
     private int checkOfficialsWinner = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
@@ -44,7 +43,7 @@ public class GraphicOfficialsWinner extends JFrame
         setTitle("See the potential winner");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); 
+        //setLocationRelativeTo(null); 
         
         for (int a=0; a<myElection.getCandidates().size(); a++)
         {

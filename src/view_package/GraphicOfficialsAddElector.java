@@ -45,7 +45,7 @@ public class GraphicOfficialsAddElector extends JFrame
         setTitle("Add a elector");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         int heightTab = myElection.getStates().size();
         if (heightTab > 10)
