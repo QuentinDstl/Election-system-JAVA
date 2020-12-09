@@ -22,7 +22,56 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 public class Loader implements LoaderInterface {
+
+    public static void loadDataBase() {
+        try {
+        final ElectorDAOImpl electorDAOImpl = new ElectorDAOImpl();
+        final CandidateDAOImpl candidateDAOImpl = new CandidateDAOImpl();
+        final StateDAOImpl stateDAOImpl = new StateDAOImpl();
+        final OfficialDAOImpl officialDAOImpl = new OfficialDAOImpl();
+        final ElectionDAOImpl electionDAOImpl = new ElectionDAOImpl();
+        }
+        catch (SQLException e) {
+            Log.add("laodDataBase not working" + e.getMessage());
+        }
+    }
     
+    public static void loadXLSX(String filename) {
+        
+        Log.add("start laodXLSX");
+        LoadingInfo loadingInfo = new LoadingInfo();
+        
+        try (ZipFile zipFile = new ZipFile(filename)) {
+            ArrayList<InputStream> list = getSheetsXML(zipFile);
+            List<String> input = getSharedStrings(zipFile);
+
+            loadingInfo.printLoadInfo(filename,ELECTION_SHEET);
+            
+            final ElectorDAOImpl electorDAOImpl = new ElectorDAOImpl();
+            initInTable(ELECTOR_SHEET, input, list, loadingInfo, electorDAOImpl);
+            
+            final CandidateDAOImpl candidateDAOImpl = new CandidateDAOImpl();
+            initInTable(CANDIDAT_SHEET, input, list, loadingInfo, candidateDAOImpl);
+            
+            final StateDAOImpl stateDAOImpl = new StateDAOImpl();
+            initInTable(STATE_SHEET, input, list, loadingInfo, stateDAOImpl);
+            
+            final OfficialDAOImpl officialDAOImpl = new OfficialDAOImpl();
+            initInTable(OFFICIAL_SHEET, input, list, loadingInfo, officialDAOImpl);
+            
+            final ElectionDAOImpl electionDAOImpl = new ElectionDAOImpl();
+            initInTable(ELECTION_SHEET, input, list, loadingInfo, electionDAOImpl);
+        }
+        catch (IOException | XMLStreamException | FactoryConfigurationError e) {
+            Log.add("The loadding of the xlsx file have problem : " + e.getMessage());
+        } catch (SQLException ex) {
+            Log.add(ex.getMessage() +" :  Driver manager can't getConnection");
+        }
+        System.out.println("");
+        Log.add("end laodXLSX");
+    }
+    
+        
     private static int getSizeofSheet(int sheetType) throws IllegalArgumentException {
         switch (sheetType) {
             case ELECTOR_SHEET:
@@ -163,41 +212,6 @@ public class Loader implements LoaderInterface {
                 saved = true;
             }
         }
-    }
-    
-    public static void loadXLSX(String filename) {
-        
-        Log.add("start laodXLSX");
-        LoadingInfo loadingInfo = new LoadingInfo();
-        
-        try (ZipFile zipFile = new ZipFile(filename)) {
-            ArrayList<InputStream> list = getSheetsXML(zipFile);
-            List<String> input = getSharedStrings(zipFile);
-
-            loadingInfo.printLoadInfo(filename,ELECTION_SHEET);
-            
-            final ElectorDAOImpl electorDAOImpl = new ElectorDAOImpl();
-            initInTable(ELECTOR_SHEET, input, list, loadingInfo, electorDAOImpl);
-            
-            final CandidateDAOImpl candidateDAOImpl = new CandidateDAOImpl();
-            initInTable(CANDIDAT_SHEET, input, list, loadingInfo, candidateDAOImpl);
-            
-            final StateDAOImpl stateDAOImpl = new StateDAOImpl();
-            initInTable(STATE_SHEET, input, list, loadingInfo, stateDAOImpl);
-            
-            final OfficialDAOImpl officialDAOImpl = new OfficialDAOImpl();
-            initInTable(OFFICIAL_SHEET, input, list, loadingInfo, officialDAOImpl);
-            
-            final ElectionDAOImpl electionDAOImpl = new ElectionDAOImpl();
-            initInTable(ELECTION_SHEET, input, list, loadingInfo, electionDAOImpl);
-        }
-        catch (IOException | XMLStreamException | FactoryConfigurationError e) {
-            Log.add("The loadding of the xlsx file have problem : " + e.getMessage());
-        } catch (SQLException ex) {
-            Log.add(ex.getMessage() +" :  Driver manager can't getConnection");
-        }
-        System.out.println("");
-        Log.add("end laodXLSX");
     }
     
     private static <T extends DAO> void initInTable(int sheetType, List<String> input, ArrayList<InputStream> list, LoadingInfo loadingInfo, T t)

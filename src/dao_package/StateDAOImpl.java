@@ -30,6 +30,8 @@ public class StateDAOImpl implements DAO {
     
     private static final String ADD_STATE = "INSERT INTO `state`";
     
+    private static final String COUNT_NBR_OF_STATES = "SELECT COUNT(*) FROM `state`;";
+    
     /* Constructeur */
     public StateDAOImpl() throws SQLException { 
         m_connection = DriverManager.getConnection(Config.getUrl(),Config.getLogin(),Config.getPassword());
@@ -82,6 +84,14 @@ public class StateDAOImpl implements DAO {
     }
     
     /* Méthodes de requêtes */
+    public int getNumberOfStatesFromTable() throws SQLException {
+        int numberOfStates;
+        ResultSet resultLecture = m_statement.executeQuery(COUNT_NBR_OF_STATES);
+        resultLecture.next();
+        numberOfStates = resultLecture.getInt(1);
+        return numberOfStates;
+    }
+    
     public String getNameStateIntoTable(int num_case) throws SQLException {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `nameState` FROM `state` WHERE `numState` = " +num_case + ";");

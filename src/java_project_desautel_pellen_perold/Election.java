@@ -42,7 +42,7 @@ public class Election {
     /* Méthodes de chargement de la DataBase */
     public final ArrayList<State> downLoadStatesListFromTable() throws SQLException { 
         ArrayList<State> states = new ArrayList<>();
-        int nb_states = LoadingInfo.getStateNumber();
+        int nb_states = state_from_db.getNumberOfStatesFromTable();
         for(int case_index=0; case_index<nb_states; ++case_index) {
             states.add(new State(case_index+1, state_from_db));
         }
