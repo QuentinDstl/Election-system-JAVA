@@ -16,7 +16,6 @@ public class GraphicOfficialsStartPause extends JFrame
     private final JButton buttonStartEndNational;
     private final JButton buttonPauseNational;
     
-    
     public GraphicOfficialsStartPause()
     {
         checkOfficialsStartPause = 0;
@@ -33,7 +32,7 @@ public class GraphicOfficialsStartPause extends JFrame
         setTitle("Vote menu");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         int heightTab = myElection.getStates().size();
         int heightFinal = heightTab/10 +1;

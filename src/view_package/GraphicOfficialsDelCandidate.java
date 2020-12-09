@@ -25,11 +25,10 @@ public class GraphicOfficialsDelCandidate extends JFrame
     
     public void startOfficialsDelCandidate(Election myElection)
     {
-        /* Initialisation of the interface */
         setTitle("Delete a candidate");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         int heightTab = myElection.getCandidates().size();
         int heightFinal = heightTab/10 +1;

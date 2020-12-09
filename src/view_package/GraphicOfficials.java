@@ -51,7 +51,7 @@ public class GraphicOfficials extends JFrame
         setTitle("You are here to enforce the law");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         setLayout(new GridLayout(4,3));
         

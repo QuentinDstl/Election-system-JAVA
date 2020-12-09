@@ -35,7 +35,7 @@ public class GraphicCandidatesNational extends JFrame
         setTitle("Score NATIONAL");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); 
+        //setLocationRelativeTo(null); 
         
         int nbrVoted = 0;
         int nbrNoVoted;
@@ -68,7 +68,7 @@ public class GraphicCandidatesNational extends JFrame
         setVisible(true);
     }
     
-     public int getCheckCandidatesNational ()
+    public int getCheckCandidatesNational ()
     {
         return checkCandidatesNational;
     }

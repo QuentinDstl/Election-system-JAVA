@@ -12,8 +12,8 @@ import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GraphicOfficialsWinner extends JFrame {
-    
+public class GraphicOfficialsWinner extends JFrame 
+{
     private int checkOfficialsWinner = 0;
     private final int WINDOW_WIDTH = 1500;
     private final int WINDOW_HEIGHT = 900;
@@ -43,7 +43,7 @@ public class GraphicOfficialsWinner extends JFrame {
         setTitle("See the potential winner");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); 
+        //setLocationRelativeTo(null); 
         
         for (int a=0; a<myElection.getCandidates().size(); a++)
         {
@@ -82,7 +82,6 @@ public class GraphicOfficialsWinner extends JFrame {
             
             else if (myElection.getStates().get(i).isAllWin() == false)
             {
-                System.out.println(" HEY CET ETAT EST PROPOR");
                 ArrayList<Integer> myTabPro = getProportionnalityCandidatesOfState(myElection.getStates().get(i));
                 JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " is noAllWin, there is : " + myElection.getStates().get(i).getNbrElector() + " great electors \n");
                 JPanel panelState = new JPanel();

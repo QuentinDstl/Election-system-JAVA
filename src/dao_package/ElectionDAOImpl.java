@@ -74,7 +74,6 @@ public class ElectionDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `openVote` FROM `election`;");
         resultLecture.next();
-        //System.out.println("open vote : " +resultLecture.getBoolean(1));
         return resultLecture.getBoolean(1);
     }
 }

@@ -96,7 +96,6 @@ public class CandidateDAOImpl implements DAO
         ResultSet resultLecture = m_statement.executeQuery(COUNT_NBR_OF_CANDIDATES);
         resultLecture.next();
         number_of_candidates = resultLecture.getInt(1);
-        System.out.println("number candidates : " +number_of_candidates);
         return number_of_candidates;
     }
     
@@ -104,7 +103,6 @@ public class CandidateDAOImpl implements DAO
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("last name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -112,7 +110,6 @@ public class CandidateDAOImpl implements DAO
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("first name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -120,7 +117,6 @@ public class CandidateDAOImpl implements DAO
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("password : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -128,7 +124,6 @@ public class CandidateDAOImpl implements DAO
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `party` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("party : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -136,7 +131,6 @@ public class CandidateDAOImpl implements DAO
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `nbrVoteTotal` FROM `candidate` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("nbr vote total : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
@@ -156,7 +150,6 @@ public class CandidateDAOImpl implements DAO
                                                                                        + "' AND `password` = '" + password + "';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
@@ -165,7 +158,6 @@ public class CandidateDAOImpl implements DAO
                                                                                        + "' AND `firstname` = '" +first_name+"';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
 }

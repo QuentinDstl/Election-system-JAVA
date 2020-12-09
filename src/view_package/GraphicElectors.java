@@ -38,11 +38,10 @@ public class GraphicElectors extends GraphicIdentification
     
     public GraphicElectors(Elector myElector)
     {
-        /* Initialisation of the interface */
         setTitle("Vote for YOUR FUTUR PRESIDENT");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         checkElectors = 0;
         messageIntro1 = new JLabel("                                       Your lastname :                                    ");
@@ -139,25 +138,6 @@ public class GraphicElectors extends GraphicIdentification
             }
         }
 
-        
-        /*System.out.println("Hey de niv0" + myElection.getCandidates().size() + " " + taille);
-        
-        if (myElection.getCandidates().size() > 4)
-        {
-            System.out.println("Hey de niv1");
-            for(int i = 4; i <myElection.getCandidates().size(); i++)
-            {
-                System.out.println("Hey de niv2");
-                JButton buttonNew = new JButton(new ImageIcon(imageNew));
-                JLabel messageNew = new JLabel(myElection.getCandidates().get(i).getFirstName());
-                buttonNew.addActionListener(new PlayButtonNew());
-                JPanel panelNew = new JPanel();
-                panelNew.add(buttonNew);
-                panelNew.add(messageNew);
-                add(panelNew);
-            }
-        }*/
-        
         setVisible(true);
     }
     
@@ -177,9 +157,7 @@ public class GraphicElectors extends GraphicIdentification
         {
             setVisible(false);
             String source = e.getActionCommand();
-            System.out.println(source);
             String[] parts = source.split(":");
-            System.out.println(parts[1]);
             m_intCandidate = Integer.parseInt(parts[1]);
             checkElectors = 1;
         }

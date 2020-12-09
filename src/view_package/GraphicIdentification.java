@@ -5,7 +5,6 @@
  */
 package view_package;
 
-
 import javax.swing.*; // Needed for Swing classes
 import java.awt.event.*;
 
@@ -46,11 +45,10 @@ public class GraphicIdentification extends JFrame
     
     public void startIdentification()
     {
-        /* Initialisation of the interface */
         setTitle("Voting system by 'Go Percer.'");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         
         JPanel box = new JPanel();
         box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
@@ -124,7 +122,6 @@ public class GraphicIdentification extends JFrame
             }
             else
             {
-                System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
                 m_firstName = captureFirstName;
                 m_lastName = captureLastName;
                 m_password = capturePassword;
