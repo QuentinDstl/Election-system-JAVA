@@ -124,4 +124,12 @@ public class Elector extends Person {
         
         m_elector_from_db.saveVoteElector(this.getId(), m_candidate_name);
     }
+    
+    public void DeleteVote(String name_candidate) throws SQLException {
+        if(m_candidate_name.equals(name_candidate)) {
+            m_voteDone = false;
+            m_candidate_name = "NoOne";
+            m_elector_from_db.saveDeleteVoteElector(this.getId());
+        }
+    }
 }

@@ -97,6 +97,12 @@ public class ElectorDAOImpl implements  DAO {
                                 + " WHERE `id` = " + id + ";");
     }
     
+    public void saveDeleteVoteElector(int id) throws SQLException {
+        m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = 'NoOne'" 
+                                + ", `vote` = 0" 
+                                + " WHERE `id` = " + id + ";");
+    }
+    
     
     /* Méthodes de requêtes */
     public int getNumberOfElectorsIntoTable() throws SQLException {

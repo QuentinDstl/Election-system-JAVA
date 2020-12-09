@@ -134,6 +134,9 @@ public class Election {
     }
     
     public void deleteCandidate(int num_case) throws SQLException {
+        for(int i=0; i<m_electors.size(); ++i) {
+            m_electors.get(i).DeleteVote(m_candidates.get(num_case).getLastName());
+        }
         m_candidates.remove(num_case);
         candidate_from_db.deleteCandidate(num_case + DAO.FIRST_ID_CANDIDATE);
     }
