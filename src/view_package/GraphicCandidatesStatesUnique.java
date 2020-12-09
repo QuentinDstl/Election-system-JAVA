@@ -28,7 +28,6 @@ public class GraphicCandidatesStatesUnique extends JFrame
     {   
         JFreeChart pieChart;
         
-        System.out.println(" Mon id State est : " + IntState);
         setTitle("Score STATES");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

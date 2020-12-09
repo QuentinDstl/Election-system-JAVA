@@ -122,7 +122,6 @@ public class GraphicIdentification extends JFrame
             }
             else
             {
-                System.out.print(captureLastName + " " + captureFirstName + " "+ capturePassword);
                 m_firstName = captureFirstName;
                 m_lastName = captureLastName;
                 m_password = capturePassword;

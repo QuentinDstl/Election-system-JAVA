@@ -73,6 +73,7 @@ public class Election {
         }
         catch(SQLException sql_except) {
             Log.add(sql_except.getMessage() + " Arret du chargement");
+            System.exit(0);
         }
         return candidates;
     }
@@ -87,6 +88,7 @@ public class Election {
         }
         catch(SQLException sql_except) {
             Log.add(sql_except.getMessage() + " Arret du chargement");
+            System.exit(0);
         }
         return officials;
     }
@@ -102,6 +104,7 @@ public class Election {
         }
         catch(SQLException sql_except) {
             Log.add(sql_except.getMessage() + " Arret du chargement");
+            System.exit(0);
         }
         return electors;
     }
@@ -113,24 +116,14 @@ public class Election {
     }
     
     public void addElector(String last_name, String first_name, String password, State state) throws SQLException {
-        //try {
-            m_electors.add( new Elector(last_name, first_name, password, state, elector_from_db, this));
-            m_electors.get(m_electors.size()-1).addElectorToState();
-            elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
-                                       m_electors.get(m_electors.size()-1).getFirstName(), 
-                                       m_electors.get(m_electors.size()-1).getPassword(), 
-                                       m_electors.get(m_electors.size()-1).getState().getName(),
-                                       "NoOne", "0");
-            //if(m_electors.size()-1 + DAO.FIRST_ID_ELECTOR < 100) {
-                //throw IllegalArgumentException();
-            //}
-            //else {
-                m_electors.get(m_electors.size()-1).setId(m_electors.size()-1 + DAO.FIRST_ID_ELECTOR);
-            //}
-        //} 
-        //catch(IllegalArgumentException e) {
-            
-        //}
+        m_electors.add( new Elector(last_name, first_name, password, state, elector_from_db, this));
+        m_electors.get(m_electors.size()-1).addElectorToState();
+        elector_from_db.addToTable(m_electors.get(m_electors.size()-1).getLastName(),
+                                   m_electors.get(m_electors.size()-1).getFirstName(), 
+                                   m_electors.get(m_electors.size()-1).getPassword(), 
+                                   m_electors.get(m_electors.size()-1).getState().getName(),
+                                   "NoOne", "0");
+        m_electors.get(m_electors.size()-1).setId(m_electors.size()-1 + DAO.FIRST_ID_ELECTOR);
     }
     
     public void deleteCandidate(int num_case) throws SQLException {
@@ -208,6 +201,5 @@ public class Election {
             m_openVote = true;
             election_from_db.startVote();
         }
-            
     }
 }

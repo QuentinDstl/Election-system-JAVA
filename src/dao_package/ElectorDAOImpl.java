@@ -76,12 +76,10 @@ public class ElectorDAOImpl implements  DAO {
         }
         query += "'" + Integer.parseInt(args[5]) + "');";
         m_statement.executeUpdate(query);
-        //Log.add(ADD_ELECTOR);
     }
     
     public void deleteElector(int id) throws SQLException {
         m_statement.executeUpdate(DELETE_ELECTOR + " WHERE `id` = " +id + ";");
-        System.out.println(DELETE_ELECTOR);
         decrementeIdElectors(id);
         m_connection.close();
     }
@@ -91,7 +89,6 @@ public class ElectorDAOImpl implements  DAO {
     }
     
     public void saveVoteElector(int id, String name_candidate) throws SQLException {
-        System.out.println(name_candidate +" " +id);
         m_statement.executeUpdate("UPDATE `elector` SET `nameCandidate` = '" +name_candidate 
                                 + "', `vote` = 1" 
                                 + " WHERE `id` = " + id + ";");
@@ -110,7 +107,6 @@ public class ElectorDAOImpl implements  DAO {
         ResultSet resultLecture = m_statement.executeQuery(COUNT_NBR_OF_ELECTORS);
         resultLecture.next();
         number_of_electors = resultLecture.getInt(1);
-        System.out.println("number electors : " +number_of_electors);
         return number_of_electors;
     }
     
@@ -127,7 +123,6 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }
-        //System.out.println("last name : " +m_resultLecture.getString(1));
         return m_resultLecture.getString(1);
     }
     
@@ -139,7 +134,6 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }  
-        //System.out.println("first name : " +m_resultLecture.getString(2));
         return m_resultLecture.getString(2);
     }
     
@@ -151,7 +145,6 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }        
-        //System.out.println("password : " +m_resultLecture.getString(3));
         return m_resultLecture.getString(3);
     }
     
@@ -163,7 +156,6 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }        
-        //System.out.println("name state : " +m_resultLecture.getString(4));
         return m_resultLecture.getString(4);
     }
     
@@ -175,7 +167,6 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }     
-        System.out.println("name candidate : " +m_resultLecture.getString(5));
         return m_resultLecture.getString(5);
     }
     
@@ -187,7 +178,6 @@ public class ElectorDAOImpl implements  DAO {
             m_resultLecture.next();
             m_previous_num_case = num_case;
         }
-        System.out.println("has voted : " +m_resultLecture.getString(6));
         return m_resultLecture.getBoolean(6);
     }
     
@@ -209,7 +199,6 @@ public class ElectorDAOImpl implements  DAO {
                                                                                        + "' AND `password` = '" +password + "';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
-        System.out.println("id ONE : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
@@ -218,7 +207,6 @@ public class ElectorDAOImpl implements  DAO {
                                                                                        + "' AND `firstname` = '" +first_name+"';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
 }
