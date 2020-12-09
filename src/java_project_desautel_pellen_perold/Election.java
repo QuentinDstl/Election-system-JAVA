@@ -73,6 +73,7 @@ public class Election {
         }
         catch(SQLException sql_except) {
             Log.add(sql_except.getMessage() + " Arret du chargement");
+            System.out.println(sql_except.getMessage() + " Arret du chargement");
             System.exit(0);
         }
         return candidates;
@@ -88,6 +89,7 @@ public class Election {
         }
         catch(SQLException sql_except) {
             Log.add(sql_except.getMessage() + " Arret du chargement");
+            System.out.println(sql_except.getMessage() + " Arret du chargement");
             System.exit(0);
         }
         return officials;
@@ -104,6 +106,7 @@ public class Election {
         }
         catch(SQLException sql_except) {
             Log.add(sql_except.getMessage() + " Arret du chargement");
+            System.out.println(sql_except.getMessage() + " Arret du chargement");
             System.exit(0);
         }
         return electors;
