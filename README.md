@@ -1,17 +1,24 @@
-# java_project_desautel_pellen_perold
-POO JAVA Project S5
+# POO JAVA Project S5
+### Lancement du programme :
 
-Si vous souhaitez changer de config, ouvrez le fichier `project.config` et supprimez ce qu'il y a derrière le save.config= et save.xlsx=
-Exemple :
-	save.config=exemple
-	save.xlsx=src\\loader_package\\xlsx\\big_pre_load.xlsx
-	Et après la suprression il vous reste :
-	save.config=
-	save.xlsx=
+Au lancement du programme, votre config vous est demandé, il faut demander à la changer puis en faire une nouvelle avec `new`. Vous n'avez qu'à la rentrer qu'une seule fois, elle sera sauvegardée pour les prochainne fois plus la peine de changer de config meme apres avoir relancé le programme.
 
-La config default est sauvegardé, vous n'aurez donc qu'à la rentré qu'une seul fois.
+__Si vous souhaitez changer de config :__
+> Ouvrez le fichier `project.config` et supprimez ce qu'il y a derrière le `save.config=` et `save.xlsx=`
 
-Pour vous faire votre propre config :
-exemple.login=your_login_for_mysql
-exemple.password=your_password_for_mysql
-exemple.url=jdbc\:mysql\://your_url_use_for_the_database
+Exemple : 
+> save.config=exemple
+> save.xlsx=src\loader_package\xlsx\big_pre_load.xlsx
+
+Et après la suprression il vous reste : 
+> save.config=
+> save.xlsx=
+
+```/!\ La config default est sauvegardé, vous n'aurez donc qu'à la rentré qu'une seul fois!``` 
+```Vous pouvez par la suite répondre no à la question voulez vous changer de config.```
+
+### Config perso :
+Pour vous faire votre propre config changer le exemple par :
+> exemple.login=your_login_for_mysql 
+> exemple.password=your_password_for_mysql 
+> exemple.url=jdbc:mysql://your_url_use_for_the_database
