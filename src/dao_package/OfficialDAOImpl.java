@@ -72,7 +72,6 @@ public class OfficialDAOImpl implements DAO {
         ResultSet resultLecture = m_statement.executeQuery(COUNT_NBR_OF_OFFICIALS);
         resultLecture.next();
         number_of_officials = resultLecture.getInt(1);
-        System.out.println("number officials : " +number_of_officials);
         return number_of_officials;
     }
     
@@ -80,7 +79,6 @@ public class OfficialDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `lastname` FROM `official` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("last name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -88,7 +86,6 @@ public class OfficialDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `firstname` FROM `official` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("first name : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -96,7 +93,6 @@ public class OfficialDAOImpl implements DAO {
         
         ResultSet resultLecture = m_statement.executeQuery("SELECT `password` FROM `official` WHERE id = " +num_case + ";");
         resultLecture.next();
-        System.out.println("password : " +resultLecture.getString(1));
         return resultLecture.getString(1);
     }
     
@@ -118,7 +114,6 @@ public class OfficialDAOImpl implements DAO {
                                                                                        + "' AND `password` = '" +password + "';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     
@@ -127,7 +122,6 @@ public class OfficialDAOImpl implements DAO {
                                                                                        + "' AND `firstname` = '" +first_name+"';");
         if(resultLecture.next() == false)
             return NOT_IN_TABLE;
-        System.out.println("id : " +resultLecture.getInt(1));
         return resultLecture.getInt(1);
     }
     

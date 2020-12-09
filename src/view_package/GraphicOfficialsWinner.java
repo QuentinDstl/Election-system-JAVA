@@ -82,7 +82,6 @@ public class GraphicOfficialsWinner extends JFrame
             
             else if (myElection.getStates().get(i).isAllWin() == false)
             {
-                System.out.println(" HEY CET ETAT EST PROPOR");
                 ArrayList<Integer> myTabPro = getProportionnalityCandidatesOfState(myElection.getStates().get(i));
                 JLabel messageState = new JLabel(myElection.getStates().get(i).getName() + " is noAllWin, there is : " + myElection.getStates().get(i).getNbrElector() + " great electors \n");
                 JPanel panelState = new JPanel();

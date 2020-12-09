@@ -157,9 +157,7 @@ public class GraphicElectors extends GraphicIdentification
         {
             setVisible(false);
             String source = e.getActionCommand();
-            System.out.println(source);
             String[] parts = source.split(":");
-            System.out.println(parts[1]);
             m_intCandidate = Integer.parseInt(parts[1]);
             checkElectors = 1;
         }

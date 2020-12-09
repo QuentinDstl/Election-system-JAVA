@@ -52,13 +52,11 @@ public class State {
     
     public int getNbVotesCandidateInState(String name_candidate) {
         int nb_votes_candidate = 0;
-        System.out.println("La taille du tableau est de : " +m_list_electors.size() );
         for(int i=0; i<m_list_electors.size(); ++i) {
             if(m_list_electors.get(i).getCandidate().equals(name_candidate)) {
                 nb_votes_candidate++;
             }
         }
-        System.out.println("Nous avons ici un score de : " + nb_votes_candidate + " pour le candidat : " + name_candidate);
         return nb_votes_candidate;
     }
 
