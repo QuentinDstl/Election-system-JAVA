@@ -55,19 +55,6 @@ public class Official extends Person {
         m_election_access.addCandidate(last_name, first_name,password, party);
     }
     
-    public void openVote() {
-        
-    }
-    
-    public void closeVote() {
-        
-    }
-    
-    /* Fonction that pause all states or unpause all states */
-    public void pauseVote() {
-        
-    }
-    
     /* Fonction that pause one state or unpause it */
     public void pauseVote(State state) throws NullPointerException {
         if(state == null)

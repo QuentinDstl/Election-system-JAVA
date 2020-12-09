@@ -3,18 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/config_package/Start.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectorDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Candidate.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/view_package/Controller.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Election.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Java_project_desautel_pellen_perold.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectionDAOImpl.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Elector.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/loader_package/Loader.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/State.java</file>
-            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/config_package/Config.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/StateDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/config_package/Config.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Person.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/config_package/Start.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Java_project_desautel_pellen_perold.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Election.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/ElectionDAOImpl.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/State.java</file>
             <file>file:/C:/Git/java_project_desautel_pellen_perold/src/dao_package/DAO.java</file>
+            <file>file:/C:/Git/java_project_desautel_pellen_perold/src/java_project_desautel_pellen_perold/Official.java</file>
         </group>
     </open-files>
 </project-private>
