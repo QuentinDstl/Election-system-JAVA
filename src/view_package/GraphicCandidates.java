@@ -40,7 +40,6 @@ public class GraphicCandidates extends JFrame
     
     public void startCandidates()
     {
-        /* Initialisation of the interface */
         setTitle("See your futur victory");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

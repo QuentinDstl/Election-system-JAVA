@@ -5,7 +5,6 @@
  */
 package view_package;
 
-
 import javax.swing.*; // Needed for Swing classes
 import java.awt.event.*;
 
@@ -46,7 +45,6 @@ public class GraphicIdentification extends JFrame
     
     public void startIdentification()
     {
-        /* Initialisation of the interface */
         setTitle("Voting system by 'Go Percer.'");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

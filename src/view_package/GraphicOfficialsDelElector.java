@@ -24,13 +24,10 @@ public class GraphicOfficialsDelElector extends JFrame
     
     public void startOfficialsDelElector(Election myElection)
     {
-        /* Initialisation of the interface */
         setTitle("Delete an elector");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-        
         
         JPanel test = new JPanel();
         test.setPreferredSize(new Dimension(WINDOW_WIDTH,20000));
@@ -49,7 +46,6 @@ public class GraphicOfficialsDelElector extends JFrame
         {
             test.setLayout(new GridLayout(10, 1));
         }
-        
         
         for(int i = 0; i< heightTab; i++)
         {

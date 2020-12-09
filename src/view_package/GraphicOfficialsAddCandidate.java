@@ -42,7 +42,6 @@ public class GraphicOfficialsAddCandidate extends JFrame
     
     public void startOfficialsAddCandidate()
     {
-        /* Initialisation of the interface */
         setTitle("Add a candidate");
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
