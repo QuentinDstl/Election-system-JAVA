@@ -85,8 +85,9 @@ public class CandidateDAOImpl implements DAO
         m_statement.executeUpdate(DECREMENT_ID_CANDIDATE + " WHERE id > " +id + ";");
     } 
     
-    public void incrementeNbrVotesTotal() throws SQLException {
-        m_statement.executeUpdate("UPDATE `candidate` SET `nbrVoteTotal` = `nbrVoteTotal` + 1");
+    public void incrementeNbrVotesTotal(String name) throws SQLException {
+        m_statement.executeUpdate("UPDATE `candidate` SET `nbrVoteTotal` = `nbrVoteTotal` + 1"
+                                + " WHERE `lastname` = '" + name + "';");
     }
     
     

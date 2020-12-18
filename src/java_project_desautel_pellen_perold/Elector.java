@@ -117,7 +117,7 @@ public class Elector extends Person {
                 m_candidate_name = candidate.getLastName();
                 m_voteDone = true;
                 exist_candidate = true;
-                m_election_access.getCandidates().get(i).incrementeNbrVotesTotal();
+                m_election_access.getCandidates().get(i).incrementeNbrVotesTotal(candidate.getLastName());
             }
         }
         if(exist_candidate == false) {

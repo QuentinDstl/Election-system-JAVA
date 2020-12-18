@@ -45,9 +45,9 @@ public class Candidate extends Person {
         m_nb_votes_total = 0;
     }
     
-    public void incrementeNbrVotesTotal() throws SQLException {
+    public void incrementeNbrVotesTotal(String name) throws SQLException {
         m_nb_votes_total++;
-        m_candidate_from_db.incrementeNbrVotesTotal();
+        m_candidate_from_db.incrementeNbrVotesTotal(name);
     }
     
     
